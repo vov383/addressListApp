@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,6 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
+using MySqlX.XDevAPI.Relational;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace addressListApp
@@ -43,7 +45,7 @@ namespace addressListApp
             selectAll();
 
         }
-        
+
 
         private void selectAll()
         {
@@ -61,35 +63,10 @@ namespace addressListApp
 
                     listViewAddr.Items.Clear(); //listview 지우기
 
-                    while (table.Read())
-                    {   
-                        ListViewItem item = new ListViewItem();
-                        
-                        item.Text = table["id"].ToString();
-                        item.SubItems.Add(table["emp_name"].ToString());
-                        item.SubItems.Add(table["gender"].ToString());
-                        if (table["gender"].ToString() == "1")
-                        {
-                            item.SubItems[2].Text = "남성";
-                        } else {
-                            item.SubItems[2].Text = "여성";
-                        }
-                        item.SubItems.Add(table["age"].ToString());
-                        item.SubItems.Add(table["home_address"].ToString());
-                        item.SubItems.Add(table["department"].ToString());
-                        item.SubItems.Add(table["rank_position"].ToString());
-                        item.SubItems.Add(table["com_call_num"].ToString());
-                        item.SubItems.Add(table["phone_num"].ToString());
-                        item.SubItems.Add(table["mail_address"].ToString());
-                        item.SubItems.Add(table["join_date"].ToString());
-
-                        listViewAddr.Items.Add(item);
-                    }
-
-                    table.Close();
+                    drawTable(table); // listView에 table을 출력
                 }
             }
-            catch(Exception exc)
+            catch (Exception exc)
             {
                 MessageBox.Show(exc.Message);
             }
@@ -110,12 +87,46 @@ namespace addressListApp
 
         private void winFormApp_Load(object sender, EventArgs e)
         {
-            
+
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
             selectAll();
+        }
+
+        private void drawTable(MySqlDataReader table)
+        {
+            listViewAddr.Items.Clear();
+
+            while (table.Read())
+            {
+                ListViewItem item = new ListViewItem();
+
+                item.Text = table["id"].ToString();
+                item.SubItems.Add(table["emp_name"].ToString());
+                item.SubItems.Add(table["gender"].ToString());
+                if (table["gender"].ToString() == "1")
+                {
+                    item.SubItems[2].Text = "남성";
+                }
+                else
+                {
+                    item.SubItems[2].Text = "여성";
+                }
+                item.SubItems.Add(table["age"].ToString());
+                item.SubItems.Add(table["home_address"].ToString());
+                item.SubItems.Add(table["department"].ToString());
+                item.SubItems.Add(table["rank_position"].ToString());
+                item.SubItems.Add(table["com_call_num"].ToString());
+                item.SubItems.Add(table["phone_num"].ToString());
+                item.SubItems.Add(table["mail_address"].ToString());
+                item.SubItems.Add(table["join_date"].ToString());
+
+                listViewAddr.Items.Add(item);
+            }
+
+            table.Close();
         }
 
         private void listViewAddr_SelectedIndexChanged(object sender, EventArgs e)
@@ -127,31 +138,41 @@ namespace addressListApp
             comboBoxGender.Text = listViewAddr.Items[index].SubItems[2].Text;
             textBoxAge.Text = listViewAddr.Items[index].SubItems[3].Text;
             textBoxAddress.Text = listViewAddr.Items[index].SubItems[4].Text;
-            textBoxDept.Text = listViewAddr.Items[index].SubItems[6].Text;
-            textBoxPositionRank.Text = listViewAddr.Items[index].SubItems[7].Text;
-            textBoxHpNum.Text = listViewAddr.Items[index].SubItems[8].Text;
-            textBoxComNum.Text = listViewAddr.Items[index].SubItems[9].Text;
-            textBoxEmail.Text = listViewAddr.Items[index].SubItems[10].Text;
+            textBoxDept.Text = listViewAddr.Items[index].SubItems[5].Text;
+            textBoxPositionRank.Text = listViewAddr.Items[index].SubItems[6].Text;
+            textBoxHpNum.Text = listViewAddr.Items[index].SubItems[7].Text;
+            textBoxComNum.Text = listViewAddr.Items[index].SubItems[8].Text;
+            textBoxEmail.Text = listViewAddr.Items[index].SubItems[9].Text;
 
         }
 
         private void btnInsert_Click(object sender, EventArgs e)
         {
+            // 'age' 필드의 입력 값을 검증합니다.
+            if (!int.TryParse(textBoxAge.Text, out int age))
+            {
+                MessageBox.Show("Age must be an integer.", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return; // 메서드를 더 이상 진행하지 않고 종료합니다.
+            }
             try
             {
                 using (MySqlConnection conn = new MySqlConnection(_connectionAddress))
                 {
                     conn.Open();
-                    string insertQuery = string.Format("INSERT INTO employee_list (" +
-                        "emp_name, gender, age, home_address, department, rank_position, " +
-                        "com_call_num, phone_num, mail_address, join_date) " +
-                        "VALUES ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}', NOW());", 
-                        textBoxName.Text, comboBoxGender.SelectedValue, textBoxAge.Text, textBoxAddress.Text, textBoxDept.Text,
-                        textBoxPositionRank.Text, textBoxHpNum.Text, textBoxComNum.Text, textBoxEmail.Text);
-                    
+
+                    string insertQuery = string.Format(
+                        "INSERT INTO employee_list (" +
+                            "emp_name, gender, age, home_address, department, rank_position" +
+                            ", com_call_num, phone_num, mail_address, join_date) " +
+                        "VALUES (" +
+                            "'{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}', NOW());",
+                        textBoxName.Text, comboBoxGender.SelectedValue, textBoxAge.Text, textBoxAddress.Text, textBoxDept.Text
+                        , textBoxPositionRank.Text, textBoxHpNum.Text, textBoxComNum.Text, textBoxEmail.Text);
+
                     MySqlCommand command = new MySqlCommand(insertQuery, conn);
 
-                    if(command.ExecuteNonQuery() != 1) {
+                    if (command.ExecuteNonQuery() != 1)
+                    {
                         MessageBox.Show("Fail to insert Data");
                     }
                     textBoxClear();
@@ -159,14 +180,22 @@ namespace addressListApp
                     selectAll();
                 }
             }
-            catch(Exception exc)
+            catch (Exception exc)
             {
                 MessageBox.Show(exc.Message);
             }
         }
 
+
+
         private void btnUpdate_Click(object sender, EventArgs e)
         {
+            // Age 입력검증
+            if (!int.TryParse(textBoxAge.Text, out int age))
+            {
+                MessageBox.Show("나이 항목에 숫자를 입력해주세요.", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
             try
             {
@@ -177,7 +206,14 @@ namespace addressListApp
                     int pos = listViewAddr.SelectedItems[0].Index;
                     int index = Convert.ToInt32(listViewAddr.Items[pos].SubItems[0].Text);
 
-                    string updateQuery = string.Format("UPDATE employee_list SET emp_name = '{0}', gender = '{1}', age = '{2}', home_address = '{3}', department = '{4}', rank_position = '{5}', com_call_num = '{6}',  phone_num = '{7}', mail_address = '{8}' WHERE id = '{9}';", textBoxName.Text, comboBoxGender.SelectedValue, textBoxAge.Text, textBoxAddress.Text, textBoxDept.Text, textBoxPositionRank.Text, textBoxComNum.Text, textBoxHpNum.Text, textBoxEmail.Text, index);
+                    string updateQuery = string.Format(
+                        "UPDATE employee_list " +
+                        "SET emp_name = '{0}', gender = '{1}', age = '{2}', home_address = '{3}', department = '{4}'" +
+                            ", rank_position = '{5}', com_call_num = '{6}',  phone_num = '{7}', mail_address = '{8}' " +
+                        "WHERE id = '{9}';"
+                        , textBoxName.Text, comboBoxGender.SelectedValue, textBoxAge.Text, textBoxAddress.Text
+                        , textBoxDept.Text, textBoxPositionRank.Text, textBoxComNum.Text, textBoxHpNum.Text, textBoxEmail.Text
+                        , index);
                     MySqlCommand command = new MySqlCommand(updateQuery, conn);
                     if (command.ExecuteNonQuery() != 1)
                     {
@@ -189,13 +225,13 @@ namespace addressListApp
                 }
 
             }
-            catch(Exception exc)
+            catch (Exception exc)
             {
                 MessageBox.Show(exc.Message);
             }
         }
 
-        
+
 
         private void btnDelClick(object sender, EventArgs e)
         {
@@ -207,7 +243,7 @@ namespace addressListApp
 
                     int pos = listViewAddr.SelectedItems[0].Index;
                     int index = Convert.ToInt32(listViewAddr.Items[pos].SubItems[0].Text);
-                        
+
 
                     string delQuery = string.Format("DELETE FROM employee_list WHERE id = {0};", index);
 

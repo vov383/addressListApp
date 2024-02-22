@@ -44,6 +44,7 @@
             this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader9 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader10 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader11 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.name_label = new System.Windows.Forms.Label();
             this.textBoxName = new System.Windows.Forms.TextBox();
             this.gender_label = new System.Windows.Forms.Label();
@@ -64,7 +65,6 @@
             this.comboBoxGender = new System.Windows.Forms.ComboBox();
             this.group_data = new System.Windows.Forms.GroupBox();
             this.group_table = new System.Windows.Forms.GroupBox();
-            this.columnHeader11 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.pictureBoxLogo = new System.Windows.Forms.PictureBox();
             this.group_data.SuspendLayout();
             this.group_table.SuspendLayout();
@@ -73,41 +73,41 @@
             // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(399, 15);
+            this.btnSearch.Location = new System.Drawing.Point(432, 137);
             this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(116, 33);
-            this.btnSearch.TabIndex = 9;
+            this.btnSearch.Size = new System.Drawing.Size(108, 33);
+            this.btnSearch.TabIndex = 12;
             this.btnSearch.Text = "조회";
             this.btnSearch.UseVisualStyleBackColor = true;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
             // btnUpdate
             // 
-            this.btnUpdate.Location = new System.Drawing.Point(695, 15);
+            this.btnUpdate.Location = new System.Drawing.Point(167, 137);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(115, 33);
-            this.btnUpdate.TabIndex = 11;
+            this.btnUpdate.TabIndex = 10;
             this.btnUpdate.Text = "수정";
             this.btnUpdate.UseVisualStyleBackColor = true;
             this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(837, 15);
+            this.btnDelete.Location = new System.Drawing.Point(309, 137);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(108, 33);
-            this.btnDelete.TabIndex = 12;
+            this.btnDelete.TabIndex = 11;
             this.btnDelete.Text = "삭제";
             this.btnDelete.UseVisualStyleBackColor = true;
             this.btnDelete.Click += new System.EventHandler(this.btnDelClick);
             // 
             // btnInsert
             // 
-            this.btnInsert.Location = new System.Drawing.Point(539, 15);
+            this.btnInsert.Location = new System.Drawing.Point(36, 137);
             this.btnInsert.Name = "btnInsert";
-            this.btnInsert.Size = new System.Drawing.Size(131, 33);
-            this.btnInsert.TabIndex = 10;
-            this.btnInsert.Text = "입력";
+            this.btnInsert.Size = new System.Drawing.Size(106, 33);
+            this.btnInsert.TabIndex = 9;
+            this.btnInsert.Text = "추가";
             this.btnInsert.UseVisualStyleBackColor = true;
             this.btnInsert.Click += new System.EventHandler(this.btnInsert_Click);
             // 
@@ -130,7 +130,7 @@
             this.listViewAddr.Location = new System.Drawing.Point(8, 54);
             this.listViewAddr.Name = "listViewAddr";
             this.listViewAddr.Size = new System.Drawing.Size(939, 316);
-            this.listViewAddr.TabIndex = 5;
+            this.listViewAddr.TabIndex = 13;
             this.listViewAddr.UseCompatibleStateImageBehavior = false;
             this.listViewAddr.View = System.Windows.Forms.View.Details;
             this.listViewAddr.SelectedIndexChanged += new System.EventHandler(this.listViewAddr_SelectedIndexChanged);
@@ -184,6 +184,11 @@
             // 
             this.columnHeader10.Text = "메일";
             this.columnHeader10.Width = 110;
+            // 
+            // columnHeader11
+            // 
+            this.columnHeader11.Text = "입사일";
+            this.columnHeader11.Width = 91;
             // 
             // name_label
             // 
@@ -362,21 +367,12 @@
             // 
             // group_table
             // 
-            this.group_table.Controls.Add(this.btnInsert);
-            this.group_table.Controls.Add(this.btnUpdate);
-            this.group_table.Controls.Add(this.btnSearch);
             this.group_table.Controls.Add(this.listViewAddr);
-            this.group_table.Controls.Add(this.btnDelete);
             this.group_table.Location = new System.Drawing.Point(12, 173);
             this.group_table.Name = "group_table";
             this.group_table.Size = new System.Drawing.Size(953, 376);
             this.group_table.TabIndex = 10;
             this.group_table.TabStop = false;
-            // 
-            // columnHeader11
-            // 
-            this.columnHeader11.Text = "입사일";
-            this.columnHeader11.Width = 91;
             // 
             // pictureBoxLogo
             // 
@@ -393,9 +389,13 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(977, 561);
+            this.Controls.Add(this.btnSearch);
+            this.Controls.Add(this.btnInsert);
             this.Controls.Add(this.pictureBoxLogo);
+            this.Controls.Add(this.btnUpdate);
             this.Controls.Add(this.group_table);
             this.Controls.Add(this.group_data);
+            this.Controls.Add(this.btnDelete);
             this.Name = "winFormApp";
             this.Text = "다울 주소록 관리도구";
             this.Load += new System.EventHandler(this.winFormApp_Load);
