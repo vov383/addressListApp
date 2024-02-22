@@ -8,11 +8,14 @@ using System.Drawing;
 using System.Drawing.Text;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Dawool;
 using MySql.Data.MySqlClient;
+
 using MySqlX.XDevAPI.Relational;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
@@ -20,20 +23,20 @@ namespace addressListApp
 {
     public partial class winFormApp : Form
     {
-        string _id = "root";
-        string _pw = "dw#1234";
-        string _database = "employee_list";
-        string _server = "192.168.0.180";
-        string _connectionAddress = "";
-        string _port = "3306";
-
+        //string _id = "root";
+        //string _pw = "dw#1234";
+        //string _database = "employee_list";
+        //string _server = "192.168.0.180";
+        //string _connectionAddress = "";
+        //string _port = "3306";
+        
         private BindingList<object> typeList = new BindingList<object>(); // 콤보박스 키벨류 담을 객체
 
         public winFormApp()
         {
             InitializeComponent();
 
-            _connectionAddress = string.Format("SERVER={0};PORT={1};DATABASE={2};UID={3};PASSWORD={4};", _server, _port, _database, _id, _pw);
+            //_connectionAddress = string.Format("SERVER={0};PORT={1};DATABASE={2};UID={3};PASSWORD={4};", _server, _port, _database, _id, _pw);
 
             typeList.Add(new { Display = "남성", Value = 1 });
             typeList.Add(new { Display = "여성", Value = 2 });
@@ -46,44 +49,32 @@ namespace addressListApp
 
         }
 
-
         private void selectAll()
         {
-            try
+            // 전체 데이터를 조회합니다.          
+            string selectQuery = string.Format("SELECT * FROM employee_list");
+            DataSet ds = CommMysql.ExecuteDataSet(selectQuery);
+            DataTable dt = ds.Tables[0];
+
+            foreach (DataRow row in dt.Rows)
             {
-                using (MySqlConnection conn = new MySqlConnection(_connectionAddress))
                 {
-                    conn.Open();
+                    ListViewItem item = new ListViewItem(row["id"].ToString()); // 첫 번째 열을 ListViewItem으로 생성
+                    item.SubItems.Add(row["emp_name"].ToString());
+                    item.SubItems.Add(row["gender"].ToString());
+                    item.SubItems.Add(row["age"].ToString());
+                    item.SubItems.Add(row["home_address"].ToString());
+                    item.SubItems.Add(row["department"].ToString());
+                    item.SubItems.Add(row["rank_position"].ToString());
+                    item.SubItems.Add(row["com_call_num"].ToString());
+                    item.SubItems.Add(row["phone_num"].ToString());
+                    item.SubItems.Add(row["join_date"].ToString());
 
-                    // 전체 데이터를 조회합니다.          
-                    string selectQuery = string.Format("SELECT * FROM employee_list");
-
-                    MySqlCommand command = new MySqlCommand(selectQuery, conn);
-                    MySqlDataReader table = command.ExecuteReader();
-
-                    listViewAddr.Items.Clear(); //listview 지우기
-
-                    drawTable(table); // listView에 table을 출력
+                    listViewAddr.Items.Add(item); // 생성된 ListViewItem을 ListView에 추가
                 }
             }
-            catch (Exception exc)
-            {
-                MessageBox.Show(exc.Message);
-            }
-        } //sellectAll() end
-
-        private void textBoxClear()
-        {
-            textBoxName.Text = "";
-            comboBoxGender.Text = "";
-            textBoxAge.Text = "";
-            textBoxAddress.Text = "";
-            textBoxDept.Text = "";
-            textBoxPositionRank.Text = "";
-            textBoxComNum.Text = "";
-            textBoxHpNum.Text = "";
-            textBoxEmail.Text = "";
         }
+
 
         private void winFormApp_Load(object sender, EventArgs e)
         {
@@ -95,39 +86,6 @@ namespace addressListApp
             selectAll();
         }
 
-        private void drawTable(MySqlDataReader table)
-        {
-            listViewAddr.Items.Clear();
-
-            while (table.Read())
-            {
-                ListViewItem item = new ListViewItem();
-
-                item.Text = table["id"].ToString();
-                item.SubItems.Add(table["emp_name"].ToString());
-                item.SubItems.Add(table["gender"].ToString());
-                if (table["gender"].ToString() == "1")
-                {
-                    item.SubItems[2].Text = "남성";
-                }
-                else
-                {
-                    item.SubItems[2].Text = "여성";
-                }
-                item.SubItems.Add(table["age"].ToString());
-                item.SubItems.Add(table["home_address"].ToString());
-                item.SubItems.Add(table["department"].ToString());
-                item.SubItems.Add(table["rank_position"].ToString());
-                item.SubItems.Add(table["com_call_num"].ToString());
-                item.SubItems.Add(table["phone_num"].ToString());
-                item.SubItems.Add(table["mail_address"].ToString());
-                item.SubItems.Add(table["join_date"].ToString());
-
-                listViewAddr.Items.Add(item);
-            }
-
-            table.Close();
-        }
 
         private void listViewAddr_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -148,120 +106,50 @@ namespace addressListApp
 
         private void btnInsert_Click(object sender, EventArgs e)
         {
-            // 'age' 필드의 입력 값을 검증합니다.
-            if (!int.TryParse(textBoxAge.Text, out int age))
-            {
-                MessageBox.Show("Age must be an integer.", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return; // 메서드를 더 이상 진행하지 않고 종료합니다.
-            }
-            try
-            {
-                using (MySqlConnection conn = new MySqlConnection(_connectionAddress))
-                {
-                    conn.Open();
+            Form_add_emp newForm = new Form_add_emp(); // 직원 등록 폼 생성.
+            newForm.Show(); // 모달이 아닌 방식으로 새 폼을 띄웁니다.
+                            // newForm.ShowDialog(); // 모달 방식으로 새 폼을 띄우려면 이 코드를 사용하세요.
 
-                    string insertQuery = string.Format(
-                        "INSERT INTO employee_list (" +
-                            "emp_name, gender, age, home_address, department, rank_position" +
-                            ", com_call_num, phone_num, mail_address, join_date) " +
-                        "VALUES (" +
-                            "'{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}', NOW());",
-                        textBoxName.Text, comboBoxGender.SelectedValue, textBoxAge.Text, textBoxAddress.Text, textBoxDept.Text
-                        , textBoxPositionRank.Text, textBoxHpNum.Text, textBoxComNum.Text, textBoxEmail.Text);
 
-                    MySqlCommand command = new MySqlCommand(insertQuery, conn);
 
-                    if (command.ExecuteNonQuery() != 1)
-                    {
-                        MessageBox.Show("Fail to insert Data");
-                    }
-                    textBoxClear();
 
-                    selectAll();
-                }
-            }
-            catch (Exception exc)
-            {
-                MessageBox.Show(exc.Message);
-            }
         }
 
 
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            // Age 입력검증
+            int pos = listViewAddr.SelectedItems[0].Index;
+            int index = Convert.ToInt32(listViewAddr.Items[pos].SubItems[0].Text);
+
+            string updateQuery = string.Format(
+                "UPDATE employee_list " +
+                "SET emp_name = '{0}', gender = '{1}', age = '{2}', home_address = '{3}', department = '{4}'" +
+                    ", rank_position = '{5}', com_call_num = '{6}',  phone_num = '{7}', mail_address = '{8}' " +
+                "WHERE id = '{9}';"
+                , textBoxName.Text, comboBoxGender.SelectedValue, textBoxAge.Text, textBoxAddress.Text
+                , textBoxDept.Text, textBoxPositionRank.Text, textBoxComNum.Text, textBoxHpNum.Text, textBoxEmail.Text
+                , index);
+
+            CommMysql.ExecuteNonQuery(updateQuery);
+
+            //Age 입력검증
             if (!int.TryParse(textBoxAge.Text, out int age))
             {
                 MessageBox.Show("나이 항목에 숫자를 입력해주세요.", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            try
-            {
-                using (MySqlConnection conn = new MySqlConnection(_connectionAddress))
-                {
-                    conn.Open();
-
-                    int pos = listViewAddr.SelectedItems[0].Index;
-                    int index = Convert.ToInt32(listViewAddr.Items[pos].SubItems[0].Text);
-
-                    string updateQuery = string.Format(
-                        "UPDATE employee_list " +
-                        "SET emp_name = '{0}', gender = '{1}', age = '{2}', home_address = '{3}', department = '{4}'" +
-                            ", rank_position = '{5}', com_call_num = '{6}',  phone_num = '{7}', mail_address = '{8}' " +
-                        "WHERE id = '{9}';"
-                        , textBoxName.Text, comboBoxGender.SelectedValue, textBoxAge.Text, textBoxAddress.Text
-                        , textBoxDept.Text, textBoxPositionRank.Text, textBoxComNum.Text, textBoxHpNum.Text, textBoxEmail.Text
-                        , index);
-                    MySqlCommand command = new MySqlCommand(updateQuery, conn);
-                    if (command.ExecuteNonQuery() != 1)
-                    {
-                        MessageBox.Show("Failed to update data.");
-                    }
-                    textBoxClear();
-
-                    selectAll();
-                }
-
-            }
-            catch (Exception exc)
-            {
-                MessageBox.Show(exc.Message);
-            }
         }
 
 
-
         private void btnDelClick(object sender, EventArgs e)
-        {
-            try
-            {
-                using (MySqlConnection conn = new MySqlConnection(_connectionAddress))
-                {
-                    conn.Open();
-
-                    int pos = listViewAddr.SelectedItems[0].Index;
-                    int index = Convert.ToInt32(listViewAddr.Items[pos].SubItems[0].Text);
-
-
-                    string delQuery = string.Format("DELETE FROM employee_list WHERE id = {0};", index);
-
-                    MySqlCommand command = new MySqlCommand(delQuery, conn);
-                    if (command.ExecuteNonQuery() != 1)
-                    {
-                        MessageBox.Show("Fail to Delete Data");
-                    }
-                    textBoxClear();
-
-                    selectAll();
-                }
-
-            }
-            catch (Exception exc)
-            {
-                MessageBox.Show(exc.Message);
-            }
+        {   
+            int pos = listViewAddr.SelectedItems[0].Index;
+            int index = Convert.ToInt32(listViewAddr.Items[pos].SubItems[0].Text);
+            string delQuery = string.Format("DELETE FROM employee_list WHERE id = {0};", index);
+            CommMysql.ExecuteNonQuery(delQuery);
+            
         }
 
         private void comboBoxGender_Enter(object sender, EventArgs e)

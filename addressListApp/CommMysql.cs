@@ -40,7 +40,7 @@ namespace Dawool
             }
             catch (MySqlException ex)
             {
-                //MessageBox.Show("DATABASE 연결이 되지 않습니다. 다시 확인해 주세요.");
+                MessageBox.Show("DATABASE 연결이 되지 않습니다. 다시 확인해 주세요.");
                 //Environment.Exit(-1);
 
                 throw new Exception(ex.Message);
@@ -71,7 +71,7 @@ namespace Dawool
             catch (MySqlException ex)
             {
                 MessageBox.Show("DATABASE 연결이 되지 않습니다. 다시 확인해 주세요.");
-                Environment.Exit(-1);
+                //Environment.Exit(-1);
                 throw new Exception(ex.Message);
             }
         }

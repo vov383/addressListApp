@@ -66,47 +66,50 @@
             this.group_data = new System.Windows.Forms.GroupBox();
             this.group_table = new System.Windows.Forms.GroupBox();
             this.pictureBoxLogo = new System.Windows.Forms.PictureBox();
+            this.printDocument1 = new System.Drawing.Printing.PrintDocument();
+            this.group_btn = new System.Windows.Forms.GroupBox();
             this.group_data.SuspendLayout();
             this.group_table.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).BeginInit();
+            this.group_btn.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(432, 137);
+            this.btnSearch.Location = new System.Drawing.Point(410, 8);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(108, 33);
-            this.btnSearch.TabIndex = 12;
+            this.btnSearch.TabIndex = 3;
             this.btnSearch.Text = "조회";
             this.btnSearch.UseVisualStyleBackColor = true;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
             // btnUpdate
             // 
-            this.btnUpdate.Location = new System.Drawing.Point(167, 137);
+            this.btnUpdate.Location = new System.Drawing.Point(145, 8);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(115, 33);
-            this.btnUpdate.TabIndex = 10;
+            this.btnUpdate.TabIndex = 1;
             this.btnUpdate.Text = "수정";
             this.btnUpdate.UseVisualStyleBackColor = true;
             this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(309, 137);
+            this.btnDelete.Location = new System.Drawing.Point(287, 8);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(108, 33);
-            this.btnDelete.TabIndex = 11;
+            this.btnDelete.TabIndex = 2;
             this.btnDelete.Text = "삭제";
             this.btnDelete.UseVisualStyleBackColor = true;
             this.btnDelete.Click += new System.EventHandler(this.btnDelClick);
             // 
             // btnInsert
             // 
-            this.btnInsert.Location = new System.Drawing.Point(36, 137);
+            this.btnInsert.Location = new System.Drawing.Point(14, 8);
             this.btnInsert.Name = "btnInsert";
             this.btnInsert.Size = new System.Drawing.Size(106, 33);
-            this.btnInsert.TabIndex = 9;
+            this.btnInsert.TabIndex = 0;
             this.btnInsert.Text = "추가";
             this.btnInsert.UseVisualStyleBackColor = true;
             this.btnInsert.Click += new System.EventHandler(this.btnInsert_Click);
@@ -126,11 +129,13 @@
             this.columnHeader10,
             this.columnHeader11});
             this.listViewAddr.FullRowSelect = true;
+            this.listViewAddr.GridLines = true;
             this.listViewAddr.HideSelection = false;
-            this.listViewAddr.Location = new System.Drawing.Point(8, 54);
+            this.listViewAddr.HoverSelection = true;
+            this.listViewAddr.Location = new System.Drawing.Point(8, 20);
             this.listViewAddr.Name = "listViewAddr";
             this.listViewAddr.Size = new System.Drawing.Size(939, 316);
-            this.listViewAddr.TabIndex = 13;
+            this.listViewAddr.TabIndex = 0;
             this.listViewAddr.UseCompatibleStateImageBehavior = false;
             this.listViewAddr.View = System.Windows.Forms.View.Details;
             this.listViewAddr.SelectedIndexChanged += new System.EventHandler(this.listViewAddr_SelectedIndexChanged);
@@ -196,7 +201,7 @@
             this.name_label.Location = new System.Drawing.Point(6, 19);
             this.name_label.Name = "name_label";
             this.name_label.Size = new System.Drawing.Size(29, 12);
-            this.name_label.TabIndex = 6;
+            this.name_label.TabIndex = 11;
             this.name_label.Text = "이름";
             // 
             // textBoxName
@@ -204,7 +209,7 @@
             this.textBoxName.Location = new System.Drawing.Point(41, 16);
             this.textBoxName.Name = "textBoxName";
             this.textBoxName.Size = new System.Drawing.Size(100, 21);
-            this.textBoxName.TabIndex = 0;
+            this.textBoxName.TabIndex = 1;
             // 
             // gender_label
             // 
@@ -229,14 +234,14 @@
             this.textBoxAddress.Location = new System.Drawing.Point(222, 47);
             this.textBoxAddress.Name = "textBoxAddress";
             this.textBoxAddress.Size = new System.Drawing.Size(100, 21);
-            this.textBoxAddress.TabIndex = 3;
+            this.textBoxAddress.TabIndex = 4;
             // 
             // textBoxAge
             // 
             this.textBoxAge.Location = new System.Drawing.Point(222, 16);
             this.textBoxAge.Name = "textBoxAge";
             this.textBoxAge.Size = new System.Drawing.Size(100, 21);
-            this.textBoxAge.TabIndex = 2;
+            this.textBoxAge.TabIndex = 3;
             // 
             // department_label
             // 
@@ -252,7 +257,7 @@
             this.textBoxDept.Location = new System.Drawing.Point(385, 16);
             this.textBoxDept.Name = "textBoxDept";
             this.textBoxDept.Size = new System.Drawing.Size(100, 21);
-            this.textBoxDept.TabIndex = 4;
+            this.textBoxDept.TabIndex = 5;
             // 
             // position_label
             // 
@@ -268,7 +273,7 @@
             this.textBoxPositionRank.Location = new System.Drawing.Point(385, 47);
             this.textBoxPositionRank.Name = "textBoxPositionRank";
             this.textBoxPositionRank.Size = new System.Drawing.Size(100, 21);
-            this.textBoxPositionRank.TabIndex = 5;
+            this.textBoxPositionRank.TabIndex = 6;
             // 
             // com_num_label
             // 
@@ -284,7 +289,7 @@
             this.textBoxComNum.Location = new System.Drawing.Point(570, 16);
             this.textBoxComNum.Name = "textBoxComNum";
             this.textBoxComNum.Size = new System.Drawing.Size(100, 21);
-            this.textBoxComNum.TabIndex = 6;
+            this.textBoxComNum.TabIndex = 7;
             // 
             // hp_label
             // 
@@ -300,7 +305,7 @@
             this.textBoxHpNum.Location = new System.Drawing.Point(570, 47);
             this.textBoxHpNum.Name = "textBoxHpNum";
             this.textBoxHpNum.Size = new System.Drawing.Size(100, 21);
-            this.textBoxHpNum.TabIndex = 7;
+            this.textBoxHpNum.TabIndex = 8;
             // 
             // age_label
             // 
@@ -325,7 +330,7 @@
             this.textBoxEmail.Location = new System.Drawing.Point(746, 16);
             this.textBoxEmail.Name = "textBoxEmail";
             this.textBoxEmail.Size = new System.Drawing.Size(100, 21);
-            this.textBoxEmail.TabIndex = 8;
+            this.textBoxEmail.TabIndex = 9;
             // 
             // comboBoxGender
             // 
@@ -336,7 +341,7 @@
             this.comboBoxGender.Location = new System.Drawing.Point(41, 47);
             this.comboBoxGender.Name = "comboBoxGender";
             this.comboBoxGender.Size = new System.Drawing.Size(100, 20);
-            this.comboBoxGender.TabIndex = 1;
+            this.comboBoxGender.TabIndex = 2;
             this.comboBoxGender.Enter += new System.EventHandler(this.comboBoxGender_Enter);
             // 
             // group_data
@@ -362,16 +367,16 @@
             this.group_data.Location = new System.Drawing.Point(12, 42);
             this.group_data.Name = "group_data";
             this.group_data.Size = new System.Drawing.Size(953, 89);
-            this.group_data.TabIndex = 9;
+            this.group_data.TabIndex = 0;
             this.group_data.TabStop = false;
             // 
             // group_table
             // 
             this.group_table.Controls.Add(this.listViewAddr);
-            this.group_table.Location = new System.Drawing.Point(12, 173);
+            this.group_table.Location = new System.Drawing.Point(12, 192);
             this.group_table.Name = "group_table";
-            this.group_table.Size = new System.Drawing.Size(953, 376);
-            this.group_table.TabIndex = 10;
+            this.group_table.Size = new System.Drawing.Size(953, 345);
+            this.group_table.TabIndex = 2;
             this.group_table.TabStop = false;
             // 
             // pictureBoxLogo
@@ -384,18 +389,27 @@
             this.pictureBoxLogo.TabIndex = 11;
             this.pictureBoxLogo.TabStop = false;
             // 
+            // group_btn
+            // 
+            this.group_btn.Controls.Add(this.btnSearch);
+            this.group_btn.Controls.Add(this.btnInsert);
+            this.group_btn.Controls.Add(this.btnUpdate);
+            this.group_btn.Controls.Add(this.btnDelete);
+            this.group_btn.Location = new System.Drawing.Point(177, 142);
+            this.group_btn.Name = "group_btn";
+            this.group_btn.Size = new System.Drawing.Size(530, 50);
+            this.group_btn.TabIndex = 1;
+            this.group_btn.TabStop = false;
+            // 
             // winFormApp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(977, 561);
-            this.Controls.Add(this.btnSearch);
-            this.Controls.Add(this.btnInsert);
+            this.ClientSize = new System.Drawing.Size(977, 538);
+            this.Controls.Add(this.group_btn);
             this.Controls.Add(this.pictureBoxLogo);
-            this.Controls.Add(this.btnUpdate);
             this.Controls.Add(this.group_table);
             this.Controls.Add(this.group_data);
-            this.Controls.Add(this.btnDelete);
             this.Name = "winFormApp";
             this.Text = "다울 주소록 관리도구";
             this.Load += new System.EventHandler(this.winFormApp_Load);
@@ -403,6 +417,7 @@
             this.group_data.PerformLayout();
             this.group_table.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).EndInit();
+            this.group_btn.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -445,6 +460,8 @@
         private System.Windows.Forms.GroupBox group_table;
         private System.Windows.Forms.ColumnHeader columnHeader11;
         private System.Windows.Forms.PictureBox pictureBoxLogo;
+        private System.Drawing.Printing.PrintDocument printDocument1;
+        private System.Windows.Forms.GroupBox group_btn;
     }
 }
 
