@@ -15,6 +15,7 @@ namespace addressListApp
     public partial class Form_add_emp : Form
     {
         private BindingList<object> typeList = new BindingList<object>(); // 콤보박스 키벨류 담을 객체
+        //private int index;
 
         public Form_add_emp()
         {
@@ -28,8 +29,19 @@ namespace addressListApp
             comboBoxGender.ValueMember = "Value";
         }
 
-        private void textBoxName_TextChanged(object sender, EventArgs e)
+        public Form_add_emp(int index)
         {
+            //this.index = index
+            string updateQuery = string.Format(
+                "UPDATE employee_list " +
+                "SET emp_name = '{0}', gender = '{1}', age = '{2}', home_address = '{3}', department = '{4}'" +
+                    ", rank_position = '{5}', com_call_num = '{6}',  phone_num = '{7}', mail_address = '{8}' " +
+                "WHERE id = '{9}';"
+                , textBoxName.Text, comboBoxGender.SelectedValue, textBoxAge.Text, textBoxAddress.Text
+                , textBoxDept.Text, textBoxPositionRank.Text, textBoxComNum.Text, textBoxHpNum.Text, textBoxEmail.Text
+                , index);
+
+            CommMysql.ExecuteNonQuery(updateQuery);
 
         }
 
@@ -62,32 +74,15 @@ namespace addressListApp
                 MessageBox.Show("데이터 삽입에 실패했습니다.");
             }
 
-            //try
-            //{
-            //    using (MySqlConnection conn = new MySqlConnection(_connectionAddress))
-            //    {
-            //        conn.Open();
-
-
-
-            //        MySqlCommand command = new MySqlCommand(insertQuery, conn);
-
-            //        if (command.ExecuteNonQuery() != 1)
-            //        {
-            //            MessageBox.Show("Fail to insert Data");
-            //        }
-            //        textBoxClear();
-
-            //        selectAll();
-            //    }
-            //}
-            //catch (Exception exc)
-            //{
-            //    MessageBox.Show(exc.Message);
-            //}
+            
         }
 
         private void textBoxHpNum_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnUpdate_Click(object sender, EventArgs e)
         {
 
         }

@@ -49,6 +49,7 @@
             this.btnInsert = new System.Windows.Forms.Button();
             this.textBoxEmail = new System.Windows.Forms.TextBox();
             this.email_label = new System.Windows.Forms.Label();
+            this.btnUpdate = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).BeginInit();
             this.SuspendLayout();
             // 
@@ -197,7 +198,7 @@
             // 
             // btnInsert
             // 
-            this.btnInsert.Location = new System.Drawing.Point(60, 224);
+            this.btnInsert.Location = new System.Drawing.Point(60, 244);
             this.btnInsert.Name = "btnInsert";
             this.btnInsert.Size = new System.Drawing.Size(106, 33);
             this.btnInsert.TabIndex = 30;
@@ -221,11 +222,22 @@
             this.email_label.TabIndex = 31;
             this.email_label.Text = "이메일";
             // 
+            // btnUpdate
+            // 
+            this.btnUpdate.Location = new System.Drawing.Point(212, 244);
+            this.btnUpdate.Name = "btnUpdate";
+            this.btnUpdate.Size = new System.Drawing.Size(115, 33);
+            this.btnUpdate.TabIndex = 33;
+            this.btnUpdate.Text = "수정";
+            this.btnUpdate.UseVisualStyleBackColor = true;
+            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
+            // 
             // Form_add_emp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(370, 328);
+            this.Controls.Add(this.btnUpdate);
             this.Controls.Add(this.textBoxEmail);
             this.Controls.Add(this.email_label);
             this.Controls.Add(this.btnInsert);
@@ -276,5 +288,6 @@
         private System.Windows.Forms.Button btnInsert;
         private System.Windows.Forms.TextBox textBoxEmail;
         private System.Windows.Forms.Label email_label;
+        private System.Windows.Forms.Button btnUpdate;
     }
 }

@@ -109,8 +109,8 @@ namespace addressListApp
             Form_add_emp newForm = new Form_add_emp(); // 직원 등록 폼 생성.
             newForm.Show(); // 모달이 아닌 방식으로 새 폼을 띄웁니다.
                             // newForm.ShowDialog(); // 모달 방식으로 새 폼을 띄우려면 이 코드를 사용하세요.
-
-
+            
+            //selectAll();
 
 
         }
@@ -118,27 +118,23 @@ namespace addressListApp
 
 
         private void btnUpdate_Click(object sender, EventArgs e)
-        {
-            int pos = listViewAddr.SelectedItems[0].Index;
-            int index = Convert.ToInt32(listViewAddr.Items[pos].SubItems[0].Text);
+        {   
+            //int pos = listViewAddr.SelectedItems[0].Index;
+            //int index = Convert.ToInt32(listViewAddr.Items[pos].SubItems[0].Text);
 
-            string updateQuery = string.Format(
-                "UPDATE employee_list " +
-                "SET emp_name = '{0}', gender = '{1}', age = '{2}', home_address = '{3}', department = '{4}'" +
-                    ", rank_position = '{5}', com_call_num = '{6}',  phone_num = '{7}', mail_address = '{8}' " +
-                "WHERE id = '{9}';"
-                , textBoxName.Text, comboBoxGender.SelectedValue, textBoxAge.Text, textBoxAddress.Text
-                , textBoxDept.Text, textBoxPositionRank.Text, textBoxComNum.Text, textBoxHpNum.Text, textBoxEmail.Text
-                , index);
+            Form_add_emp newForm = new Form_add_emp(); // 직원 등록 폼 생성.
+            newForm.Show(); // 모달이 아닌 방식으로 새 폼을 띄웁니다.
 
-            CommMysql.ExecuteNonQuery(updateQuery);
+            //selectAll();
 
-            //Age 입력검증
-            if (!int.TryParse(textBoxAge.Text, out int age))
-            {
-                MessageBox.Show("나이 항목에 숫자를 입력해주세요.", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
+
+
+            ////Age 입력검증
+            //if (!int.TryParse(textBoxAge.Text, out int age))
+            //{
+            //    MessageBox.Show("나이 항목에 숫자를 입력해주세요.", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    return;
+            //}
 
         }
 
@@ -149,7 +145,7 @@ namespace addressListApp
             int index = Convert.ToInt32(listViewAddr.Items[pos].SubItems[0].Text);
             string delQuery = string.Format("DELETE FROM employee_list WHERE id = {0};", index);
             CommMysql.ExecuteNonQuery(delQuery);
-            
+            selectAll();
         }
 
         private void comboBoxGender_Enter(object sender, EventArgs e)
