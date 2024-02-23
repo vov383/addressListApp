@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Text;
 using System.Linq;
@@ -21,7 +22,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace addressListApp
 {
-    public partial class winFormApp : Form
+    public partial class Form1 : Form
     {
         //string _id = "root";
         //string _pw = "dw#1234";
@@ -30,20 +31,12 @@ namespace addressListApp
         //string _connectionAddress = "";
         //string _port = "3306";
         
-        private BindingList<object> typeList = new BindingList<object>(); // 콤보박스 키벨류 담을 객체
 
-        public winFormApp()
+        public Form1()
         {
             InitializeComponent();
 
             //_connectionAddress = string.Format("SERVER={0};PORT={1};DATABASE={2};UID={3};PASSWORD={4};", _server, _port, _database, _id, _pw);
-
-            typeList.Add(new { Display = "남성", Value = 1 });
-            typeList.Add(new { Display = "여성", Value = 2 });
-
-            comboBoxGender.DataSource = typeList;
-            comboBoxGender.DisplayMember = "Display";
-            comboBoxGender.ValueMember = "Value";
 
             selectAll();
 
@@ -51,30 +44,37 @@ namespace addressListApp
 
         private void selectAll()
         {
+
             // 전체 데이터를 조회합니다.          
             string selectQuery = string.Format("SELECT * FROM employee_list");
+            string gender = "";
+
             DataSet ds = CommMysql.ExecuteDataSet(selectQuery);
             DataTable dt = ds.Tables[0];
+            dataGridView1.DataSource = dt;
 
-            foreach (DataRow row in dt.Rows)
-            {
-                {
-                    ListViewItem item = new ListViewItem(row["id"].ToString()); // 첫 번째 열을 ListViewItem으로 생성
-                    item.SubItems.Add(row["emp_name"].ToString());
-                    item.SubItems.Add(row["gender"].ToString());
-                    item.SubItems.Add(row["age"].ToString());
-                    item.SubItems.Add(row["home_address"].ToString());
-                    item.SubItems.Add(row["department"].ToString());
-                    item.SubItems.Add(row["rank_position"].ToString());
-                    item.SubItems.Add(row["com_call_num"].ToString());
-                    item.SubItems.Add(row["phone_num"].ToString());
-                    item.SubItems.Add(row["join_date"].ToString());
+            updateColumnHeaderText();
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
-                    listViewAddr.Items.Add(item); // 생성된 ListViewItem을 ListView에 추가
-                }
-            }
+
+
         }
 
+        // 데이터 소스 바인딩 후 컬럼 헤더 텍스트 변경
+        private void updateColumnHeaderText()
+        {
+            dataGridView1.Columns["emp_name"].HeaderText = "이름";
+            dataGridView1.Columns["gender"].HeaderText = "성별";
+            dataGridView1.Columns["age"].HeaderText = "나이";
+            dataGridView1.Columns["home_address"].HeaderText = "주소";
+            dataGridView1.Columns["department"].HeaderText = "부서";
+            dataGridView1.Columns["rank_position"].HeaderText = "직책";
+            dataGridView1.Columns["com_call_num"].HeaderText = "회사번호";
+            dataGridView1.Columns["phone_num"].HeaderText = "개인번호";
+            dataGridView1.Columns["mail_address"].HeaderText = "이메일";
+            dataGridView1.Columns["join_date"].HeaderText = "입사일";
+
+        }
 
         private void winFormApp_Load(object sender, EventArgs e)
         {
@@ -87,30 +87,14 @@ namespace addressListApp
         }
 
 
-        private void listViewAddr_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            System.Windows.Forms.ListView listView = sender as System.Windows.Forms.ListView;
-
-            int index = listView.FocusedItem.Index;
-            textBoxName.Text = listViewAddr.Items[index].SubItems[1].Text;
-            comboBoxGender.Text = listViewAddr.Items[index].SubItems[2].Text;
-            textBoxAge.Text = listViewAddr.Items[index].SubItems[3].Text;
-            textBoxAddress.Text = listViewAddr.Items[index].SubItems[4].Text;
-            textBoxDept.Text = listViewAddr.Items[index].SubItems[5].Text;
-            textBoxPositionRank.Text = listViewAddr.Items[index].SubItems[6].Text;
-            textBoxHpNum.Text = listViewAddr.Items[index].SubItems[7].Text;
-            textBoxComNum.Text = listViewAddr.Items[index].SubItems[8].Text;
-            textBoxEmail.Text = listViewAddr.Items[index].SubItems[9].Text;
-
-        }
+        
 
         private void btnInsert_Click(object sender, EventArgs e)
         {
-            Form_add_emp newForm = new Form_add_emp(); // 직원 등록 폼 생성.
-            newForm.Show(); // 모달이 아닌 방식으로 새 폼을 띄웁니다.
-                            // newForm.ShowDialog(); // 모달 방식으로 새 폼을 띄우려면 이 코드를 사용하세요.
+            form_insert newForm = new form_insert(); // 직원 등록 폼 생성.
+            newForm.ShowDialog(); // newForm.ShowDialog(); // 모달 방식으로 새 폼을 띄우려면 이 코드를 사용하세요.
             
-            //selectAll();
+            selectAll();
 
 
         }
@@ -122,10 +106,10 @@ namespace addressListApp
             //int pos = listViewAddr.SelectedItems[0].Index;
             //int index = Convert.ToInt32(listViewAddr.Items[pos].SubItems[0].Text);
 
-            Form_add_emp newForm = new Form_add_emp(); // 직원 등록 폼 생성.
+            form_insert newForm = new form_insert(); // 직원 등록 폼 생성.
             newForm.Show(); // 모달이 아닌 방식으로 새 폼을 띄웁니다.
 
-            //selectAll();
+            selectAll();
 
 
 
@@ -141,20 +125,34 @@ namespace addressListApp
 
         private void btnDelClick(object sender, EventArgs e)
         {   
-            int pos = listViewAddr.SelectedItems[0].Index;
-            int index = Convert.ToInt32(listViewAddr.Items[pos].SubItems[0].Text);
-            string delQuery = string.Format("DELETE FROM employee_list WHERE id = {0};", index);
-            CommMysql.ExecuteNonQuery(delQuery);
+            //int pos = listViewAddr.SelectedItems[0].Index;
+            //int index = Convert.ToInt32(listViewAddr.Items[pos].SubItems[0].Text);
+            //string delQuery = string.Format("DELETE FROM employee_list WHERE id = {0};", index);
+            //CommMysql.ExecuteNonQuery(delQuery);
             selectAll();
         }
 
-        private void comboBoxGender_Enter(object sender, EventArgs e)
-        {
-            System.Windows.Forms.ComboBox comboBox = sender as System.Windows.Forms.ComboBox;
 
-            if (comboBox != null)
+        private void pictureBoxLogo_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (dataGridView1.Columns[e.ColumnIndex].Name == "gender" && e.Value != null)
             {
-                comboBox.DroppedDown = true;
+                switch (e.Value.ToString())
+                {
+                    case "1":
+                        e.Value = "남자";
+                        e.FormattingApplied = true;
+                        break;
+                    case "2":
+                        e.Value = "여자";
+                        e.FormattingApplied = true;
+                        break;
+                }
             }
         }
     }

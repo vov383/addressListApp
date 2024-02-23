@@ -1,6 +1,6 @@
 ﻿namespace addressListApp
 {
-    partial class Form_add_emp
+    partial class form_insert
     {
         /// <summary>
         /// Required designer variable.
@@ -28,8 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_add_emp));
-            this.pictureBoxLogo = new System.Windows.Forms.PictureBox();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(form_insert));
             this.comboBoxGender = new System.Windows.Forms.ComboBox();
             this.textBoxHpNum = new System.Windows.Forms.TextBox();
             this.hp_label = new System.Windows.Forms.Label();
@@ -49,19 +48,9 @@
             this.btnInsert = new System.Windows.Forms.Button();
             this.textBoxEmail = new System.Windows.Forms.TextBox();
             this.email_label = new System.Windows.Forms.Label();
-            this.btnUpdate = new System.Windows.Forms.Button();
+            this.pictureBoxLogo = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).BeginInit();
             this.SuspendLayout();
-            // 
-            // pictureBoxLogo
-            // 
-            this.pictureBoxLogo.Image = ((System.Drawing.Image)(resources.GetObject("pictureBoxLogo.Image")));
-            this.pictureBoxLogo.Location = new System.Drawing.Point(12, 12);
-            this.pictureBoxLogo.Name = "pictureBoxLogo";
-            this.pictureBoxLogo.Size = new System.Drawing.Size(141, 24);
-            this.pictureBoxLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBoxLogo.TabIndex = 12;
-            this.pictureBoxLogo.TabStop = false;
             // 
             // comboBoxGender
             // 
@@ -73,6 +62,7 @@
             this.comboBoxGender.Name = "comboBoxGender";
             this.comboBoxGender.Size = new System.Drawing.Size(100, 20);
             this.comboBoxGender.TabIndex = 15;
+            this.comboBoxGender.Enter += new System.EventHandler(this.comboBoxGender_Enter);
             // 
             // textBoxHpNum
             // 
@@ -198,7 +188,7 @@
             // 
             // btnInsert
             // 
-            this.btnInsert.Location = new System.Drawing.Point(60, 244);
+            this.btnInsert.Location = new System.Drawing.Point(136, 238);
             this.btnInsert.Name = "btnInsert";
             this.btnInsert.Size = new System.Drawing.Size(106, 33);
             this.btnInsert.TabIndex = 30;
@@ -222,22 +212,21 @@
             this.email_label.TabIndex = 31;
             this.email_label.Text = "이메일";
             // 
-            // btnUpdate
+            // pictureBoxLogo
             // 
-            this.btnUpdate.Location = new System.Drawing.Point(212, 244);
-            this.btnUpdate.Name = "btnUpdate";
-            this.btnUpdate.Size = new System.Drawing.Size(115, 33);
-            this.btnUpdate.TabIndex = 33;
-            this.btnUpdate.Text = "수정";
-            this.btnUpdate.UseVisualStyleBackColor = true;
-            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
+            this.pictureBoxLogo.Image = ((System.Drawing.Image)(resources.GetObject("pictureBoxLogo.Image")));
+            this.pictureBoxLogo.Location = new System.Drawing.Point(-1, 0);
+            this.pictureBoxLogo.Name = "pictureBoxLogo";
+            this.pictureBoxLogo.Size = new System.Drawing.Size(141, 24);
+            this.pictureBoxLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBoxLogo.TabIndex = 12;
+            this.pictureBoxLogo.TabStop = false;
             // 
-            // Form_add_emp
+            // form_insert
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(370, 328);
-            this.Controls.Add(this.btnUpdate);
             this.Controls.Add(this.textBoxEmail);
             this.Controls.Add(this.email_label);
             this.Controls.Add(this.btnInsert);
@@ -258,8 +247,9 @@
             this.Controls.Add(this.textBoxName);
             this.Controls.Add(this.name_label);
             this.Controls.Add(this.pictureBoxLogo);
-            this.Name = "Form_add_emp";
-            this.Text = "직원 추가하기";
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Name = "form_insert";
+            this.Text = "직원 추가";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -267,8 +257,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.PictureBox pictureBoxLogo;
         private System.Windows.Forms.ComboBox comboBoxGender;
         private System.Windows.Forms.TextBox textBoxHpNum;
         private System.Windows.Forms.Label hp_label;
@@ -288,6 +276,6 @@
         private System.Windows.Forms.Button btnInsert;
         private System.Windows.Forms.TextBox textBoxEmail;
         private System.Windows.Forms.Label email_label;
-        private System.Windows.Forms.Button btnUpdate;
+        private System.Windows.Forms.PictureBox pictureBoxLogo;
     }
 }

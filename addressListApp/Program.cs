@@ -16,7 +16,7 @@ namespace addressListApp
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new winFormApp());
+            Application.Run(new Form1());
         }
     }
 }

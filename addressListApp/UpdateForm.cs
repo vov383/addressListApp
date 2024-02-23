@@ -12,12 +12,12 @@ using System.Windows.Forms;
 
 namespace addressListApp
 {
-    public partial class Form_add_emp : Form
+    public partial class update_pop_up : Form
     {
         private BindingList<object> typeList = new BindingList<object>(); // 콤보박스 키벨류 담을 객체
         //private int index;
 
-        public Form_add_emp()
+        public update_pop_up()
         {
             InitializeComponent();
 
@@ -29,17 +29,14 @@ namespace addressListApp
             comboBoxGender.ValueMember = "Value";
         }
 
-        public Form_add_emp(int index)
+        public update_pop_up(int index)
         {
             //this.index = index
-            string updateQuery = string.Format(
+            string updateQuery = 
                 "UPDATE employee_list " +
-                "SET emp_name = '{0}', gender = '{1}', age = '{2}', home_address = '{3}', department = '{4}'" +
-                    ", rank_position = '{5}', com_call_num = '{6}',  phone_num = '{7}', mail_address = '{8}' " +
-                "WHERE id = '{9}';"
-                , textBoxName.Text, comboBoxGender.SelectedValue, textBoxAge.Text, textBoxAddress.Text
-                , textBoxDept.Text, textBoxPositionRank.Text, textBoxComNum.Text, textBoxHpNum.Text, textBoxEmail.Text
-                , index);
+                "SET emp_name = @name, gender = @gender, age = @age, home_address = @home, department = @dept" +
+                    ", rank_position = @rank, com_call_num = @com,  phone_num = @phone, mail_address = @email" +
+                "WHERE id = @index;";
 
             CommMysql.ExecuteNonQuery(updateQuery);
 
@@ -50,19 +47,16 @@ namespace addressListApp
             // 'age' 필드의 입력 값을 검증합니다.
             if (!int.TryParse(textBoxAge.Text, out int age))
             {
-                MessageBox.Show("Age must be an integer.", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("나이 항목에 숫자를 입력해주세요.", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return; // 메서드를 더 이상 진행하지 않고 종료합니다.
             }
 
-            string insertQuery = string.Format(
-                        "INSERT INTO employee_list (" +
+            string insertQuery = "INSERT INTO employee_list (" +
                             "emp_name, gender, age, home_address, department, rank_position" +
                             ", com_call_num, phone_num, mail_address, join_date) " +
                         "VALUES (" +
-                            "'{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}', NOW());",
-                        textBoxName.Text, comboBoxGender.SelectedValue, textBoxAge.Text, textBoxAddress.Text, textBoxDept.Text
-                        , textBoxPositionRank.Text, textBoxHpNum.Text, textBoxComNum.Text, textBoxEmail.Text);
-
+                            "@name, @gender, @age, @home, @dept, @rank, @com, @phone, @email, NOW());";
+                        
             int result = CommMysql.ExecuteNonQuery(insertQuery);
 
             if (result > 0)
@@ -85,6 +79,16 @@ namespace addressListApp
         private void btnUpdate_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void comboBoxGender_Enter(object sender, EventArgs e)
+        {
+            ComboBox comboBox = sender as ComboBox;
+
+            if (comboBox != null)
+            {
+                comboBox.DroppedDown = true;
+            }
         }
     }
 }
