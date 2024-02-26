@@ -1,6 +1,6 @@
 ﻿namespace addressListApp
 {
-    partial class update_pop_up
+    partial class UpdateForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(update_pop_up));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UpdateForm));
             this.comboBoxGender = new System.Windows.Forms.ComboBox();
             this.textBoxHpNum = new System.Windows.Forms.TextBox();
             this.hp_label = new System.Windows.Forms.Label();
@@ -48,6 +48,8 @@
             this.textBoxEmail = new System.Windows.Forms.TextBox();
             this.email_label = new System.Windows.Forms.Label();
             this.pictureBoxLogo = new System.Windows.Forms.PictureBox();
+            this.btn_update_submit = new System.Windows.Forms.Button();
+            this.btnClose = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).BeginInit();
             this.SuspendLayout();
             // 
@@ -211,11 +213,33 @@
             this.pictureBoxLogo.TabIndex = 33;
             this.pictureBoxLogo.TabStop = false;
             // 
-            // update_pop_up
+            // btn_update_submit
+            // 
+            this.btn_update_submit.Location = new System.Drawing.Point(60, 226);
+            this.btn_update_submit.Name = "btn_update_submit";
+            this.btn_update_submit.Size = new System.Drawing.Size(100, 46);
+            this.btn_update_submit.TabIndex = 34;
+            this.btn_update_submit.Text = "제출하기";
+            this.btn_update_submit.UseVisualStyleBackColor = true;
+            this.btn_update_submit.Click += new System.EventHandler(this.btn_update_submit_Click);
+            // 
+            // btnClose
+            // 
+            this.btnClose.Location = new System.Drawing.Point(237, 226);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(100, 46);
+            this.btnClose.TabIndex = 34;
+            this.btnClose.Text = "취소";
+            this.btnClose.UseVisualStyleBackColor = true;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+            // 
+            // UpdateForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(370, 328);
+            this.Controls.Add(this.btnClose);
+            this.Controls.Add(this.btn_update_submit);
             this.Controls.Add(this.pictureBoxLogo);
             this.Controls.Add(this.textBoxEmail);
             this.Controls.Add(this.email_label);
@@ -236,7 +260,7 @@
             this.Controls.Add(this.textBoxName);
             this.Controls.Add(this.name_label);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Name = "update_pop_up";
+            this.Name = "UpdateForm";
             this.Text = "직원 정보 수정";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).EndInit();
             this.ResumeLayout(false);
@@ -264,5 +288,7 @@
         private System.Windows.Forms.TextBox textBoxEmail;
         private System.Windows.Forms.Label email_label;
         private System.Windows.Forms.PictureBox pictureBoxLogo;
+        private System.Windows.Forms.Button btn_update_submit;
+        private System.Windows.Forms.Button btnClose;
     }
 }

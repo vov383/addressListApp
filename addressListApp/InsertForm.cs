@@ -12,14 +12,24 @@ using System.Windows.Forms;
 
 namespace addressListApp
 {
-    public partial class form_insert : Form
+    public partial class InsertForm : Form
     {
+        string _id = "root";
+        string _pw = "dw#1234";
+        string _database = "employee_list";
+        string _server = "192.168.0.180";
+        string _port = "3306";
+        string _connectionAddress = "";
+
         private BindingList<object> typeList = new BindingList<object>(); // 콤보박스 키벨류 담을 객체
         //private int index;
 
-        public form_insert()
+        public InsertForm()
         {
+            this.MaximizeBox = false; // 폼 최대화 기능 off
             InitializeComponent();
+
+            _connectionAddress = string.Format("server={0};Database={1};Uid={2};Pwd={3};", "192.168.0.180", "employee_list", "root", "dw#1234");
 
             typeList.Add(new { Display = "남성", Value = 1 });
             typeList.Add(new { Display = "여성", Value = 2 });
@@ -27,58 +37,6 @@ namespace addressListApp
             comboBoxGender.DataSource = typeList;
             comboBoxGender.DisplayMember = "Display";
             comboBoxGender.ValueMember = "Value";
-        }
-
-        public form_insert(int index)
-        {
-            //this.index = index
-            string updateQuery = 
-                "UPDATE employee_list " +
-                "SET emp_name = @name, gender = @gender, age = @age, home_address = @home, department = @dept" +
-                    ", rank_position = @rank, com_call_num = @com,  phone_num = @phone, mail_address = @email" +
-                "WHERE id = @index;";
-
-            CommMysql.ExecuteNonQuery(updateQuery);
-
-        }
-
-        private void btnInsert_Click(object sender, EventArgs e)
-        {
-            // 'age' 필드의 입력 값을 검증합니다.
-            if (!int.TryParse(textBoxAge.Text, out int age))
-            {
-                MessageBox.Show("나이 항목에 숫자를 입력해주세요.", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return; // 메서드를 더 이상 진행하지 않고 종료합니다.
-            }
-
-            string insertQuery = "INSERT INTO employee_list (" +
-                            "emp_name, gender, age, home_address, department, rank_position" +
-                            ", com_call_num, phone_num, mail_address, join_date) " +
-                        "VALUES (" +
-                            "@name, @gender, @age, @home, @dept, @rank, @com, @phone, @email, NOW());";
-                        
-            int result = CommMysql.ExecuteNonQuery(insertQuery);
-
-            if (result > 0)
-            {
-                MessageBox.Show("데이터가 성공적으로 삽입되었습니다.");
-            }
-            else
-            {
-                MessageBox.Show("데이터 삽입에 실패했습니다.");
-            }
-
-            
-        }
-
-        private void textBoxHpNum_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnUpdate_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void comboBoxGender_Enter(object sender, EventArgs e)
@@ -89,6 +47,68 @@ namespace addressListApp
             {
                 comboBox.DroppedDown = true;
             }
+        }
+
+
+        private void btnInsertSubmit_Click (object sender, EventArgs e)
+        {
+            int gender;
+            string insertQuery = "INSERT INTO employee_list (" +
+                            "emp_name, gender, age, home_address, department, rank_position" +
+                            ", com_call_num, phone_num, mail_address, join_date) " +
+                        "VALUES (" +
+                            "@name, @gender, @age, @address, @dept, @rank, @com, @phone, @email, NOW());";
+            using(MySqlConnection mySqlConn = new MySqlConnection(_connectionAddress))
+            {
+
+                try
+                {
+                    mySqlConn.Open();
+
+                    MySqlCommand cmd = new MySqlCommand(insertQuery, mySqlConn);
+                    cmd.Parameters.AddWithValue("@name", textBoxName.Text);
+                    if(comboBoxGender.Text == "남자")
+                    {
+                        gender = 1;
+                    } else
+                    {
+                        gender = 2;
+                    }
+                    cmd.Parameters.AddWithValue("@gender", gender);
+                    cmd.Parameters.AddWithValue("@age", textBoxAge.Text);
+                    cmd.Parameters.AddWithValue("@address", textBoxAddress.Text);
+                    cmd.Parameters.AddWithValue("@dept", textBoxDept.Text);
+                    cmd.Parameters.AddWithValue("@rank", textBoxPositionRank.Text);
+                    cmd.Parameters.AddWithValue("@com", textBoxComNum.Text);
+                    cmd.Parameters.AddWithValue("@phone", textBoxHpNum.Text);
+                    cmd.Parameters.AddWithValue("@email", textBoxEmail.Text);
+
+                    cmd.ExecuteNonQuery();
+
+                    MessageBox.Show($"{textBoxName.Text} 사원을 추가하였습니다.");
+                    
+                    mySqlConn.Close();
+                    this.Close();
+                }
+                catch
+                {
+                    if (textBoxName.Text == "") MessageBox.Show($"{label_name.Text}를 올바르게 입력하세요");
+                    else if (comboBoxGender.Text == "") MessageBox.Show($"{label_gender.Text}를 올바르게 입력하세요");
+                    else if (textBoxAge.Text == "") MessageBox.Show($"{label_age.Text}를 올바르게 입력하세요");
+                    //else if (textBoxAddress.Text == "") MessageBox.Show($"{label_address.Text}를 올바르게 입력하세요");
+                    //else if (textBoxDept.Text == "") MessageBox.Show($"{label_dept.Text}를 올바르게 입력하세요");
+                    //else if (textBoxPositionRank.Text == "") MessageBox.Show($"{label_rank.Text}를 올바르게 입력하세요");
+                    //else if (textBoxComNum.Text == "") MessageBox.Show($"{label_com_num.Text}를 올바르게 입력하세요");
+                    //else if (textBoxHpNum.Text == "") MessageBox.Show($"{label_hp.Text}를 올바르게 입력하세요");
+                    //else if (textBoxEmail.Text == "") MessageBox.Show($"{label_email.Text}를 올바르게 입력하세요");
+
+                }
+            }
+        }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

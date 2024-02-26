@@ -6,38 +6,40 @@ using System.Threading.Tasks;
 
 namespace addressListApp
 {
-    internal class Employee
+    public class Employee
 
     {
-        public string EmpName { get; set; }
-        public string Gender { get; set; }
-        public int Age { get; set; }
-        public string HomeAddress { get; set; }
-        public DateTime JoinDate { get; set; }
-        public string Department { get; set; }
-        public string RankPosition { get; set; }
-        public string ComCallNum { get; set; }
-        public string PhoneNum { get; set; }
-        public string MailAddress { get; set; }
+        private string emp_name { get; set; }
+        private string gender { get; set; }
+        private int age { get; set; }
+        private string home_address { get; set; }
+        private string join_date { get; set; }
+        private string department { get; set; }
+        private string rank_position { get; set; }
+        private string com_call_num { get; set; }
+        private string phone_num { get; set; }
+        private string mail_address { get; set; }
 
         // 기본 생성자
         public Employee() { }
 
         // 모든 속성을 초기화하는 생성자
-        public Employee(string empName, string gender, int age, string homeAddress,
-                        DateTime joinDate, string department, string rankPosition,
-                        string comCallNum, string phoneNum, string mailAddress)
+        public Employee(string emp_name, string gender, int age, string home_address,
+                        string join_date, string department, string rank_position,
+                        string com_call_num, string phone_num, string mail_address)
         {
-            EmpName = empName;
-            Gender = gender;
-            Age = age;
-            HomeAddress = homeAddress;
-            JoinDate = joinDate;
-            Department = department;
-            RankPosition = rankPosition;
-            ComCallNum = comCallNum;
-            PhoneNum = phoneNum;
-            MailAddress = mailAddress;
+            this.emp_name = emp_name;
+            this.gender = gender;
+            this.age = age;
+            this.home_address = home_address;
+            this.join_date = join_date;
+            this.department = department;
+            this.rank_position = rank_position;
+            this.com_call_num = com_call_num;
+            this.phone_num = phone_num;
+            this.mail_address = mail_address;
         }
+
     }
+
 }

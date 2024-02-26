@@ -12,13 +12,21 @@ using System.Windows.Forms;
 
 namespace addressListApp
 {
-    public partial class update_pop_up : Form
+    public partial class UpdateForm : Form
     {
         private BindingList<object> typeList = new BindingList<object>(); // 콤보박스 키벨류 담을 객체
-        //private int index;
-
-        public update_pop_up()
+        private int index;
+        string _id = "root";
+        string _pw = "dw#1234";
+        string _database = "employee_list";
+        string _server = "192.168.0.180";
+        string _port = "3306";
+        string _connectionAddress = "";
+        
+        public UpdateForm()
         {
+            _connectionAddress = string.Format("SERVER={0};PORT={1};DATABASE={2};UID={3};PASSWORD={4};", _server, _port, _database, _id, _pw);
+
             InitializeComponent();
 
             typeList.Add(new { Display = "남성", Value = 1 });
@@ -29,47 +37,17 @@ namespace addressListApp
             comboBoxGender.ValueMember = "Value";
         }
 
-        public update_pop_up(int index)
+        public UpdateForm(int index)
         {
-            //this.index = index
-            string updateQuery = 
-                "UPDATE employee_list " +
-                "SET emp_name = @name, gender = @gender, age = @age, home_address = @home, department = @dept" +
-                    ", rank_position = @rank, com_call_num = @com,  phone_num = @phone, mail_address = @email" +
-                "WHERE id = @index;";
+            string selectOneQuery = "SELECT * FROM employee_list WHERE id = @index";
 
-            CommMysql.ExecuteNonQuery(updateQuery);
 
-        }
 
-        private void btnInsert_Click(object sender, EventArgs e)
-        {
-            // 'age' 필드의 입력 값을 검증합니다.
-            if (!int.TryParse(textBoxAge.Text, out int age))
-            {
-                MessageBox.Show("나이 항목에 숫자를 입력해주세요.", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return; // 메서드를 더 이상 진행하지 않고 종료합니다.
-            }
-
-            string insertQuery = "INSERT INTO employee_list (" +
-                            "emp_name, gender, age, home_address, department, rank_position" +
-                            ", com_call_num, phone_num, mail_address, join_date) " +
-                        "VALUES (" +
-                            "@name, @gender, @age, @home, @dept, @rank, @com, @phone, @email, NOW());";
-                        
-            int result = CommMysql.ExecuteNonQuery(insertQuery);
-
-            if (result > 0)
-            {
-                MessageBox.Show("데이터가 성공적으로 삽입되었습니다.");
-            }
-            else
-            {
-                MessageBox.Show("데이터 삽입에 실패했습니다.");
-            }
-
+            this.index = index;
             
+
         }
+
 
         private void textBoxHpNum_TextChanged(object sender, EventArgs e)
         {
@@ -89,6 +67,48 @@ namespace addressListApp
             {
                 comboBox.DroppedDown = true;
             }
+        }
+
+        private void btn_update_submit_Click(object sender, EventArgs e)
+        {
+            using(MySqlConnection conn = new MySqlConnection(_connectionAddress))
+            {
+                try
+                {
+                    conn.Open();
+                    string updateQuery =
+                "UPDATE employee_list " +
+                "SET emp_name = @name, gender = @gender, age = @age, home_address = @home, department = @dept" +
+                    ", rank_position = @rank, com_call_num = @com,  phone_num = @phone, mail_address = @email" +
+                "WHERE id = @index;";
+                    MySqlCommand cmd = new MySqlCommand(updateQuery, conn);
+                    cmd.Parameters.AddWithValue("@name", textBoxName.Text);
+                    cmd.Parameters.AddWithValue("@gender", comboBoxGender.Text);
+                    cmd.Parameters.AddWithValue("@age", textBoxAge.Text);
+                    cmd.Parameters.AddWithValue("@home", textBoxAddress.Text);
+                    cmd.Parameters.AddWithValue("@dept", textBoxDept.Text);
+                    cmd.Parameters.AddWithValue("@rank", textBoxPositionRank.Text);
+                    cmd.Parameters.AddWithValue("@com", textBoxComNum.Text);
+                    cmd.Parameters.AddWithValue("@phone", textBoxHpNum.Text);
+                    cmd.Parameters.AddWithValue("@email", textBoxEmail.Text);
+                    cmd.Parameters.AddWithValue("@email", textBoxEmail.Text);
+                    //cmd.Parameters.AddWithValue("@index", )
+                }
+                catch 
+                {
+
+                }
+            }
+            
+
+
+
+            //CommMysql.ExecuteNonQuery(updateQuery);
+        }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
