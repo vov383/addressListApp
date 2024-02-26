@@ -110,22 +110,20 @@ namespace addressListApp
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            //int pos = listViewAddr.SelectedItems[0].Index;
-            //int index = Convert.ToInt32(listViewAddr.Items[pos].SubItems[0].Text);
-            if (dataGridView1.SelectedRows.Count > 0)
-            {
+            if (listItem.Count > 0)
+            {   
                 //var rowIndex = dataGridView1.SelectedRows[0].Index;
                 //var row = dataGridView1.Rows[rowIndex];
 
-                var selectedRow = dataGridView1.SelectedRows[0];
+                DataGridViewRow selectedRow = dataGridView1.SelectedRows[0];
 
 
                 // 새 폼 인스턴스 생성
-                UpdateForm updateForm = new UpdateForm();
+                UpdateForm updateForm = new UpdateForm(this);
 
                 // Employee 객체 생성
                 // Employee 객체를 생성하고, DataGridView의 데이터로 속성을 설정합니다.
-
+                updateForm.setItem(listItem);
 
 
                 // 데이터 전달
@@ -225,6 +223,7 @@ namespace addressListApp
             {   
                 listItem.Add(row.Cells[i].Value.ToString()); // listItem에 row의 정보 11개 담아.     
             }
+            //MessageBox.Show(listItem.ToString());
 
         }
     }

@@ -15,19 +15,22 @@ namespace addressListApp
     public partial class UpdateForm : Form
     {
         private BindingList<object> typeList = new BindingList<object>(); // 콤보박스 키벨류 담을 객체
-        private int index;
         string _id = "root";
         string _pw = "dw#1234";
         string _database = "employee_list";
         string _server = "192.168.0.180";
         string _port = "3306";
         string _connectionAddress = "";
-        
-        public UpdateForm()
+
+        List<string> listItem = new List<string>(); // 메인 폼에서 넘겨준 값 저장하여 update폼에서 사용할 수 있도록 함
+        Form1 form1;
+
+        public UpdateForm(Form1 form1)
         {
             _connectionAddress = string.Format("SERVER={0};PORT={1};DATABASE={2};UID={3};PASSWORD={4};", _server, _port, _database, _id, _pw);
 
             InitializeComponent();
+            this.form1 = form1;
 
             typeList.Add(new { Display = "남성", Value = 1 });
             typeList.Add(new { Display = "여성", Value = 2 });
@@ -37,27 +40,7 @@ namespace addressListApp
             comboBoxGender.ValueMember = "Value";
         }
 
-        public UpdateForm(int index)
-        {
-            string selectOneQuery = "SELECT * FROM employee_list WHERE id = @index";
 
-
-
-            this.index = index;
-            
-
-        }
-
-
-        private void textBoxHpNum_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnUpdate_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void comboBoxGender_Enter(object sender, EventArgs e)
         {
@@ -75,6 +58,16 @@ namespace addressListApp
             {
                 try
                 {
+                    int gender;
+                    // DB의 gender컬럼에서 0은 여자, 이외는 남자로 변경하여 폼에서 출력
+                    if (comboBoxGender.Text == "여자")
+                    {
+                        gender = 2;
+                    }
+                    else
+                    {
+                        gender = 1;
+                    }
                     conn.Open();
                     string updateQuery =
                 "UPDATE employee_list " +
@@ -82,8 +75,9 @@ namespace addressListApp
                     ", rank_position = @rank, com_call_num = @com,  phone_num = @phone, mail_address = @email" +
                 "WHERE id = @index;";
                     MySqlCommand cmd = new MySqlCommand(updateQuery, conn);
+
                     cmd.Parameters.AddWithValue("@name", textBoxName.Text);
-                    cmd.Parameters.AddWithValue("@gender", comboBoxGender.Text);
+                    cmd.Parameters.AddWithValue("@gender", gender);
                     cmd.Parameters.AddWithValue("@age", textBoxAge.Text);
                     cmd.Parameters.AddWithValue("@home", textBoxAddress.Text);
                     cmd.Parameters.AddWithValue("@dept", textBoxDept.Text);
@@ -92,23 +86,32 @@ namespace addressListApp
                     cmd.Parameters.AddWithValue("@phone", textBoxHpNum.Text);
                     cmd.Parameters.AddWithValue("@email", textBoxEmail.Text);
                     cmd.Parameters.AddWithValue("@email", textBoxEmail.Text);
-                    //cmd.Parameters.AddWithValue("@index", )
+                    cmd.Parameters.AddWithValue("@index", listItem[0]);
+
+                    cmd.ExecuteNonQuery();
+
+                    conn.Close();
                 }
                 catch 
                 {
 
                 }
             }
-            
 
 
-
-            //CommMysql.ExecuteNonQuery(updateQuery);
         }
 
         private void btnClose_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        public void setItem(List<string> item)
+        {
+            for (int i = 0; i < item.Count; i++)
+            {
+                listItem.Add(item[i]); // 메인폼에서 데이터를 받아 listItem변수에 입력
+            }
         }
     }
 }

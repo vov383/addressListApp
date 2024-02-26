@@ -71,7 +71,6 @@
             this.textBoxHpNum.Name = "textBoxHpNum";
             this.textBoxHpNum.Size = new System.Drawing.Size(100, 21);
             this.textBoxHpNum.TabIndex = 28;
-            this.textBoxHpNum.TextChanged += new System.EventHandler(this.textBoxHpNum_TextChanged);
             // 
             // hp_label
             // 
