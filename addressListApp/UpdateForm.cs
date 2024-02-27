@@ -53,31 +53,45 @@ namespace addressListApp
         }
 
         private void btn_update_submit_Click(object sender, EventArgs e)
+        {   
+            // 입력검증 자리 
+
+            updateData(); 
+            form1.selectAll();
+
+            listItem.Clear();
+
+        }
+
+        private void updateData()
         {
-            using(MySqlConnection conn = new MySqlConnection(_connectionAddress))
+            using (MySqlConnection conn = new MySqlConnection(_connectionAddress))
             {
                 try
                 {
-                    int gender;
-                    // DB의 gender컬럼에서 0은 여자, 이외는 남자로 변경하여 폼에서 출력
-                    if (comboBoxGender.Text == "여자")
-                    {
-                        gender = 2;
-                    }
-                    else
-                    {
-                        gender = 1;
-                    }
+
+                    // DB의 gender컬럼에서 2은 여자, 이외는 남자로 변경하여 폼에서 출력
+
                     conn.Open();
-                    string updateQuery =
-                "UPDATE employee_list " +
-                "SET emp_name = @name, gender = @gender, age = @age, home_address = @home, department = @dept" +
-                    ", rank_position = @rank, com_call_num = @com,  phone_num = @phone, mail_address = @email" +
-                "WHERE id = @index;";
+                    string updateQuery = "UPDATE employee_list " +
+                                        "SET emp_name = @name" +
+                                            ", gender = @gender" +
+                                            ", age = @age" +
+                                            ", home_address = @home" +
+                                            ", department = @dept" +
+                                            ", rank_position = @rank" +
+                                            ", com_call_num = @com" +
+                                            ", phone_num = @phone" +
+                                            ", mail_address = @email " +
+                                        "WHERE id = @index;";
                     MySqlCommand cmd = new MySqlCommand(updateQuery, conn);
 
                     cmd.Parameters.AddWithValue("@name", textBoxName.Text);
+                    int gender;
+                    if (comboBoxGender.Text == "여자") gender = 2;
+                    else gender = 1;
                     cmd.Parameters.AddWithValue("@gender", gender);
+
                     cmd.Parameters.AddWithValue("@age", textBoxAge.Text);
                     cmd.Parameters.AddWithValue("@home", textBoxAddress.Text);
                     cmd.Parameters.AddWithValue("@dept", textBoxDept.Text);
@@ -85,20 +99,19 @@ namespace addressListApp
                     cmd.Parameters.AddWithValue("@com", textBoxComNum.Text);
                     cmd.Parameters.AddWithValue("@phone", textBoxHpNum.Text);
                     cmd.Parameters.AddWithValue("@email", textBoxEmail.Text);
-                    cmd.Parameters.AddWithValue("@email", textBoxEmail.Text);
                     cmd.Parameters.AddWithValue("@index", listItem[0]);
-
+                    
                     cmd.ExecuteNonQuery();
 
                     conn.Close();
+                    this.Close();
+                    MessageBox.Show($"{textBoxName.Text} 사원을 수정하였습니다.");
                 }
-                catch 
+                catch(Exception exc)
                 {
-
+                    MessageBox.Show(exc.Message);
                 }
             }
-
-
         }
 
         private void btnClose_Click(object sender, EventArgs e)
@@ -111,6 +124,36 @@ namespace addressListApp
             for (int i = 0; i < item.Count; i++)
             {
                 listItem.Add(item[i]); // 메인폼에서 데이터를 받아 listItem변수에 입력
+            }
+        }
+
+        private void UpdateForm_Load(object sender, EventArgs e)
+        {
+            try
+            {
+                // id를 제외하고 텍스트박스 및 콤보박스에 정보 등록
+
+                textBoxName.Text = listItem[1];
+                int gender = 0;
+                if(listItem[2] == "2")
+                {
+                    comboBoxGender.Text = "여자";
+                } else
+                {
+                    comboBoxGender.Text = "남자";
+
+                }
+                textBoxAge.Text = listItem[3];
+                textBoxAddress.Text = listItem[4];
+                textBoxDept.Text = listItem[6];
+                textBoxPositionRank.Text = listItem[7];
+                textBoxComNum.Text = listItem[8];
+                textBoxHpNum.Text = listItem[9];
+                textBoxEmail.Text = listItem[10];
+            }
+            catch
+            {
+                MessageBox.Show("데이터 선택이 되지 않았습니다.");
             }
         }
     }

@@ -30,8 +30,9 @@ namespace addressListApp
         string _pw = "dw#1234";
         string _database = "employee_list";
         string _server = "192.168.0.180";
-        string _connectionAddress = "";
         string _port = "3306";
+
+        string _connectionAddress = "";
 
         public List<string> listItem = new List<string>();
 
@@ -45,7 +46,7 @@ namespace addressListApp
 
         }
 
-        private void selectAll()
+        public void selectAll()
         {
             
             // 전체 데이터를 조회합니다.          
@@ -58,7 +59,6 @@ namespace addressListApp
 
             updateColumnHeaderText();
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill; // 
-
 
 
         }
@@ -80,43 +80,26 @@ namespace addressListApp
         }
 
 
-
-
-        private void winFormApp_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void btnSearch_Click(object sender, EventArgs e)
         {
             selectAll();
         }
-
-
         
 
         private void btnInsert_Click(object sender, EventArgs e)
         {
 
-            InsertForm newForm = new InsertForm(); // 직원 등록 폼 생성.
+            InsertForm newForm = new InsertForm(this); // 직원 등록 폼 생성.
             newForm.ShowDialog(); // newForm.ShowDialog(); // 모달 방식으로 새 폼을 띄우려면 이 코드를 사용하세요.
             
-            selectAll();
-
+            listItem.Clear();
 
         }
-
-
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
             if (listItem.Count > 0)
             {   
-                //var rowIndex = dataGridView1.SelectedRows[0].Index;
-                //var row = dataGridView1.Rows[rowIndex];
-
-                DataGridViewRow selectedRow = dataGridView1.SelectedRows[0];
-
 
                 // 새 폼 인스턴스 생성
                 UpdateForm updateForm = new UpdateForm(this);
@@ -125,37 +108,42 @@ namespace addressListApp
                 // Employee 객체를 생성하고, DataGridView의 데이터로 속성을 설정합니다.
                 updateForm.setItem(listItem);
 
-
-                // 데이터 전달
-
                 // 새 폼 표시
                 updateForm.ShowDialog();
             } else
             {
-                MessageBox.Show("로우 선택좀");
+                MessageBox.Show("사원을 선택하세요.");
             }
 
-            selectAll();
-
-
-
-            ////Age 입력검증
-            //if (!int.TryParse(textBoxAge.Text, out int age))
-            //{
-            //    MessageBox.Show("나이 항목에 숫자를 입력해주세요.", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //    return;
-            //}
-            
+            listItem.Clear();
 
         }
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (listItem[0] != null)
+                {
+                    DelForm delForm = new DelForm(this);
+                    delForm.SetItem(listItem);
+                    delForm.ShowDialog();
+                }
 
+                listItem.Clear();
+            }
+            catch
+            {
+                MessageBox.Show("하나의 사원을 클릭하세요");
+            }
+
+        }
 
         private void pictureBoxLogo_Click(object sender, EventArgs e)
         {
 
         }
 
-        // gender 컬럼 표시 변경.
+        // gender 컬럼 데이터 남자, 여자로 변경.
         private void dataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             if (dataGridView1.Columns[e.ColumnIndex].Name == "gender" && e.Value != null)
@@ -174,43 +162,7 @@ namespace addressListApp
             }
         }
 
-        private void btnDelete_Click(object sender, EventArgs e)
-        {
-            
-
-            DialogResult result = MessageBox.Show("해당 직원의 데이터를 삭제하시겠습니까?", "작업확인", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
-
-            if (result == DialogResult.Yes)
-            {
-                int id = 0;
-                using (MySqlConnection conn = new MySqlConnection(_connectionAddress))
-                {
-
-                    try
-                    {
-                        conn.Open();
-                        string delQuery = "DELETE FROM employee_list WHERE id = @id;";
-                        MySqlCommand cmd = new MySqlCommand(delQuery, conn);
-                        cmd.Parameters.AddWithValue("@id", listItem[0]);
-
-                        conn.Close();
-                    }
-                    catch (Exception exc)
-                    {
-                        MessageBox.Show(exc.Message);
-                    }
-                }
-                MessageBox.Show("데이터가 삭제되었습니다.");
-            } else
-            {
-                MessageBox.Show("데이터가 삭제되지 않았습니다.");
-            }
-
-            
-
-            
-            
-        }
+        
 
         private void dataGridView1_Click(object sender, EventArgs e)
         {
@@ -218,13 +170,42 @@ namespace addressListApp
             {
                 listItem.Clear();
             }
-            DataGridViewRow row = dataGridView1.SelectedRows[0];
-            for (int i = 0; i < row.Cells.Count; i++)
+            DataGridViewRow row = new DataGridViewRow();
+
+            for (int i = 0; i < dataGridView1.SelectedRows.Count; i++)
             {   
-                listItem.Add(row.Cells[i].Value.ToString()); // listItem에 row의 정보 11개 담아.     
+                row = dataGridView1.SelectedRows[i];
+
+                for (int j = 0; j < row.Cells.Count; j++)
+                {
+                    listItem.Add(row.Cells[j].Value.ToString()); // listItem에 SelectedRows의 데이터 (11 * n)개 담아 
+                }
             }
-            //MessageBox.Show(listItem.ToString());
 
         }
+
+        public void deleteData()
+        {   
+            using(MySqlConnection conn = new MySqlConnection(_connectionAddress))
+            {
+                try
+                {   
+                    string deleteQuery = "DELETE FROM employee_list " +
+                                        "WHERE id = @id";
+                    MySqlCommand cmd = new MySqlCommand(deleteQuery, conn);
+                    cmd.Parameters.AddWithValue("@id", listItem[0]);
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                    conn.Close();
+                }
+                catch (Exception exc)
+                {
+                    MessageBox.Show(exc.Message);
+                }
+            }
+
+
+        }
+
     }
 }

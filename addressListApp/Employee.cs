@@ -27,7 +27,7 @@ namespace addressListApp
         public Employee(string emp_name, string gender, int age, string home_address,
                         string join_date, string department, string rank_position,
                         string com_call_num, string phone_num, string mail_address)
-        {
+        {   
             this.emp_name = emp_name;
             this.gender = gender;
             this.age = age;

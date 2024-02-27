@@ -259,8 +259,10 @@
             this.Controls.Add(this.textBoxName);
             this.Controls.Add(this.name_label);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "UpdateForm";
             this.Text = "직원 정보 수정";
+            this.Load += new System.EventHandler(this.UpdateForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -19,16 +19,17 @@ namespace addressListApp
         string _database = "employee_list";
         string _server = "192.168.0.180";
         string _port = "3306";
+        
         string _connectionAddress = "";
 
+        Form1 form1;
         private BindingList<object> typeList = new BindingList<object>(); // 콤보박스 키벨류 담을 객체
-        //private int index;
 
-        public InsertForm()
+        public InsertForm(Form1 form1)
         {
             this.MaximizeBox = false; // 폼 최대화 기능 off
             InitializeComponent();
-
+            this.form1 = form1;
             _connectionAddress = string.Format("server={0};Database={1};Uid={2};Pwd={3};", "192.168.0.180", "employee_list", "root", "dw#1234");
 
             typeList.Add(new { Display = "남성", Value = 1 });
@@ -51,26 +52,48 @@ namespace addressListApp
 
 
         private void btnInsertSubmit_Click (object sender, EventArgs e)
+        {   
+            insertData();
+            form1.selectAll();
+
+        }
+
+        private void insertData()
         {
             int gender;
             string insertQuery = "INSERT INTO employee_list (" +
-                            "emp_name, gender, age, home_address, department, rank_position" +
-                            ", com_call_num, phone_num, mail_address, join_date) " +
-                        "VALUES (" +
-                            "@name, @gender, @age, @address, @dept, @rank, @com, @phone, @email, NOW());";
-            using(MySqlConnection mySqlConn = new MySqlConnection(_connectionAddress))
+                                        "emp_name, gender, age" +
+                                        ", home_address" +
+                                        ", department" +
+                                        ", rank_position" +
+                                        ", com_call_num" +
+                                        ", phone_num" +
+                                        ", mail_address" +
+                                        ", join_date) " +
+                                "VALUES (" +
+                                        "@name" +
+                                        ", @gender" +
+                                        ", @age" +
+                                        ", @address" +
+                                        ", @dept" +
+                                        ", @rank" +
+                                        ", @com" +
+                                        ", @phone" +
+                                        ", @email" +
+                                        ", NOW());";
+            using (MySqlConnection mySqlConn = new MySqlConnection(_connectionAddress))
             {
-
                 try
                 {
                     mySqlConn.Open();
 
                     MySqlCommand cmd = new MySqlCommand(insertQuery, mySqlConn);
                     cmd.Parameters.AddWithValue("@name", textBoxName.Text);
-                    if(comboBoxGender.Text == "남자")
+                    if (comboBoxGender.Text == "남자")
                     {
                         gender = 1;
-                    } else
+                    }
+                    else
                     {
                         gender = 2;
                     }
@@ -86,7 +109,7 @@ namespace addressListApp
                     cmd.ExecuteNonQuery();
 
                     MessageBox.Show($"{textBoxName.Text} 사원을 추가하였습니다.");
-                    
+
                     mySqlConn.Close();
                     this.Close();
                 }
