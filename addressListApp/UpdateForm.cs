@@ -32,8 +32,8 @@ namespace addressListApp
             InitializeComponent();
             this.form1 = form1;
 
-            typeList.Add(new { Display = "남성", Value = 1 });
-            typeList.Add(new { Display = "여성", Value = 2 });
+            typeList.Add(new { Display = "남자", Value = 1 });
+            typeList.Add(new { Display = "여자", Value = 2 });
 
             comboBoxGender.DataSource = typeList;
             comboBoxGender.DisplayMember = "Display";
@@ -87,8 +87,9 @@ namespace addressListApp
 
                     cmd.Parameters.AddWithValue("@name", textBoxName.Text);
                     int gender;
-                    if (comboBoxGender.Text == "여자") gender = 2;
-                    else gender = 1;
+                    if (comboBoxGender.Text == "여자") { gender = 2; }
+                    else { gender = 1; }
+                    
                     cmd.Parameters.AddWithValue("@gender", gender);
 
                     cmd.Parameters.AddWithValue("@age", textBoxAge.Text);

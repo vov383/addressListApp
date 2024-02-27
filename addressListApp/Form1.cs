@@ -51,7 +51,6 @@ namespace addressListApp
             
             // 전체 데이터를 조회합니다.          
             string selectQuery = string.Format("SELECT * FROM employee_list");
-            string gender = "";
 
             DataSet ds = CmdMysql.ExecuteDataSet(selectQuery);
             DataTable dt = ds.Tables[0]; 
@@ -165,12 +164,16 @@ namespace addressListApp
                 switch (e.Value.ToString())
                 {
                     case "1":
-                        e.Value = "남자";
-                        e.FormattingApplied = true;
+                        {
+                            e.Value = "남자";
+                            e.FormattingApplied = true;
+                        }
                         break;
                     case "2":
-                        e.Value = "여자";
-                        e.FormattingApplied = true;
+                        {
+                            e.Value = "여자";
+                            e.FormattingApplied = true;
+                        }
                         break;
                 }
             }
@@ -180,6 +183,7 @@ namespace addressListApp
 
         private void dataGridView1_Click(object sender, EventArgs e)
         {
+            // 이전에 클릭한 사원 정보 클리어
             if(listItem.Count != 0)
             {
                 listItem.Clear();

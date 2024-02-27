@@ -50,6 +50,10 @@
             this.label_email = new System.Windows.Forms.Label();
             this.pictureBoxLogo = new System.Windows.Forms.PictureBox();
             this.btnClose = new System.Windows.Forms.Button();
+            this.deptLabel = new System.Windows.Forms.Label();
+            this.deptCBox = new System.Windows.Forms.ComboBox();
+            this.rankLabel = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).BeginInit();
             this.SuspendLayout();
             // 
@@ -99,7 +103,7 @@
             // 
             // textBoxPositionRank
             // 
-            this.textBoxPositionRank.Location = new System.Drawing.Point(60, 144);
+            this.textBoxPositionRank.Location = new System.Drawing.Point(60, 168);
             this.textBoxPositionRank.Name = "textBoxPositionRank";
             this.textBoxPositionRank.Size = new System.Drawing.Size(100, 21);
             this.textBoxPositionRank.TabIndex = 21;
@@ -107,7 +111,7 @@
             // label_rank
             // 
             this.label_rank.AutoSize = true;
-            this.label_rank.Location = new System.Drawing.Point(21, 150);
+            this.label_rank.Location = new System.Drawing.Point(21, 174);
             this.label_rank.Name = "label_rank";
             this.label_rank.Size = new System.Drawing.Size(29, 12);
             this.label_rank.TabIndex = 22;
@@ -198,7 +202,7 @@
             // 
             // textBoxEmail
             // 
-            this.textBoxEmail.Location = new System.Drawing.Point(60, 177);
+            this.textBoxEmail.Location = new System.Drawing.Point(237, 191);
             this.textBoxEmail.Name = "textBoxEmail";
             this.textBoxEmail.Size = new System.Drawing.Size(100, 21);
             this.textBoxEmail.TabIndex = 32;
@@ -206,7 +210,7 @@
             // label_email
             // 
             this.label_email.AutoSize = true;
-            this.label_email.Location = new System.Drawing.Point(13, 182);
+            this.label_email.Location = new System.Drawing.Point(190, 196);
             this.label_email.Name = "label_email";
             this.label_email.Size = new System.Drawing.Size(41, 12);
             this.label_email.TabIndex = 31;
@@ -232,11 +236,49 @@
             this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
+            // deptLabel
+            // 
+            this.deptLabel.AutoSize = true;
+            this.deptLabel.Location = new System.Drawing.Point(21, 144);
+            this.deptLabel.Name = "deptLabel";
+            this.deptLabel.Size = new System.Drawing.Size(35, 12);
+            this.deptLabel.TabIndex = 33;
+            this.deptLabel.Text = "부서2";
+            // 
+            // deptCBox
+            // 
+            this.deptCBox.FormattingEnabled = true;
+            this.deptCBox.Location = new System.Drawing.Point(60, 140);
+            this.deptCBox.Name = "deptCBox";
+            this.deptCBox.Size = new System.Drawing.Size(100, 20);
+            this.deptCBox.TabIndex = 34;
+            // 
+            // rankLabel
+            // 
+            this.rankLabel.AutoSize = true;
+            this.rankLabel.Location = new System.Drawing.Point(19, 204);
+            this.rankLabel.Name = "rankLabel";
+            this.rankLabel.Size = new System.Drawing.Size(35, 12);
+            this.rankLabel.TabIndex = 35;
+            this.rankLabel.Text = "직책2";
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(60, 201);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(100, 20);
+            this.comboBox1.TabIndex = 36;
+            // 
             // InsertForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(370, 328);
+            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.rankLabel);
+            this.Controls.Add(this.deptCBox);
+            this.Controls.Add(this.deptLabel);
             this.Controls.Add(this.textBoxEmail);
             this.Controls.Add(this.label_email);
             this.Controls.Add(this.btnClose);
@@ -262,6 +304,7 @@
             this.Location = new System.Drawing.Point(100, 0);
             this.Name = "InsertForm";
             this.Text = "직원 추가";
+            this.Load += new System.EventHandler(this.InsertForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -290,5 +333,9 @@
         private System.Windows.Forms.Label label_email;
         private System.Windows.Forms.PictureBox pictureBoxLogo;
         private System.Windows.Forms.Button btnClose;
+        private System.Windows.Forms.Label deptLabel;
+        private System.Windows.Forms.ComboBox deptCBox;
+        private System.Windows.Forms.Label rankLabel;
+        private System.Windows.Forms.ComboBox comboBox1;
     }
 }

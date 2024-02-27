@@ -38,8 +38,8 @@
             this.btn_DelConfirm.Location = new System.Drawing.Point(77, 122);
             this.btn_DelConfirm.Name = "btn_DelConfirm";
             this.btn_DelConfirm.Size = new System.Drawing.Size(75, 23);
-            this.btn_DelConfirm.TabIndex = 0;
-            this.btn_DelConfirm.Text = "예(Yes)";
+            this.btn_DelConfirm.TabIndex = 1;
+            this.btn_DelConfirm.Text = "예(Y)";
             this.btn_DelConfirm.UseVisualStyleBackColor = true;
             this.btn_DelConfirm.Click += new System.EventHandler(this.btn_DelConfirm_Click);
             // 
@@ -48,8 +48,8 @@
             this.btn_DelCancel.Location = new System.Drawing.Point(193, 122);
             this.btn_DelCancel.Name = "btn_DelCancel";
             this.btn_DelCancel.Size = new System.Drawing.Size(75, 23);
-            this.btn_DelCancel.TabIndex = 1;
-            this.btn_DelCancel.Text = "아니오(No)";
+            this.btn_DelCancel.TabIndex = 2;
+            this.btn_DelCancel.Text = "아니오(N)";
             this.btn_DelCancel.UseVisualStyleBackColor = true;
             this.btn_DelCancel.Click += new System.EventHandler(this.btn_DelCancel_Click);
             // 
@@ -60,7 +60,7 @@
             this.msg_label.Location = new System.Drawing.Point(74, 42);
             this.msg_label.Name = "msg_label";
             this.msg_label.Size = new System.Drawing.Size(48, 16);
-            this.msg_label.TabIndex = 2;
+            this.msg_label.TabIndex = 0;
             this.msg_label.Text = "label1";
             // 
             // DelForm
@@ -76,6 +76,7 @@
             this.Name = "DelForm";
             this.Text = "Form2";
             this.Load += new System.EventHandler(this.DelForm_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.DelForm_KeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();
 

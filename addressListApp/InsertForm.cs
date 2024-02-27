@@ -40,6 +40,24 @@ namespace addressListApp
             comboBoxGender.ValueMember = "Value";
         }
 
+        private List<string> cBoxList(string item)
+        {
+            using (MySqlConnection conn = new MySqlConnection(_connectionAddress))
+            {
+                string queryStr = "SELECT DISTINCT @item FROM employee_list";
+                conn.Open();
+                MySqlDataAdapter adapter = new MySqlDataAdapter(queryStr, conn);
+
+                DataSet ds = new DataSet();
+                adapter.Fill(ds, "employee_list");
+
+                List<string> strings = new List<string>();
+
+
+            }
+                return null;
+        }
+
         private void comboBoxGender_Enter(object sender, EventArgs e)
         {
             ComboBox comboBox = sender as ComboBox;
@@ -132,6 +150,13 @@ namespace addressListApp
         private void btnClose_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void InsertForm_Load(object sender, EventArgs e)
+        {
+            List<string> itemList = new List<string>() { "deptList", "rankList" };
+
+            string[] deptListItem = itemList[0].ToArray();
         }
     }
 }
