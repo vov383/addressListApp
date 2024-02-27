@@ -32,8 +32,8 @@ namespace addressListApp
             this.form1 = form1;
             _connectionAddress = string.Format("server={0};Database={1};Uid={2};Pwd={3};", "192.168.0.180", "employee_list", "root", "dw#1234");
 
-            typeList.Add(new { Display = "남성", Value = 1 });
-            typeList.Add(new { Display = "여성", Value = 2 });
+            typeList.Add(new { Display = "남자", Value = 1 });
+            typeList.Add(new { Display = "여자", Value = 2 });
 
             comboBoxGender.DataSource = typeList;
             comboBoxGender.DisplayMember = "Display";
@@ -55,7 +55,7 @@ namespace addressListApp
         {   
             insertData();
             form1.selectAll();
-
+            form1.selectUpdatedRow(textBoxName.Text);
         }
 
         private void insertData()

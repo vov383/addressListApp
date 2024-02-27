@@ -41,7 +41,6 @@ namespace addressListApp
         }
 
 
-
         private void comboBoxGender_Enter(object sender, EventArgs e)
         {
             ComboBox comboBox = sender as ComboBox;
@@ -56,9 +55,9 @@ namespace addressListApp
         {   
             // 입력검증 자리 
 
-            updateData(); 
+            updateData();
             form1.selectAll();
-
+            form1.selectUpdatedRow(textBoxName.Text); // 수정한 사원 선택 
             listItem.Clear();
 
         }
@@ -104,8 +103,9 @@ namespace addressListApp
                     cmd.ExecuteNonQuery();
 
                     conn.Close();
-                    this.Close();
+                    
                     MessageBox.Show($"{textBoxName.Text} 사원을 수정하였습니다.");
+                    this.Close();
                 }
                 catch(Exception exc)
                 {

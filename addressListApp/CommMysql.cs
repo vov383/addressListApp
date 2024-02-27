@@ -10,7 +10,7 @@ using MySql.Data.MySqlClient;
 
 namespace Dawool
 {
-    class CommMysql
+    class CmdMysql
     {
         private static string ConnectionString()
         {

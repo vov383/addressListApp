@@ -57,7 +57,7 @@
             // 
             this.msg_label.AutoSize = true;
             this.msg_label.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.msg_label.Location = new System.Drawing.Point(21, 47);
+            this.msg_label.Location = new System.Drawing.Point(74, 42);
             this.msg_label.Name = "msg_label";
             this.msg_label.Size = new System.Drawing.Size(48, 16);
             this.msg_label.TabIndex = 2;

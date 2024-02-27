@@ -53,7 +53,7 @@ namespace addressListApp
             string selectQuery = string.Format("SELECT * FROM employee_list");
             string gender = "";
 
-            DataSet ds = CommMysql.ExecuteDataSet(selectQuery);
+            DataSet ds = CmdMysql.ExecuteDataSet(selectQuery);
             DataTable dt = ds.Tables[0]; 
             dataGridView1.DataSource = dt;
 
@@ -89,12 +89,26 @@ namespace addressListApp
         private void btnInsert_Click(object sender, EventArgs e)
         {
 
-            InsertForm newForm = new InsertForm(this); // 직원 등록 폼 생성.
-            newForm.ShowDialog(); // newForm.ShowDialog(); // 모달 방식으로 새 폼을 띄우려면 이 코드를 사용하세요.
+            InsertForm insertForm = new InsertForm(this); // 직원 등록 폼 생성.
+            insertForm.ShowDialog(); // newForm.ShowDialog(); // 모달 방식으로 새 폼을 띄우려면 이 코드를 사용하세요.
             
             listItem.Clear();
 
         }
+
+        public void selectUpdatedRow(string emp_name)
+        {
+            foreach (DataGridViewRow row in dataGridView1.Rows) 
+            {
+                if ((string)row.Cells["emp_name"].Value == emp_name)
+                {
+                    dataGridView1.ClearSelection();
+                    row.Selected = true;
+                    dataGridView1.FirstDisplayedScrollingRowIndex = row.Index;
+                    break;
+                }
+            }
+        }   
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
