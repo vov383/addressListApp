@@ -35,7 +35,7 @@
             // 
             // btn_DelConfirm
             // 
-            this.btn_DelConfirm.Location = new System.Drawing.Point(77, 122);
+            this.btn_DelConfirm.Location = new System.Drawing.Point(75, 90);
             this.btn_DelConfirm.Name = "btn_DelConfirm";
             this.btn_DelConfirm.Size = new System.Drawing.Size(75, 23);
             this.btn_DelConfirm.TabIndex = 1;
@@ -45,7 +45,7 @@
             // 
             // btn_DelCancel
             // 
-            this.btn_DelCancel.Location = new System.Drawing.Point(193, 122);
+            this.btn_DelCancel.Location = new System.Drawing.Point(191, 90);
             this.btn_DelCancel.Name = "btn_DelCancel";
             this.btn_DelCancel.Size = new System.Drawing.Size(75, 23);
             this.btn_DelCancel.TabIndex = 2;
@@ -67,7 +67,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(354, 168);
+            this.ClientSize = new System.Drawing.Size(331, 137);
             this.Controls.Add(this.msg_label);
             this.Controls.Add(this.btn_DelCancel);
             this.Controls.Add(this.btn_DelConfirm);

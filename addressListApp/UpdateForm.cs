@@ -43,6 +43,12 @@ namespace addressListApp
 
         private void comboBoxGender_Enter(object sender, EventArgs e)
         {
+            toDroppedDownTrue(sender);
+        }
+
+        // 콤보박스 입장하면 드롭다운
+        private static void toDroppedDownTrue(object sender)
+        {
             ComboBox comboBox = sender as ComboBox;
 
             if (comboBox != null)
@@ -94,8 +100,8 @@ namespace addressListApp
 
                     cmd.Parameters.AddWithValue("@age", textBoxAge.Text);
                     cmd.Parameters.AddWithValue("@home", textBoxAddress.Text);
-                    cmd.Parameters.AddWithValue("@dept", textBoxDept.Text);
-                    cmd.Parameters.AddWithValue("@rank", textBoxPositionRank.Text);
+                    cmd.Parameters.AddWithValue("@dept", cboxDept.Text);
+                    cmd.Parameters.AddWithValue("@rank", cboxRank.Text);
                     cmd.Parameters.AddWithValue("@com", textBoxComNum.Text);
                     cmd.Parameters.AddWithValue("@phone", textBoxHpNum.Text);
                     cmd.Parameters.AddWithValue("@email", textBoxEmail.Text);
@@ -107,6 +113,7 @@ namespace addressListApp
                     
                     MessageBox.Show($"{textBoxName.Text} 사원을 수정하였습니다.");
                     this.Close();
+                    form1.selectUpdatedRow(textBoxName.Text);
                 }
                 catch(Exception exc)
                 {
@@ -146,8 +153,8 @@ namespace addressListApp
                 }
                 textBoxAge.Text = listItem[3];
                 textBoxAddress.Text = listItem[4];
-                textBoxDept.Text = listItem[6];
-                textBoxPositionRank.Text = listItem[7];
+                cboxDept.Text = listItem[6];
+                cboxRank.Text = listItem[7];
                 textBoxComNum.Text = listItem[8];
                 textBoxHpNum.Text = listItem[9];
                 textBoxEmail.Text = listItem[10];
@@ -156,6 +163,16 @@ namespace addressListApp
             {
                 MessageBox.Show("데이터 선택이 되지 않았습니다.");
             }
+        }
+
+        private void cboxDept_Enter(object sender, EventArgs e)
+        {
+            toDroppedDownTrue(sender);
+        }
+
+        private void cboxRank_Enter(object sender, EventArgs e)
+        {
+            toDroppedDownTrue(sender);
         }
     }
 }

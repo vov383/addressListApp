@@ -34,9 +34,7 @@
             this.hp_label = new System.Windows.Forms.Label();
             this.textBoxComNum = new System.Windows.Forms.TextBox();
             this.com_num_label = new System.Windows.Forms.Label();
-            this.textBoxPositionRank = new System.Windows.Forms.TextBox();
             this.position_label = new System.Windows.Forms.Label();
-            this.textBoxDept = new System.Windows.Forms.TextBox();
             this.age_label = new System.Windows.Forms.Label();
             this.department_label = new System.Windows.Forms.Label();
             this.textBoxAge = new System.Windows.Forms.TextBox();
@@ -50,6 +48,8 @@
             this.pictureBoxLogo = new System.Windows.Forms.PictureBox();
             this.btn_update_submit = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
+            this.cboxRank = new System.Windows.Forms.ComboBox();
+            this.cboxDept = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).BeginInit();
             this.SuspendLayout();
             // 
@@ -97,13 +97,6 @@
             this.com_num_label.TabIndex = 20;
             this.com_num_label.Text = "회사번호";
             // 
-            // textBoxPositionRank
-            // 
-            this.textBoxPositionRank.Location = new System.Drawing.Point(60, 144);
-            this.textBoxPositionRank.Name = "textBoxPositionRank";
-            this.textBoxPositionRank.Size = new System.Drawing.Size(100, 21);
-            this.textBoxPositionRank.TabIndex = 21;
-            // 
             // position_label
             // 
             this.position_label.AutoSize = true;
@@ -112,13 +105,6 @@
             this.position_label.Size = new System.Drawing.Size(29, 12);
             this.position_label.TabIndex = 22;
             this.position_label.Text = "직책";
-            // 
-            // textBoxDept
-            // 
-            this.textBoxDept.Location = new System.Drawing.Point(60, 113);
-            this.textBoxDept.Name = "textBoxDept";
-            this.textBoxDept.Size = new System.Drawing.Size(100, 21);
-            this.textBoxDept.TabIndex = 18;
             // 
             // age_label
             // 
@@ -232,11 +218,31 @@
             this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
+            // cboxRank
+            // 
+            this.cboxRank.FormattingEnabled = true;
+            this.cboxRank.Location = new System.Drawing.Point(60, 145);
+            this.cboxRank.Name = "cboxRank";
+            this.cboxRank.Size = new System.Drawing.Size(100, 20);
+            this.cboxRank.TabIndex = 38;
+            this.cboxRank.Enter += new System.EventHandler(this.cboxRank_Enter);
+            // 
+            // cboxDept
+            // 
+            this.cboxDept.FormattingEnabled = true;
+            this.cboxDept.Location = new System.Drawing.Point(60, 113);
+            this.cboxDept.Name = "cboxDept";
+            this.cboxDept.Size = new System.Drawing.Size(100, 20);
+            this.cboxDept.TabIndex = 37;
+            this.cboxDept.Enter += new System.EventHandler(this.cboxDept_Enter);
+            // 
             // UpdateForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(370, 328);
+            this.Controls.Add(this.cboxRank);
+            this.Controls.Add(this.cboxDept);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.btn_update_submit);
             this.Controls.Add(this.pictureBoxLogo);
@@ -247,9 +253,7 @@
             this.Controls.Add(this.hp_label);
             this.Controls.Add(this.textBoxComNum);
             this.Controls.Add(this.com_num_label);
-            this.Controls.Add(this.textBoxPositionRank);
             this.Controls.Add(this.position_label);
-            this.Controls.Add(this.textBoxDept);
             this.Controls.Add(this.age_label);
             this.Controls.Add(this.department_label);
             this.Controls.Add(this.textBoxAge);
@@ -275,9 +279,7 @@
         private System.Windows.Forms.Label hp_label;
         private System.Windows.Forms.TextBox textBoxComNum;
         private System.Windows.Forms.Label com_num_label;
-        private System.Windows.Forms.TextBox textBoxPositionRank;
         private System.Windows.Forms.Label position_label;
-        private System.Windows.Forms.TextBox textBoxDept;
         private System.Windows.Forms.Label age_label;
         private System.Windows.Forms.Label department_label;
         private System.Windows.Forms.TextBox textBoxAge;
@@ -291,5 +293,7 @@
         private System.Windows.Forms.PictureBox pictureBoxLogo;
         private System.Windows.Forms.Button btn_update_submit;
         private System.Windows.Forms.Button btnClose;
+        private System.Windows.Forms.ComboBox cboxRank;
+        private System.Windows.Forms.ComboBox cboxDept;
     }
 }

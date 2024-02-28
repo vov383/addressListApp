@@ -14,6 +14,7 @@ using System.Reflection;
 using System.Runtime.Remoting.Messaging;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Dawool;
@@ -50,7 +51,7 @@ namespace addressListApp
         {
             
             // 전체 데이터를 조회합니다.          
-            string selectQuery = string.Format("SELECT * FROM employee_list");
+            string selectQuery = string.Format("SELECT * FROM employee_list ORDER BY emp_name");
 
             DataSet ds = CmdMysql.ExecuteDataSet(selectQuery);
             DataTable dt = ds.Tables[0]; 
@@ -58,7 +59,10 @@ namespace addressListApp
 
             updateColumnHeaderText();
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill; // 
-
+            //dataGridView1.Columns["gender"].Width = 100;
+            //dataGridView1.Columns["age"].Width = 100;
+            dataGridView1.Columns["department"].DisplayIndex = 2;
+            dataGridView1.Columns["rank_position"].DisplayIndex = 2;
 
         }
 
@@ -68,14 +72,31 @@ namespace addressListApp
             dataGridView1.Columns["emp_name"].HeaderText = "이름";
             dataGridView1.Columns["gender"].HeaderText = "성별";
             dataGridView1.Columns["age"].HeaderText = "나이";
-            dataGridView1.Columns["home_address"].HeaderText = "주소";
             dataGridView1.Columns["department"].HeaderText = "부서";
             dataGridView1.Columns["rank_position"].HeaderText = "직책";
+            dataGridView1.Columns["home_address"].HeaderText = "주소";
             dataGridView1.Columns["com_call_num"].HeaderText = "회사번호";
             dataGridView1.Columns["phone_num"].HeaderText = "개인번호";
             dataGridView1.Columns["mail_address"].HeaderText = "이메일";
             dataGridView1.Columns["join_date"].HeaderText = "입사일";
 
+        }
+
+        public static bool IsValidAge(string age)
+        {   
+            bool valid = Regex.IsMatch(age, @"[0-9]");
+            return valid;
+        }
+        public static bool IsValidEmail(string email)
+        {
+            bool valid = Regex.IsMatch(email, @"[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?"); // 이메일 정규식
+            return valid;
+        }
+
+        public static bool IsValidTelNum(string telNum)
+        {
+            bool valid = Regex.IsMatch(telNum, @""); // 이메일 정규식
+            return valid;
         }
 
 
@@ -107,7 +128,8 @@ namespace addressListApp
                     break;
                 }
             }
-        }   
+        }
+
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
@@ -178,8 +200,6 @@ namespace addressListApp
             }
         }
 
-        
-
         private void dataGridView1_Click(object sender, EventArgs e)
         {
             // 이전에 클릭한 사원 정보 클리어
@@ -224,5 +244,10 @@ namespace addressListApp
 
         }
 
+        // 종료 버튼
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

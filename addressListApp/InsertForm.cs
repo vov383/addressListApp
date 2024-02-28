@@ -36,9 +36,9 @@ namespace addressListApp
             typeList.Add(new { Display = "남자", Value = 1 });
             typeList.Add(new { Display = "여자", Value = 2 });
 
-            comboBoxGender.DataSource = typeList;
-            comboBoxGender.DisplayMember = "Display";
-            comboBoxGender.ValueMember = "Value";
+            cboxGender.DataSource = typeList;
+            cboxGender.DisplayMember = "Display";
+            cboxGender.ValueMember = "Value";
         }
 
         private List<string> getCboxItems(string item)
@@ -69,12 +69,7 @@ namespace addressListApp
         // 콤보박스 항목 들어가면 드롭다운
         private void comboBoxGender_Enter(object sender, EventArgs e)
         {
-            ComboBox comboBox = sender as ComboBox;
-
-            if (comboBox != null)
-            {
-                comboBox.DroppedDown = true;
-            }
+            toDroppedDownTrue(sender);
         }
 
 
@@ -82,7 +77,7 @@ namespace addressListApp
         {   
             insertData();
             form1.selectAll();
-            form1.selectUpdatedRow(textBoxName.Text);
+            form1.selectUpdatedRow(tboxName.Text);
         }
 
         private void insertData()
@@ -115,8 +110,8 @@ namespace addressListApp
                     mySqlConn.Open();
 
                     MySqlCommand cmd = new MySqlCommand(insertQuery, mySqlConn);
-                    cmd.Parameters.AddWithValue("@name", textBoxName.Text);
-                    if (comboBoxGender.Text == "남자")
+                    cmd.Parameters.AddWithValue("@name", tboxName.Text);
+                    if (cboxGender.Text == "남자")
                     {
                         gender = 1;
                     }
@@ -125,32 +120,34 @@ namespace addressListApp
                         gender = 2;
                     }
                     cmd.Parameters.AddWithValue("@gender", gender);
-                    cmd.Parameters.AddWithValue("@age", textBoxAge.Text);
-                    cmd.Parameters.AddWithValue("@address", textBoxAddress.Text);
+                    cmd.Parameters.AddWithValue("@age", tboxAge.Text);
+                    cmd.Parameters.AddWithValue("@address", tboxAddress.Text);
                     cmd.Parameters.AddWithValue("@dept", cboxDept.Text);
                     cmd.Parameters.AddWithValue("@rank", cboxRank.Text);
-                    cmd.Parameters.AddWithValue("@com", textBoxComNum.Text);
-                    cmd.Parameters.AddWithValue("@phone", textBoxHpNum.Text);
-                    cmd.Parameters.AddWithValue("@email", textBoxEmail.Text);
+                    cmd.Parameters.AddWithValue("@com", tboxComNum.Text);
+                    cmd.Parameters.AddWithValue("@phone", tboxHpNum.Text);
+                    cmd.Parameters.AddWithValue("@email", tboxEmail1.Text + "@" + tboxEmail2.Text);
 
                     cmd.ExecuteNonQuery();
 
-                    MessageBox.Show($"{textBoxName.Text} 사원을 추가하였습니다.");
+                    MessageBox.Show($"{tboxName.Text} 사원을 추가하였습니다.");
                     
                     mySqlConn.Close();
                     this.Close();
                 }
                 catch
                 {
-                    if (textBoxName.Text == "") MessageBox.Show($"{label_name.Text}를 올바르게 입력하세요");
-                    //else if (comboBoxGender.Text == "") MessageBox.Show($"{label_gender.Text}를 올바르게 입력하세요");
-                    else if (textBoxAge.Text == "") MessageBox.Show($"{label_age.Text}를 올바르게 입력하세요");
-                    //else if (textBoxAddress.Text == "") MessageBox.Show($"{label_address.Text}를 올바르게 입력하세요");
-                    //else if (textBoxDept.Text == "") MessageBox.Show($"{label_dept.Text}를 올바르게 입력하세요");
-                    //else if (textBoxPositionRank.Text == "") MessageBox.Show($"{label_rank.Text}를 올바르게 입력하세요");
-                    //else if (textBoxComNum.Text == "") MessageBox.Show($"{label_com_num.Text}를 올바르게 입력하세요");
-                    //else if (textBoxHpNum.Text == "") MessageBox.Show($"{label_hp.Text}를 올바르게 입력하세요");
-                    //else if (textBoxEmail.Text == "") MessageBox.Show($"{label_email.Text}를 올바르게 입력하세요");
+                    if (tboxName.Text == "") { MessageBox.Show($"{label_name.Text}를 올바르게 입력하세요"); }
+                    else if (cboxGender.Text == "") { MessageBox.Show($"{label_gender.Text}를 올바르게 입력하세요"); }
+                    else if (tboxAge.Text == "" || Form1.IsValidAge(tboxAge.Text) != true) 
+                        { MessageBox.Show($"{label_age.Text}를 올바르게 입력하세요"); }
+                    //else if (tboxAddress.Text == "") MessageBox.Show($"{label_address.Text}를 올바르게 입력하세요");
+                    //else if (cboxDept.Text == "") MessageBox.Show($"{label_dept.Text}를 올바르게 입력하세요");
+                    //else if (cboxRank.Text == "") MessageBox.Show($"{label_rank.Text}를 올바르게 입력하세요");
+                    else if (tboxComNum.Text == "") MessageBox.Show($"{label_com_num.Text}를 올바르게 입력하세요");
+                    else if (tboxHpNum.Text == "") MessageBox.Show($"{label_hp.Text}를 올바르게 입력하세요");
+                    else if ((tboxEmail1.Text == "" || tboxEmail2.Text == "") || Form1.IsValidEmail(tboxEmail1 + "@" + tboxEmail2)) 
+                        { MessageBox.Show($"{lblEmail1.Text}를 올바르게 입력하세요"); }
 
                 }
             }
@@ -183,6 +180,12 @@ namespace addressListApp
 
         private void cboxDept_Enter(object sender, EventArgs e)
         {
+            toDroppedDownTrue(sender);
+        }
+
+        // 콤보박스 입장하면 드롭다운
+        private void toDroppedDownTrue(object sender)
+        {
             ComboBox comboBox = sender as ComboBox;
 
             if (comboBox != null)
@@ -193,11 +196,28 @@ namespace addressListApp
 
         private void cboxRank_Enter(object sender, EventArgs e)
         {
-            ComboBox comboBox = sender as ComboBox;
+            toDroppedDownTrue(sender);
+        }
 
-            if (comboBox != null)
+        private void label_name_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cboxEmail_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cboxEmail.Text == "직접입력")
             {
-                comboBox.DroppedDown = true;
+                // "직접 입력"이 선택되었을 때 텍스트박스 활성화
+                tboxEmail2.Enabled = true;
+                tboxEmail2.BackColor = Color.White;
+                tboxEmail2.Focus(); // 텍스트박스로 포커스 이동
+            }
+            else
+            {
+                tboxEmail2.Enabled = false;
+                tboxEmail2.BackColor = Color.LightGray; // tbox 회색으로
+                tboxEmail2.Text = cboxEmail.Text;
             }
         }
     }
