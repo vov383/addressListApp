@@ -136,7 +136,7 @@ namespace addressListApp
                     cmd.ExecuteNonQuery();
 
                     MessageBox.Show($"{textBoxName.Text} 사원을 추가하였습니다.");
-
+                    
                     mySqlConn.Close();
                     this.Close();
                 }
