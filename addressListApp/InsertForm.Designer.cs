@@ -34,9 +34,7 @@
             this.label_hp = new System.Windows.Forms.Label();
             this.textBoxComNum = new System.Windows.Forms.TextBox();
             this.label_com_num = new System.Windows.Forms.Label();
-            this.textBoxPositionRank = new System.Windows.Forms.TextBox();
             this.label_rank = new System.Windows.Forms.Label();
-            this.textBoxDept = new System.Windows.Forms.TextBox();
             this.label_age = new System.Windows.Forms.Label();
             this.label_dept = new System.Windows.Forms.Label();
             this.textBoxAge = new System.Windows.Forms.TextBox();
@@ -50,9 +48,7 @@
             this.label_email = new System.Windows.Forms.Label();
             this.pictureBoxLogo = new System.Windows.Forms.PictureBox();
             this.btnClose = new System.Windows.Forms.Button();
-            this.deptLabel = new System.Windows.Forms.Label();
             this.cboxDept = new System.Windows.Forms.ComboBox();
-            this.rankLabel = new System.Windows.Forms.Label();
             this.cboxRank = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).BeginInit();
             this.SuspendLayout();
@@ -101,28 +97,15 @@
             this.label_com_num.TabIndex = 20;
             this.label_com_num.Text = "회사번호";
             // 
-            // textBoxPositionRank
-            // 
-            this.textBoxPositionRank.Location = new System.Drawing.Point(60, 168);
-            this.textBoxPositionRank.Name = "textBoxPositionRank";
-            this.textBoxPositionRank.Size = new System.Drawing.Size(100, 21);
-            this.textBoxPositionRank.TabIndex = 21;
-            // 
             // label_rank
             // 
             this.label_rank.AutoSize = true;
-            this.label_rank.Location = new System.Drawing.Point(21, 174);
+            this.label_rank.Location = new System.Drawing.Point(21, 147);
             this.label_rank.Name = "label_rank";
             this.label_rank.Size = new System.Drawing.Size(29, 12);
             this.label_rank.TabIndex = 22;
             this.label_rank.Text = "직책";
-            // 
-            // textBoxDept
-            // 
-            this.textBoxDept.Location = new System.Drawing.Point(60, 113);
-            this.textBoxDept.Name = "textBoxDept";
-            this.textBoxDept.Size = new System.Drawing.Size(100, 21);
-            this.textBoxDept.TabIndex = 18;
+            this.label_rank.Click += new System.EventHandler(this.label_rank_Click);
             // 
             // label_age
             // 
@@ -202,7 +185,7 @@
             // 
             // textBoxEmail
             // 
-            this.textBoxEmail.Location = new System.Drawing.Point(237, 191);
+            this.textBoxEmail.Location = new System.Drawing.Point(59, 177);
             this.textBoxEmail.Name = "textBoxEmail";
             this.textBoxEmail.Size = new System.Drawing.Size(100, 21);
             this.textBoxEmail.TabIndex = 32;
@@ -210,7 +193,7 @@
             // label_email
             // 
             this.label_email.AutoSize = true;
-            this.label_email.Location = new System.Drawing.Point(190, 196);
+            this.label_email.Location = new System.Drawing.Point(13, 182);
             this.label_email.Name = "label_email";
             this.label_email.Size = new System.Drawing.Size(41, 12);
             this.label_email.TabIndex = 31;
@@ -236,39 +219,23 @@
             this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
-            // deptLabel
-            // 
-            this.deptLabel.AutoSize = true;
-            this.deptLabel.Location = new System.Drawing.Point(21, 144);
-            this.deptLabel.Name = "deptLabel";
-            this.deptLabel.Size = new System.Drawing.Size(35, 12);
-            this.deptLabel.TabIndex = 33;
-            this.deptLabel.Text = "부서2";
-            // 
             // cboxDept
             // 
             this.cboxDept.FormattingEnabled = true;
-            this.cboxDept.Location = new System.Drawing.Point(60, 140);
+            this.cboxDept.Location = new System.Drawing.Point(60, 113);
             this.cboxDept.Name = "cboxDept";
             this.cboxDept.Size = new System.Drawing.Size(100, 20);
             this.cboxDept.TabIndex = 34;
-            // 
-            // rankLabel
-            // 
-            this.rankLabel.AutoSize = true;
-            this.rankLabel.Location = new System.Drawing.Point(19, 204);
-            this.rankLabel.Name = "rankLabel";
-            this.rankLabel.Size = new System.Drawing.Size(35, 12);
-            this.rankLabel.TabIndex = 35;
-            this.rankLabel.Text = "직책2";
+            this.cboxDept.Enter += new System.EventHandler(this.cboxDept_Enter);
             // 
             // cboxRank
             // 
             this.cboxRank.FormattingEnabled = true;
-            this.cboxRank.Location = new System.Drawing.Point(60, 201);
+            this.cboxRank.Location = new System.Drawing.Point(60, 145);
             this.cboxRank.Name = "cboxRank";
             this.cboxRank.Size = new System.Drawing.Size(100, 20);
             this.cboxRank.TabIndex = 36;
+            this.cboxRank.Enter += new System.EventHandler(this.cboxRank_Enter);
             // 
             // InsertForm
             // 
@@ -276,9 +243,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(370, 328);
             this.Controls.Add(this.cboxRank);
-            this.Controls.Add(this.rankLabel);
             this.Controls.Add(this.cboxDept);
-            this.Controls.Add(this.deptLabel);
             this.Controls.Add(this.textBoxEmail);
             this.Controls.Add(this.label_email);
             this.Controls.Add(this.btnClose);
@@ -288,9 +253,7 @@
             this.Controls.Add(this.label_hp);
             this.Controls.Add(this.textBoxComNum);
             this.Controls.Add(this.label_com_num);
-            this.Controls.Add(this.textBoxPositionRank);
             this.Controls.Add(this.label_rank);
-            this.Controls.Add(this.textBoxDept);
             this.Controls.Add(this.label_age);
             this.Controls.Add(this.label_dept);
             this.Controls.Add(this.textBoxAge);
@@ -317,9 +280,7 @@
         private System.Windows.Forms.Label label_hp;
         private System.Windows.Forms.TextBox textBoxComNum;
         private System.Windows.Forms.Label label_com_num;
-        private System.Windows.Forms.TextBox textBoxPositionRank;
         private System.Windows.Forms.Label label_rank;
-        private System.Windows.Forms.TextBox textBoxDept;
         private System.Windows.Forms.Label label_age;
         private System.Windows.Forms.Label label_dept;
         private System.Windows.Forms.TextBox textBoxAge;
@@ -333,9 +294,7 @@
         private System.Windows.Forms.Label label_email;
         private System.Windows.Forms.PictureBox pictureBoxLogo;
         private System.Windows.Forms.Button btnClose;
-        private System.Windows.Forms.Label deptLabel;
         private System.Windows.Forms.ComboBox cboxDept;
-        private System.Windows.Forms.Label rankLabel;
         private System.Windows.Forms.ComboBox cboxRank;
     }
 }

@@ -66,7 +66,7 @@ namespace addressListApp
             }
                 
         }
-
+        // 콤보박스 항목 들어가면 드롭다운
         private void comboBoxGender_Enter(object sender, EventArgs e)
         {
             ComboBox comboBox = sender as ComboBox;
@@ -127,8 +127,8 @@ namespace addressListApp
                     cmd.Parameters.AddWithValue("@gender", gender);
                     cmd.Parameters.AddWithValue("@age", textBoxAge.Text);
                     cmd.Parameters.AddWithValue("@address", textBoxAddress.Text);
-                    cmd.Parameters.AddWithValue("@dept", textBoxDept.Text);
-                    cmd.Parameters.AddWithValue("@rank", textBoxPositionRank.Text);
+                    cmd.Parameters.AddWithValue("@dept", cboxDept.Text);
+                    cmd.Parameters.AddWithValue("@rank", cboxRank.Text);
                     cmd.Parameters.AddWithValue("@com", textBoxComNum.Text);
                     cmd.Parameters.AddWithValue("@phone", textBoxHpNum.Text);
                     cmd.Parameters.AddWithValue("@email", textBoxEmail.Text);
@@ -170,6 +170,35 @@ namespace addressListApp
             string[] rankListItem = getCboxItems(itemList[1]).ToArray();
             cboxDept.Items.AddRange(deptListItem); // 부서 목록을 cbox에 담기
             cboxRank.Items.AddRange(rankListItem); // 직급 목록을 cbox에 담기
+
+            // 널값 제거
+            cboxDept.Items.Remove("");
+            cboxRank.Items.Remove("");
+        }
+
+        private void label_rank_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cboxDept_Enter(object sender, EventArgs e)
+        {
+            ComboBox comboBox = sender as ComboBox;
+
+            if (comboBox != null)
+            {
+                comboBox.DroppedDown = true;
+            }
+        }
+
+        private void cboxRank_Enter(object sender, EventArgs e)
+        {
+            ComboBox comboBox = sender as ComboBox;
+
+            if (comboBox != null)
+            {
+                comboBox.DroppedDown = true;
+            }
         }
     }
 }
