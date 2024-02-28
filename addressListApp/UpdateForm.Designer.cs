@@ -29,164 +29,32 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UpdateForm));
-            this.comboBoxGender = new System.Windows.Forms.ComboBox();
-            this.textBoxHpNum = new System.Windows.Forms.TextBox();
-            this.hp_label = new System.Windows.Forms.Label();
-            this.textBoxComNum = new System.Windows.Forms.TextBox();
-            this.com_num_label = new System.Windows.Forms.Label();
-            this.position_label = new System.Windows.Forms.Label();
-            this.age_label = new System.Windows.Forms.Label();
-            this.department_label = new System.Windows.Forms.Label();
-            this.textBoxAge = new System.Windows.Forms.TextBox();
-            this.textBoxAddress = new System.Windows.Forms.TextBox();
-            this.address_label = new System.Windows.Forms.Label();
-            this.gender_label = new System.Windows.Forms.Label();
-            this.textBoxName = new System.Windows.Forms.TextBox();
-            this.name_label = new System.Windows.Forms.Label();
-            this.textBoxEmail = new System.Windows.Forms.TextBox();
-            this.email_label = new System.Windows.Forms.Label();
             this.pictureBoxLogo = new System.Windows.Forms.PictureBox();
-            this.btn_update_submit = new System.Windows.Forms.Button();
-            this.btnClose = new System.Windows.Forms.Button();
+            this.tboxEmail2 = new System.Windows.Forms.TextBox();
+            this.cboxEmail = new System.Windows.Forms.ComboBox();
+            this.lblEmail2 = new System.Windows.Forms.Label();
             this.cboxRank = new System.Windows.Forms.ComboBox();
             this.cboxDept = new System.Windows.Forms.ComboBox();
+            this.tboxEmail1 = new System.Windows.Forms.TextBox();
+            this.lblEmail1 = new System.Windows.Forms.Label();
+            this.btnClose = new System.Windows.Forms.Button();
+            this.btnInsertSubmit = new System.Windows.Forms.Button();
+            this.cboxGender = new System.Windows.Forms.ComboBox();
+            this.tboxHpNum = new System.Windows.Forms.TextBox();
+            this.label_hp = new System.Windows.Forms.Label();
+            this.tboxComNum = new System.Windows.Forms.TextBox();
+            this.label_com_num = new System.Windows.Forms.Label();
+            this.label_rank = new System.Windows.Forms.Label();
+            this.label_age = new System.Windows.Forms.Label();
+            this.label_dept = new System.Windows.Forms.Label();
+            this.tboxAge = new System.Windows.Forms.TextBox();
+            this.tboxAddress = new System.Windows.Forms.TextBox();
+            this.label_address = new System.Windows.Forms.Label();
+            this.label_gender = new System.Windows.Forms.Label();
+            this.tboxName = new System.Windows.Forms.TextBox();
+            this.label_name = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).BeginInit();
             this.SuspendLayout();
-            // 
-            // comboBoxGender
-            // 
-            this.comboBoxGender.FormattingEnabled = true;
-            this.comboBoxGender.Items.AddRange(new object[] {
-            "남자",
-            "여자"});
-            this.comboBoxGender.Location = new System.Drawing.Point(60, 80);
-            this.comboBoxGender.Name = "comboBoxGender";
-            this.comboBoxGender.Size = new System.Drawing.Size(100, 20);
-            this.comboBoxGender.TabIndex = 15;
-            this.comboBoxGender.Enter += new System.EventHandler(this.comboBoxGender_Enter);
-            // 
-            // textBoxHpNum
-            // 
-            this.textBoxHpNum.Location = new System.Drawing.Point(237, 144);
-            this.textBoxHpNum.Name = "textBoxHpNum";
-            this.textBoxHpNum.Size = new System.Drawing.Size(100, 21);
-            this.textBoxHpNum.TabIndex = 28;
-            // 
-            // hp_label
-            // 
-            this.hp_label.AutoSize = true;
-            this.hp_label.Location = new System.Drawing.Point(210, 150);
-            this.hp_label.Name = "hp_label";
-            this.hp_label.Size = new System.Drawing.Size(21, 12);
-            this.hp_label.TabIndex = 19;
-            this.hp_label.Text = "HP";
-            // 
-            // textBoxComNum
-            // 
-            this.textBoxComNum.Location = new System.Drawing.Point(237, 112);
-            this.textBoxComNum.Name = "textBoxComNum";
-            this.textBoxComNum.Size = new System.Drawing.Size(100, 21);
-            this.textBoxComNum.TabIndex = 27;
-            // 
-            // com_num_label
-            // 
-            this.com_num_label.AutoSize = true;
-            this.com_num_label.Location = new System.Drawing.Point(178, 115);
-            this.com_num_label.Name = "com_num_label";
-            this.com_num_label.Size = new System.Drawing.Size(53, 12);
-            this.com_num_label.TabIndex = 20;
-            this.com_num_label.Text = "회사번호";
-            // 
-            // position_label
-            // 
-            this.position_label.AutoSize = true;
-            this.position_label.Location = new System.Drawing.Point(21, 150);
-            this.position_label.Name = "position_label";
-            this.position_label.Size = new System.Drawing.Size(29, 12);
-            this.position_label.TabIndex = 22;
-            this.position_label.Text = "직책";
-            // 
-            // age_label
-            // 
-            this.age_label.AutoSize = true;
-            this.age_label.Location = new System.Drawing.Point(202, 52);
-            this.age_label.Name = "age_label";
-            this.age_label.Size = new System.Drawing.Size(29, 12);
-            this.age_label.TabIndex = 23;
-            this.age_label.Text = "나이";
-            // 
-            // department_label
-            // 
-            this.department_label.AutoSize = true;
-            this.department_label.Location = new System.Drawing.Point(21, 118);
-            this.department_label.Name = "department_label";
-            this.department_label.Size = new System.Drawing.Size(29, 12);
-            this.department_label.TabIndex = 24;
-            this.department_label.Text = "부서";
-            // 
-            // textBoxAge
-            // 
-            this.textBoxAge.Location = new System.Drawing.Point(237, 47);
-            this.textBoxAge.Name = "textBoxAge";
-            this.textBoxAge.Size = new System.Drawing.Size(100, 21);
-            this.textBoxAge.TabIndex = 16;
-            // 
-            // textBoxAddress
-            // 
-            this.textBoxAddress.Location = new System.Drawing.Point(237, 78);
-            this.textBoxAddress.Name = "textBoxAddress";
-            this.textBoxAddress.Size = new System.Drawing.Size(100, 21);
-            this.textBoxAddress.TabIndex = 17;
-            // 
-            // address_label
-            // 
-            this.address_label.AutoSize = true;
-            this.address_label.Location = new System.Drawing.Point(202, 81);
-            this.address_label.Name = "address_label";
-            this.address_label.Size = new System.Drawing.Size(29, 12);
-            this.address_label.TabIndex = 25;
-            this.address_label.Text = "주소";
-            // 
-            // gender_label
-            // 
-            this.gender_label.AutoSize = true;
-            this.gender_label.Location = new System.Drawing.Point(19, 80);
-            this.gender_label.Name = "gender_label";
-            this.gender_label.Size = new System.Drawing.Size(29, 12);
-            this.gender_label.TabIndex = 26;
-            this.gender_label.Text = "성별";
-            // 
-            // textBoxName
-            // 
-            this.textBoxName.Location = new System.Drawing.Point(60, 47);
-            this.textBoxName.Name = "textBoxName";
-            this.textBoxName.Size = new System.Drawing.Size(100, 21);
-            this.textBoxName.TabIndex = 14;
-            // 
-            // name_label
-            // 
-            this.name_label.AutoSize = true;
-            this.name_label.Location = new System.Drawing.Point(21, 52);
-            this.name_label.Name = "name_label";
-            this.name_label.Size = new System.Drawing.Size(29, 12);
-            this.name_label.TabIndex = 29;
-            this.name_label.Text = "이름";
-            // 
-            // textBoxEmail
-            // 
-            this.textBoxEmail.Location = new System.Drawing.Point(60, 177);
-            this.textBoxEmail.Name = "textBoxEmail";
-            this.textBoxEmail.Size = new System.Drawing.Size(100, 21);
-            this.textBoxEmail.TabIndex = 32;
-            // 
-            // email_label
-            // 
-            this.email_label.AutoSize = true;
-            this.email_label.Location = new System.Drawing.Point(13, 182);
-            this.email_label.Name = "email_label";
-            this.email_label.Size = new System.Drawing.Size(41, 12);
-            this.email_label.TabIndex = 31;
-            this.email_label.Text = "이메일";
             // 
             // pictureBoxLogo
             // 
@@ -198,70 +66,235 @@
             this.pictureBoxLogo.TabIndex = 33;
             this.pictureBoxLogo.TabStop = false;
             // 
-            // btn_update_submit
+            // tboxEmail2
             // 
-            this.btn_update_submit.Location = new System.Drawing.Point(60, 226);
-            this.btn_update_submit.Name = "btn_update_submit";
-            this.btn_update_submit.Size = new System.Drawing.Size(100, 46);
-            this.btn_update_submit.TabIndex = 34;
-            this.btn_update_submit.Text = "제출하기";
-            this.btn_update_submit.UseVisualStyleBackColor = true;
-            this.btn_update_submit.Click += new System.EventHandler(this.btn_update_submit_Click);
+            this.tboxEmail2.Location = new System.Drawing.Point(200, 250);
+            this.tboxEmail2.Name = "tboxEmail2";
+            this.tboxEmail2.Size = new System.Drawing.Size(132, 21);
+            this.tboxEmail2.TabIndex = 57;
             // 
-            // btnClose
+            // cboxEmail
             // 
-            this.btnClose.Location = new System.Drawing.Point(237, 226);
-            this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(100, 46);
-            this.btnClose.TabIndex = 34;
-            this.btnClose.Text = "취소";
-            this.btnClose.UseVisualStyleBackColor = true;
-            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+            this.cboxEmail.FormattingEnabled = true;
+            this.cboxEmail.Items.AddRange(new object[] {
+            "dawooleng.co.kr",
+            "naver.com",
+            "gmail.com",
+            "nate.com",
+            "hanmail.net",
+            "직접입력"});
+            this.cboxEmail.Location = new System.Drawing.Point(345, 251);
+            this.cboxEmail.Name = "cboxEmail";
+            this.cboxEmail.Size = new System.Drawing.Size(121, 20);
+            this.cboxEmail.TabIndex = 56;
+            this.cboxEmail.SelectedIndexChanged += new System.EventHandler(this.cboxEmail_SelectedIndexChanged);
+            // 
+            // lblEmail2
+            // 
+            this.lblEmail2.AutoSize = true;
+            this.lblEmail2.Location = new System.Drawing.Point(182, 254);
+            this.lblEmail2.Name = "lblEmail2";
+            this.lblEmail2.Size = new System.Drawing.Size(17, 12);
+            this.lblEmail2.TabIndex = 55;
+            this.lblEmail2.Text = "@";
             // 
             // cboxRank
             // 
             this.cboxRank.FormattingEnabled = true;
-            this.cboxRank.Location = new System.Drawing.Point(60, 145);
+            this.cboxRank.Location = new System.Drawing.Point(80, 166);
             this.cboxRank.Name = "cboxRank";
-            this.cboxRank.Size = new System.Drawing.Size(100, 20);
-            this.cboxRank.TabIndex = 38;
-            this.cboxRank.Enter += new System.EventHandler(this.cboxRank_Enter);
+            this.cboxRank.Size = new System.Drawing.Size(144, 20);
+            this.cboxRank.TabIndex = 40;
             // 
             // cboxDept
             // 
             this.cboxDept.FormattingEnabled = true;
-            this.cboxDept.Location = new System.Drawing.Point(60, 113);
+            this.cboxDept.Location = new System.Drawing.Point(80, 140);
             this.cboxDept.Name = "cboxDept";
-            this.cboxDept.Size = new System.Drawing.Size(100, 20);
-            this.cboxDept.TabIndex = 37;
-            this.cboxDept.Enter += new System.EventHandler(this.cboxDept_Enter);
+            this.cboxDept.Size = new System.Drawing.Size(144, 20);
+            this.cboxDept.TabIndex = 39;
+            // 
+            // tboxEmail1
+            // 
+            this.tboxEmail1.Location = new System.Drawing.Point(80, 249);
+            this.tboxEmail1.Name = "tboxEmail1";
+            this.tboxEmail1.Size = new System.Drawing.Size(100, 21);
+            this.tboxEmail1.TabIndex = 43;
+            // 
+            // lblEmail1
+            // 
+            this.lblEmail1.AutoSize = true;
+            this.lblEmail1.Location = new System.Drawing.Point(34, 254);
+            this.lblEmail1.Name = "lblEmail1";
+            this.lblEmail1.Size = new System.Drawing.Size(41, 12);
+            this.lblEmail1.TabIndex = 54;
+            this.lblEmail1.Text = "이메일";
+            // 
+            // btnClose
+            // 
+            this.btnClose.Location = new System.Drawing.Point(232, 286);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(100, 26);
+            this.btnClose.TabIndex = 45;
+            this.btnClose.Text = "취소";
+            this.btnClose.UseVisualStyleBackColor = true;
+            // 
+            // btnInsertSubmit
+            // 
+            this.btnInsertSubmit.Location = new System.Drawing.Point(345, 286);
+            this.btnInsertSubmit.Name = "btnInsertSubmit";
+            this.btnInsertSubmit.Size = new System.Drawing.Size(100, 26);
+            this.btnInsertSubmit.TabIndex = 44;
+            this.btnInsertSubmit.Text = "추가";
+            this.btnInsertSubmit.UseVisualStyleBackColor = true;
+            // 
+            // cboxGender
+            // 
+            this.cboxGender.FormattingEnabled = true;
+            this.cboxGender.Items.AddRange(new object[] {
+            "남자",
+            "여자"});
+            this.cboxGender.Location = new System.Drawing.Point(80, 59);
+            this.cboxGender.Name = "cboxGender";
+            this.cboxGender.Size = new System.Drawing.Size(144, 20);
+            this.cboxGender.TabIndex = 36;
+            // 
+            // tboxHpNum
+            // 
+            this.tboxHpNum.Location = new System.Drawing.Point(80, 219);
+            this.tboxHpNum.Name = "tboxHpNum";
+            this.tboxHpNum.Size = new System.Drawing.Size(144, 21);
+            this.tboxHpNum.TabIndex = 42;
+            // 
+            // label_hp
+            // 
+            this.label_hp.AutoSize = true;
+            this.label_hp.Location = new System.Drawing.Point(21, 222);
+            this.label_hp.Name = "label_hp";
+            this.label_hp.Size = new System.Drawing.Size(53, 12);
+            this.label_hp.TabIndex = 46;
+            this.label_hp.Text = "개인번호";
+            // 
+            // tboxComNum
+            // 
+            this.tboxComNum.Location = new System.Drawing.Point(80, 192);
+            this.tboxComNum.Name = "tboxComNum";
+            this.tboxComNum.Size = new System.Drawing.Size(144, 21);
+            this.tboxComNum.TabIndex = 41;
+            // 
+            // label_com_num
+            // 
+            this.label_com_num.AutoSize = true;
+            this.label_com_num.Location = new System.Drawing.Point(21, 195);
+            this.label_com_num.Name = "label_com_num";
+            this.label_com_num.Size = new System.Drawing.Size(53, 12);
+            this.label_com_num.TabIndex = 47;
+            this.label_com_num.Text = "회사번호";
+            // 
+            // label_rank
+            // 
+            this.label_rank.AutoSize = true;
+            this.label_rank.Location = new System.Drawing.Point(45, 169);
+            this.label_rank.Name = "label_rank";
+            this.label_rank.Size = new System.Drawing.Size(29, 12);
+            this.label_rank.TabIndex = 48;
+            this.label_rank.Text = "직책";
+            // 
+            // label_age
+            // 
+            this.label_age.AutoSize = true;
+            this.label_age.Location = new System.Drawing.Point(45, 90);
+            this.label_age.Name = "label_age";
+            this.label_age.Size = new System.Drawing.Size(29, 12);
+            this.label_age.TabIndex = 49;
+            this.label_age.Text = "나이";
+            // 
+            // label_dept
+            // 
+            this.label_dept.AutoSize = true;
+            this.label_dept.Location = new System.Drawing.Point(45, 143);
+            this.label_dept.Name = "label_dept";
+            this.label_dept.Size = new System.Drawing.Size(29, 12);
+            this.label_dept.TabIndex = 50;
+            this.label_dept.Text = "부서";
+            // 
+            // tboxAge
+            // 
+            this.tboxAge.Location = new System.Drawing.Point(80, 85);
+            this.tboxAge.Name = "tboxAge";
+            this.tboxAge.Size = new System.Drawing.Size(144, 21);
+            this.tboxAge.TabIndex = 37;
+            // 
+            // tboxAddress
+            // 
+            this.tboxAddress.Location = new System.Drawing.Point(80, 112);
+            this.tboxAddress.Name = "tboxAddress";
+            this.tboxAddress.Size = new System.Drawing.Size(144, 21);
+            this.tboxAddress.TabIndex = 38;
+            // 
+            // label_address
+            // 
+            this.label_address.AutoSize = true;
+            this.label_address.Location = new System.Drawing.Point(45, 115);
+            this.label_address.Name = "label_address";
+            this.label_address.Size = new System.Drawing.Size(29, 12);
+            this.label_address.TabIndex = 51;
+            this.label_address.Text = "주소";
+            // 
+            // label_gender
+            // 
+            this.label_gender.AutoSize = true;
+            this.label_gender.Location = new System.Drawing.Point(45, 59);
+            this.label_gender.Name = "label_gender";
+            this.label_gender.Size = new System.Drawing.Size(29, 12);
+            this.label_gender.TabIndex = 52;
+            this.label_gender.Text = "성별";
+            // 
+            // tboxName
+            // 
+            this.tboxName.Location = new System.Drawing.Point(80, 31);
+            this.tboxName.Name = "tboxName";
+            this.tboxName.Size = new System.Drawing.Size(144, 21);
+            this.tboxName.TabIndex = 35;
+            // 
+            // label_name
+            // 
+            this.label_name.AutoSize = true;
+            this.label_name.Location = new System.Drawing.Point(45, 36);
+            this.label_name.Name = "label_name";
+            this.label_name.Size = new System.Drawing.Size(29, 12);
+            this.label_name.TabIndex = 53;
+            this.label_name.Text = "이름";
             // 
             // UpdateForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(370, 328);
+            this.ClientSize = new System.Drawing.Size(516, 433);
+            this.Controls.Add(this.tboxEmail2);
+            this.Controls.Add(this.cboxEmail);
+            this.Controls.Add(this.lblEmail2);
             this.Controls.Add(this.cboxRank);
             this.Controls.Add(this.cboxDept);
+            this.Controls.Add(this.tboxEmail1);
+            this.Controls.Add(this.lblEmail1);
             this.Controls.Add(this.btnClose);
-            this.Controls.Add(this.btn_update_submit);
+            this.Controls.Add(this.btnInsertSubmit);
+            this.Controls.Add(this.cboxGender);
+            this.Controls.Add(this.tboxHpNum);
+            this.Controls.Add(this.label_hp);
+            this.Controls.Add(this.tboxComNum);
+            this.Controls.Add(this.label_com_num);
+            this.Controls.Add(this.label_rank);
+            this.Controls.Add(this.label_age);
+            this.Controls.Add(this.label_dept);
+            this.Controls.Add(this.tboxAge);
+            this.Controls.Add(this.tboxAddress);
+            this.Controls.Add(this.label_address);
+            this.Controls.Add(this.label_gender);
+            this.Controls.Add(this.tboxName);
+            this.Controls.Add(this.label_name);
             this.Controls.Add(this.pictureBoxLogo);
-            this.Controls.Add(this.textBoxEmail);
-            this.Controls.Add(this.email_label);
-            this.Controls.Add(this.comboBoxGender);
-            this.Controls.Add(this.textBoxHpNum);
-            this.Controls.Add(this.hp_label);
-            this.Controls.Add(this.textBoxComNum);
-            this.Controls.Add(this.com_num_label);
-            this.Controls.Add(this.position_label);
-            this.Controls.Add(this.age_label);
-            this.Controls.Add(this.department_label);
-            this.Controls.Add(this.textBoxAge);
-            this.Controls.Add(this.textBoxAddress);
-            this.Controls.Add(this.address_label);
-            this.Controls.Add(this.gender_label);
-            this.Controls.Add(this.textBoxName);
-            this.Controls.Add(this.name_label);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "UpdateForm";
@@ -274,26 +307,29 @@
         }
 
         #endregion
-        private System.Windows.Forms.ComboBox comboBoxGender;
-        private System.Windows.Forms.TextBox textBoxHpNum;
-        private System.Windows.Forms.Label hp_label;
-        private System.Windows.Forms.TextBox textBoxComNum;
-        private System.Windows.Forms.Label com_num_label;
-        private System.Windows.Forms.Label position_label;
-        private System.Windows.Forms.Label age_label;
-        private System.Windows.Forms.Label department_label;
-        private System.Windows.Forms.TextBox textBoxAge;
-        private System.Windows.Forms.TextBox textBoxAddress;
-        private System.Windows.Forms.Label address_label;
-        private System.Windows.Forms.Label gender_label;
-        private System.Windows.Forms.TextBox textBoxName;
-        private System.Windows.Forms.Label name_label;
-        private System.Windows.Forms.TextBox textBoxEmail;
-        private System.Windows.Forms.Label email_label;
         private System.Windows.Forms.PictureBox pictureBoxLogo;
-        private System.Windows.Forms.Button btn_update_submit;
-        private System.Windows.Forms.Button btnClose;
+        private System.Windows.Forms.TextBox tboxEmail2;
+        private System.Windows.Forms.ComboBox cboxEmail;
+        private System.Windows.Forms.Label lblEmail2;
         private System.Windows.Forms.ComboBox cboxRank;
         private System.Windows.Forms.ComboBox cboxDept;
+        private System.Windows.Forms.TextBox tboxEmail1;
+        private System.Windows.Forms.Label lblEmail1;
+        private System.Windows.Forms.Button btnClose;
+        private System.Windows.Forms.Button btnInsertSubmit;
+        private System.Windows.Forms.ComboBox cboxGender;
+        private System.Windows.Forms.TextBox tboxHpNum;
+        private System.Windows.Forms.Label label_hp;
+        private System.Windows.Forms.TextBox tboxComNum;
+        private System.Windows.Forms.Label label_com_num;
+        private System.Windows.Forms.Label label_rank;
+        private System.Windows.Forms.Label label_age;
+        private System.Windows.Forms.Label label_dept;
+        private System.Windows.Forms.TextBox tboxAge;
+        private System.Windows.Forms.TextBox tboxAddress;
+        private System.Windows.Forms.Label label_address;
+        private System.Windows.Forms.Label label_gender;
+        private System.Windows.Forms.TextBox tboxName;
+        private System.Windows.Forms.Label label_name;
     }
 }

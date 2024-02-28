@@ -55,14 +55,14 @@ namespace addressListApp
                 DataSet ds = new DataSet();
                 adapter.Fill(ds, "employee_list");
 
-                List<string> cobxItems = new List<string>();
+                List<string> cboxItems = new List<string>();
 
                 foreach (DataRow row in ds.Tables["employee_list"].Rows)
                 {
-                    cobxItems.Add(row[item].ToString());
+                    cboxItems.Add(row[item].ToString());
                 }
                 conn.Close();
-                return cobxItems;
+                return cboxItems;
             }
                 
         }
