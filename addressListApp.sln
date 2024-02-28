@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "addressListApp", "addressLi
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "솔루션 항목", "솔루션 항목", "{C8439CE8-FC80-45B0-AAE6-47B8C47DC560}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "addressListTest", "addressListTest\addressListTest.csproj", "{8DEA1990-C54C-4D2B-BDE1-9FDE765AF0E2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,6 +19,10 @@ Global
 		{CCAFC787-0EF6-489D-B093-F71B3B7B3B97}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CCAFC787-0EF6-489D-B093-F71B3B7B3B97}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CCAFC787-0EF6-489D-B093-F71B3B7B3B97}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8DEA1990-C54C-4D2B-BDE1-9FDE765AF0E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8DEA1990-C54C-4D2B-BDE1-9FDE765AF0E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8DEA1990-C54C-4D2B-BDE1-9FDE765AF0E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8DEA1990-C54C-4D2B-BDE1-9FDE765AF0E2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

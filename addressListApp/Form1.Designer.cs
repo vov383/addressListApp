@@ -74,7 +74,7 @@
             this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.RowTemplate.Height = 23;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(759, 365);
+            this.dataGridView1.Size = new System.Drawing.Size(878, 365);
             this.dataGridView1.TabIndex = 12;
             this.dataGridView1.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView1_CellFormatting);
             this.dataGridView1.Click += new System.EventHandler(this.dataGridView1_Click);
@@ -82,7 +82,7 @@
             // btnSearch
             // 
             this.btnSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSearch.Location = new System.Drawing.Point(545, 74);
+            this.btnSearch.Location = new System.Drawing.Point(778, 91);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(108, 21);
             this.btnSearch.TabIndex = 16;
@@ -92,7 +92,7 @@
             // btnInsert
             // 
             this.btnInsert.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnInsert.Location = new System.Drawing.Point(312, 12);
+            this.btnInsert.Location = new System.Drawing.Point(431, 12);
             this.btnInsert.Name = "btnInsert";
             this.btnInsert.Size = new System.Drawing.Size(106, 33);
             this.btnInsert.TabIndex = 13;
@@ -103,7 +103,7 @@
             // btnUpdate
             // 
             this.btnUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnUpdate.Location = new System.Drawing.Point(424, 12);
+            this.btnUpdate.Location = new System.Drawing.Point(543, 12);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(115, 33);
             this.btnUpdate.TabIndex = 14;
@@ -114,7 +114,7 @@
             // btnDelete
             // 
             this.btnDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDelete.Location = new System.Drawing.Point(545, 12);
+            this.btnDelete.Location = new System.Drawing.Point(664, 12);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(108, 33);
             this.btnDelete.TabIndex = 15;
@@ -125,7 +125,7 @@
             // btnClose
             // 
             this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnClose.Location = new System.Drawing.Point(659, 12);
+            this.btnClose.Location = new System.Drawing.Point(778, 12);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(108, 33);
             this.btnClose.TabIndex = 16;
@@ -135,13 +135,15 @@
             // 
             // tboxSearch
             // 
-            this.tboxSearch.Location = new System.Drawing.Point(312, 74);
+            this.tboxSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.tboxSearch.Location = new System.Drawing.Point(545, 92);
             this.tboxSearch.Name = "tboxSearch";
             this.tboxSearch.Size = new System.Drawing.Size(227, 21);
             this.tboxSearch.TabIndex = 17;
             // 
             // cboxSearch
             // 
+            this.cboxSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cboxSearch.FormattingEnabled = true;
             this.cboxSearch.Items.AddRange(new object[] {
             "이름",
@@ -149,7 +151,7 @@
             "직책",
             "주소",
             "이메일"});
-            this.cboxSearch.Location = new System.Drawing.Point(200, 74);
+            this.cboxSearch.Location = new System.Drawing.Point(433, 92);
             this.cboxSearch.Name = "cboxSearch";
             this.cboxSearch.Size = new System.Drawing.Size(106, 20);
             this.cboxSearch.TabIndex = 18;
@@ -158,7 +160,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(779, 538);
+            this.ClientSize = new System.Drawing.Size(898, 538);
             this.Controls.Add(this.cboxSearch);
             this.Controls.Add(this.tboxSearch);
             this.Controls.Add(this.btnClose);
@@ -170,6 +172,7 @@
             this.Controls.Add(this.pictureBoxLogo);
             this.Name = "Form1";
             this.Text = "다울 주소록 관리도구";
+            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
