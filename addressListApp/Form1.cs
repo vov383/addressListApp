@@ -89,6 +89,7 @@ namespace addressListApp
         }
         public static bool IsValidEmail(string email)
         {
+            Console.WriteLine("이메일 : " + email);
             bool valid = Regex.IsMatch(email, @"[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?"); // 이메일 정규식
             return valid;
         }

@@ -7,9 +7,11 @@ using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace addressListApp
 {
@@ -84,7 +86,9 @@ namespace addressListApp
         {
             int gender;
             string insertQuery = "INSERT INTO employee_list (" +
-                                        "emp_name, gender, age" +
+                                        "emp_name" +
+                                        ", gender" +
+                                        ", age" +
                                         ", home_address" +
                                         ", department" +
                                         ", rank_position" +
@@ -102,7 +106,7 @@ namespace addressListApp
                                         ", @com" +
                                         ", @phone" +
                                         ", @email" +
-                                        ", NOW());";
+                                        ", @join);";
             using (MySqlConnection mySqlConn = new MySqlConnection(_connectionAddress))
             {
                 try
@@ -127,6 +131,7 @@ namespace addressListApp
                     cmd.Parameters.AddWithValue("@com", tboxComNum.Text);
                     cmd.Parameters.AddWithValue("@phone", tboxHpNum.Text);
                     cmd.Parameters.AddWithValue("@email", tboxEmail1.Text + "@" + tboxEmail2.Text);
+                    cmd.Parameters.AddWithValue("@join",  DateTime.Now.ToString("YYYY-MM-dd HH:mm:ss"));
 
                     cmd.ExecuteNonQuery();
 
@@ -139,15 +144,17 @@ namespace addressListApp
                 {
                     if (tboxName.Text == "") { MessageBox.Show($"{label_name.Text}를 올바르게 입력하세요"); }
                     else if (cboxGender.Text == "") { MessageBox.Show($"{label_gender.Text}를 올바르게 입력하세요"); }
-                    else if (tboxAge.Text == "" || Form1.IsValidAge(tboxAge.Text) != true) 
-                        { MessageBox.Show($"{label_age.Text}를 올바르게 입력하세요"); }
+                    else if (tboxAge.Text == "" || !Form1.IsValidAge(tboxAge.Text)) { MessageBox.Show($"{label_age.Text}를 올바르게 입력하세요"); }
                     //else if (tboxAddress.Text == "") MessageBox.Show($"{label_address.Text}를 올바르게 입력하세요");
                     //else if (cboxDept.Text == "") MessageBox.Show($"{label_dept.Text}를 올바르게 입력하세요");
                     //else if (cboxRank.Text == "") MessageBox.Show($"{label_rank.Text}를 올바르게 입력하세요");
-                    else if (tboxComNum.Text == "") MessageBox.Show($"{label_com_num.Text}를 올바르게 입력하세요");
-                    else if (tboxHpNum.Text == "") MessageBox.Show($"{label_hp.Text}를 올바르게 입력하세요");
-                    else if ((tboxEmail1.Text == "" || tboxEmail2.Text == "") || Form1.IsValidEmail(tboxEmail1 + "@" + tboxEmail2)) 
-                        { MessageBox.Show($"{lblEmail1.Text}를 올바르게 입력하세요"); }
+                    //else if (tboxComNum.Text == "") MessageBox.Show($"{label_com_num.Text}를 올바르게 입력하세요");
+                    //else if (tboxHpNum.Text == "") MessageBox.Show($"{label_hp.Text}를 올바르게 입력하세요");
+                    //else if (tboxEmail1.Text == "" || tboxEmail2.Text == "" || !Form1.IsValidEmail(tboxEmail1.Text + "@" + tboxEmail2.Text)) 
+                    //{ 
+                    //    Console.WriteLine("이메일 : " + tboxEmail1.Text + "@" + tboxEmail2.Text);
+                    //    MessageBox.Show($"{lblEmail1.Text}을 올바르게 입력하세요"); 
+                    //}
 
                 }
             }
@@ -171,6 +178,9 @@ namespace addressListApp
             // 널값 제거
             cboxDept.Items.Remove("");
             cboxRank.Items.Remove("");
+
+            tboxEmail2.Enabled = false;
+            tboxEmail2.BackColor = Color.LightGray;
         }
 
         private void label_rank_Click(object sender, EventArgs e)

@@ -36,8 +36,8 @@ namespace addressListApp
         {
             form1.deleteData();
             form1.selectAll();
+            MessageBox .Show($"{listItem[1]} 사원을 삭제하였습니다.");
             this.Close();
-            MessageBox.Show($"{listItem[1]} 사원을 삭제하였습니다.");
             listItem.Clear();
         }
 

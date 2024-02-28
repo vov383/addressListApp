@@ -105,7 +105,7 @@ namespace addressListApp
                     cmd.Parameters.AddWithValue("@rank", cboxRank.Text);
                     cmd.Parameters.AddWithValue("@com", tboxComNum.Text);
                     cmd.Parameters.AddWithValue("@phone", tboxHpNum.Text);
-                    cmd.Parameters.AddWithValue("@email", tboxEmail1.Text + "@" + tboxEmail2);
+                    cmd.Parameters.AddWithValue("@email", tboxEmail1.Text + "@" + tboxEmail2.Text);
                     cmd.Parameters.AddWithValue("@index", listItem[0]);
                     
                     cmd.ExecuteNonQuery();
