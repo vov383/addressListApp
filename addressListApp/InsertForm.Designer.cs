@@ -51,9 +51,9 @@
             this.pictureBoxLogo = new System.Windows.Forms.PictureBox();
             this.btnClose = new System.Windows.Forms.Button();
             this.deptLabel = new System.Windows.Forms.Label();
-            this.deptCBox = new System.Windows.Forms.ComboBox();
+            this.cboxDept = new System.Windows.Forms.ComboBox();
             this.rankLabel = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.cboxRank = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).BeginInit();
             this.SuspendLayout();
             // 
@@ -245,13 +245,13 @@
             this.deptLabel.TabIndex = 33;
             this.deptLabel.Text = "부서2";
             // 
-            // deptCBox
+            // cboxDept
             // 
-            this.deptCBox.FormattingEnabled = true;
-            this.deptCBox.Location = new System.Drawing.Point(60, 140);
-            this.deptCBox.Name = "deptCBox";
-            this.deptCBox.Size = new System.Drawing.Size(100, 20);
-            this.deptCBox.TabIndex = 34;
+            this.cboxDept.FormattingEnabled = true;
+            this.cboxDept.Location = new System.Drawing.Point(60, 140);
+            this.cboxDept.Name = "cboxDept";
+            this.cboxDept.Size = new System.Drawing.Size(100, 20);
+            this.cboxDept.TabIndex = 34;
             // 
             // rankLabel
             // 
@@ -262,22 +262,22 @@
             this.rankLabel.TabIndex = 35;
             this.rankLabel.Text = "직책2";
             // 
-            // comboBox1
+            // cboxRank
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(60, 201);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(100, 20);
-            this.comboBox1.TabIndex = 36;
+            this.cboxRank.FormattingEnabled = true;
+            this.cboxRank.Location = new System.Drawing.Point(60, 201);
+            this.cboxRank.Name = "cboxRank";
+            this.cboxRank.Size = new System.Drawing.Size(100, 20);
+            this.cboxRank.TabIndex = 36;
             // 
             // InsertForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(370, 328);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.cboxRank);
             this.Controls.Add(this.rankLabel);
-            this.Controls.Add(this.deptCBox);
+            this.Controls.Add(this.cboxDept);
             this.Controls.Add(this.deptLabel);
             this.Controls.Add(this.textBoxEmail);
             this.Controls.Add(this.label_email);
@@ -334,8 +334,8 @@
         private System.Windows.Forms.PictureBox pictureBoxLogo;
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Label deptLabel;
-        private System.Windows.Forms.ComboBox deptCBox;
+        private System.Windows.Forms.ComboBox cboxDept;
         private System.Windows.Forms.Label rankLabel;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox cboxRank;
     }
 }

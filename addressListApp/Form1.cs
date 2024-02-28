@@ -117,8 +117,7 @@ namespace addressListApp
                 // 새 폼 인스턴스 생성
                 UpdateForm updateForm = new UpdateForm(this);
 
-                // Employee 객체 생성
-                // Employee 객체를 생성하고, DataGridView의 데이터로 속성을 설정합니다.
+                // updateForm에 데이터를 listItem으로 담아서 보냄
                 updateForm.setItem(listItem);
 
                 // 새 폼 표시
