@@ -23,7 +23,7 @@ namespace addressListApp
             
         }
 
-        public void SetItem(List<string> item)
+        public void setItem(List<string> item)
         {
             for (int i = 0; i < item.Count; i++) {
                 listItem.Add(item[i]);
@@ -31,12 +31,11 @@ namespace addressListApp
 
         }
 
-
         private void btn_DelConfirm_Click(object sender, EventArgs e)
         {
             form1.deleteData();
             form1.selectAll();
-            MessageBox .Show($"{listItem[1]} 사원을 삭제하였습니다.");
+            MessageBox.Show($"{listItem[1]} 사원을 삭제하였습니다.");
             this.Close();
             listItem.Clear();
         }
@@ -57,7 +56,7 @@ namespace addressListApp
         }
 
         private void DelForm_KeyDown(object sender, KeyEventArgs e)
-        {
+        {   
             if(e.KeyCode == Keys.Y) 
             {
                 btn_DelConfirm_Click(sender, e);

@@ -109,6 +109,7 @@
             this.cboxRank.Name = "cboxRank";
             this.cboxRank.Size = new System.Drawing.Size(144, 20);
             this.cboxRank.TabIndex = 5;
+            this.cboxRank.Enter += new System.EventHandler(this.cboxRank_Enter);
             // 
             // cboxDept
             // 
@@ -117,6 +118,7 @@
             this.cboxDept.Name = "cboxDept";
             this.cboxDept.Size = new System.Drawing.Size(144, 20);
             this.cboxDept.TabIndex = 4;
+            this.cboxDept.Enter += new System.EventHandler(this.cboxDept_Enter);
             // 
             // tboxEmail1
             // 
@@ -165,6 +167,7 @@
             this.cboxGender.Name = "cboxGender";
             this.cboxGender.Size = new System.Drawing.Size(144, 20);
             this.cboxGender.TabIndex = 1;
+            this.cboxGender.Enter += new System.EventHandler(this.cboxGender_Enter);
             // 
             // tboxHpNum
             // 

@@ -17,13 +17,7 @@ namespace addressListApp
 {
     public partial class InsertForm : Form
     {
-        string _id = "root";
-        string _pw = "dw#1234";
-        string _database = "employee_list";
-        string _server = "192.168.0.180";
-        string _port = "3306";
-        
-        string _connectionAddress = "";
+        string _connectionAddress = string.Format("server={0};Database={1};Uid={2};Pwd={3};", "192.168.0.180", "employee_list", "root", "dw#1234");
 
         Form1 form1;
         private BindingList<object> typeList = new BindingList<object>(); // 콤보박스 키벨류 담을 객체
@@ -33,7 +27,6 @@ namespace addressListApp
             this.MaximizeBox = false; // 폼 최대화 기능 off
             InitializeComponent();
             this.form1 = form1;
-            _connectionAddress = string.Format("server={0};Database={1};Uid={2};Pwd={3};", "192.168.0.180", "employee_list", "root", "dw#1234");
 
             typeList.Add(new { Display = "남자", Value = 1 });
             typeList.Add(new { Display = "여자", Value = 2 });
@@ -66,7 +59,6 @@ namespace addressListApp
                 conn.Close();
                 return cboxItems;
             }
-            insertData();
 
         }
         // 콤보박스 항목 들어가면 드롭다운
@@ -153,6 +145,7 @@ namespace addressListApp
 
         private void validateAndProceed()
         {
+            form1 = new Form1();
             // 입력검증
             if (string.IsNullOrEmpty(tboxName.Text))
             {
@@ -160,7 +153,7 @@ namespace addressListApp
                 tboxName.Focus();
                 return;
             }
-            if (string.IsNullOrEmpty(tboxAge.Text) || !Form1.IsValidAge(tboxAge.Text))
+            if (string.IsNullOrEmpty(tboxAge.Text) || !form1.IsValidAge(tboxAge.Text))
             {
                 MessageBox.Show($"{label_age.Text}를 올바르게 입력하세요");
                 tboxAge.Focus();
@@ -184,19 +177,19 @@ namespace addressListApp
                 cboxRank.Focus();
                 return;
             }
-            if (string.IsNullOrEmpty(tboxComNum.Text) || !Form1.IsValidComNum(tboxComNum.Text))
+            if (string.IsNullOrEmpty(tboxComNum.Text) || !form1.IsValidComNum(tboxComNum.Text))
             {
                 MessageBox.Show($"{label_com_num.Text}를 올바르게 입력하세요");
                 tboxComNum.Focus();
                 return;
             }
-            if (tboxHpNum.Text == "" || !Form1.IsValidPhoneNum(tboxHpNum.Text))
+            if (tboxHpNum.Text == "" || !form1.IsValidPhoneNum(tboxHpNum.Text))
             {
                 MessageBox.Show($"{label_hp.Text}를 올바르게 입력하세요");
                 tboxHpNum.Focus();
                 return;
             }
-            if (string.IsNullOrEmpty(tboxEmail1.Text) || string.IsNullOrEmpty(cboxEmail.Text) || !Form1.IsValidEmail(tboxEmail1.Text + "@" + tboxEmail2.Text))
+            if (string.IsNullOrEmpty(tboxEmail1.Text) || string.IsNullOrEmpty(cboxEmail.Text) || !form1.IsValidEmail(tboxEmail1.Text + "@" + tboxEmail2.Text))
             {
                 MessageBox.Show($"{lblEmail1.Text}을 올바르게 입력하세요");
                 tboxEmail1.Focus();
@@ -273,6 +266,7 @@ namespace addressListApp
             {
                 tboxEmail2.Enabled = false;
                 tboxEmail2.BackColor = Color.LightGray; // tbox 회색으로
+                tboxEmail2.ForeColor = Color.White;
                 tboxEmail2.Text = cboxEmail.Text;
             }
         }

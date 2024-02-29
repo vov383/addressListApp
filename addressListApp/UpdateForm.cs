@@ -46,27 +46,90 @@ namespace addressListApp
         {
             toDroppedDownTrue(sender);
         }
+        private void cboxDept_Enter(object sender, EventArgs e)
+        {
+            toDroppedDownTrue(sender);
+        }
+
+        private void cboxRank_Enter(object sender, EventArgs e)
+        {
+            toDroppedDownTrue(sender);
+        }
 
         // 콤보박스 입장하면 드롭다운
         private static void toDroppedDownTrue(object sender)
         {
-            ComboBox cbox = sender as ComboBox;
+            ComboBox comboBox = sender as ComboBox;
 
-            if (cbox != null)
+            if (comboBox != null)
             {
-                cbox.DroppedDown = true;
+                comboBox.DroppedDown = true;
             }
         }
 
         private void btn_update_submit_Click(object sender, EventArgs e)
-        {   
+        {
             // 입력검증 자리 
-
-            updateData();
+            validateAndProceed();
             form1.selectAll();
             form1.selectUpdatedRow(tboxName.Text); // 수정한 사원 선택 
             listItem.Clear();
 
+        }
+
+        private void validateAndProceed()
+        {
+            form1 = new Form1();
+            // 입력검증
+            if (string.IsNullOrEmpty(tboxName.Text))
+            {
+                MessageBox.Show($"{label_name.Text}를 올바르게 입력하세요");
+                tboxName.Focus();
+                return;
+            }
+            if (string.IsNullOrEmpty(tboxAge.Text) || !form1.IsValidAge(tboxAge.Text))
+            {
+                MessageBox.Show($"{label_age.Text}를 올바르게 입력하세요");
+                tboxAge.Focus();
+                return;
+            }
+            if (string.IsNullOrEmpty(tboxAddress.Text))
+            {
+                MessageBox.Show($"{label_address.Text}를 올바르게 입력하세요");
+                tboxAddress.Focus();
+                return;
+            }
+            if (string.IsNullOrEmpty(cboxDept.Text))
+            {
+                MessageBox.Show($"{label_dept.Text}를 올바르게 입력하세요");
+                cboxDept.Focus();
+                return;
+            }
+            if (string.IsNullOrEmpty(cboxRank.Text))
+            {
+                MessageBox.Show($"{label_rank.Text}를 올바르게 입력하세요");
+                cboxRank.Focus();
+                return;
+            }
+            if (string.IsNullOrEmpty(tboxComNum.Text) || !form1.IsValidComNum(tboxComNum.Text))
+            {
+                MessageBox.Show($"{label_com_num.Text}를 올바르게 입력하세요");
+                tboxComNum.Focus();
+                return;
+            }
+            if (tboxHpNum.Text == "" || !form1.IsValidPhoneNum(tboxHpNum.Text))
+            {
+                MessageBox.Show($"{label_hp.Text}를 올바르게 입력하세요");
+                tboxHpNum.Focus();
+                return;
+            }
+            if (string.IsNullOrEmpty(tboxEmail1.Text) || string.IsNullOrEmpty(cboxEmail.Text) || !form1.IsValidEmail(tboxEmail1.Text + "@" + tboxEmail2.Text))
+            {
+                MessageBox.Show($"{lblEmail1.Text}을 올바르게 입력하세요");
+                tboxEmail1.Focus();
+                return;
+            }
+            updateData(); // 수정 실행
         }
 
         private void updateData()
@@ -75,9 +138,6 @@ namespace addressListApp
             {
                 try
                 {
-
-                    // DB의 gender컬럼에서 2은 여자, 이외는 남자로 변경하여 폼에서 출력
-
                     conn.Open();
                     string updateQuery = "UPDATE employee_list " +
                                         "SET emp_name = @name" +
@@ -93,10 +153,11 @@ namespace addressListApp
                     MySqlCommand cmd = new MySqlCommand(updateQuery, conn);
 
                     cmd.Parameters.AddWithValue("@name", tboxName.Text);
+                    
+                    // DB의 gender컬럼에서 2은 여자, 이외는 남자로 변경하여 폼에서 출력
                     int gender;
                     if (cboxGender.Text == "여자") { gender = 2; }
                     else { gender = 1; }
-                    
                     cmd.Parameters.AddWithValue("@gender", gender);
 
                     cmd.Parameters.AddWithValue("@age", tboxAge.Text);
@@ -209,15 +270,7 @@ namespace addressListApp
 
         }
 
-        private void cboxDept_Enter(object sender, EventArgs e)
-        {
-            toDroppedDownTrue(sender);
-        }
-
-        private void cboxRank_Enter(object sender, EventArgs e)
-        {
-            toDroppedDownTrue(sender);
-        }
+        
 
         private void cboxEmail_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -234,6 +287,11 @@ namespace addressListApp
                 tboxEmail2.BackColor = Color.LightGray; // tbox 회색으로
                 tboxEmail2.Text = cboxEmail.Text;
             }
+        }
+
+        private void cboxGender_Enter_1(object sender, EventArgs e)
+        {
+            toDroppedDownTrue(sender);
         }
     }
 }

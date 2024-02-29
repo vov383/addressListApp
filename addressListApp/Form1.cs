@@ -27,61 +27,77 @@ namespace addressListApp
 {
     public partial class Form1 : Form
     {
-        string _id = "root";
-        string _pw = "dw#1234";
-        string _database = "employee_list";
-        string _server = "192.168.0.180";
-        string _port = "3306";
+        private string _id = "root";
+        private string _pw = "dw#1234";
+        private string _database = "employee_list";
+        private string _server = "192.168.0.180";
+        private string _port = "3306";
 
         string _connectionAddress = "";
 
         public List<string> listItem = new List<string>();
+        private BindingList<object> typeList = new BindingList<object>(); // 콤보박스 키벨류 담을 객체
 
         public Form1()
         {
             InitializeComponent();
 
             _connectionAddress = string.Format("SERVER={0};PORT={1};DATABASE={2};UID={3};PASSWORD={4};", _server, _port, _database, _id, _pw);
-
+            
+            // 검색 콤보박스에 데이터 처리
+            typeList.Add(new { Display = "이름", Value = "emp_name" });
+            typeList.Add(new { Display = "부서", Value = "department" });
+            typeList.Add(new { Display = "직급", Value = "rank_position" });
+            
+            cboxCondition.DataSource = typeList;
+            cboxCondition.DisplayMember = "Display";
+            cboxCondition.ValueMember = "Value";
+            
             selectAll();
 
         }
 
         public void selectAll()
         {
-            
             // 전체 데이터를 조회합니다.          
             string selectQuery = string.Format("SELECT * FROM employee_list ORDER BY emp_name");
 
             DataSet ds = CmdMysql.ExecuteDataSet(selectQuery);
-            DataTable dt = ds.Tables[0]; 
+            DataTable dt = ds.Tables[0];
             dataGridView1.DataSource = dt;
+            dataGridView1.ClearSelection();
 
             updateColumnHeaderText();
-            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            
+            editColumnWidth();
+
+            editColumnIndex();
+
+        }
+
+        private void editColumnWidth()
+        {
             // 컬럼 width 조절
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView1.Columns["id"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             dataGridView1.Columns["rank_position"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             dataGridView1.Columns["gender"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             dataGridView1.Columns["age"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            
-            // 컬럼 순서 조절
-            editColumnIndex();
-            
         }
 
         private void editColumnIndex()
-        {   
-            dataGridView1.Columns["id"].Visible = false;
-            dataGridView1.Columns["emp_name"].DisplayIndex = 0;
-            dataGridView1.Columns["department"].DisplayIndex = 1;
-            dataGridView1.Columns["rank_position"].DisplayIndex = 2;
-            dataGridView1.Columns["mail_address"].DisplayIndex = 3;
-            dataGridView1.Columns["phone_num"].DisplayIndex = 4;
-            dataGridView1.Columns["com_call_num"].DisplayIndex = 5;
-            dataGridView1.Columns["home_address"].DisplayIndex = 6;
-            dataGridView1.Columns["gender"].DisplayIndex = 7;
-            dataGridView1.Columns["age"].DisplayIndex = 8;
-            dataGridView1.Columns["join_date"].DisplayIndex = 9;
+        {
+            dataGridView1.Columns["id"].DisplayIndex = 0;
+            dataGridView1.Columns["emp_name"].DisplayIndex = 1;
+            dataGridView1.Columns["department"].DisplayIndex = 2;
+            dataGridView1.Columns["rank_position"].DisplayIndex = 3;
+            dataGridView1.Columns["mail_address"].DisplayIndex = 4;
+            dataGridView1.Columns["phone_num"].DisplayIndex = 5;
+            dataGridView1.Columns["com_call_num"].DisplayIndex = 6;
+            dataGridView1.Columns["home_address"].DisplayIndex = 7;
+            dataGridView1.Columns["gender"].DisplayIndex = 8;
+            dataGridView1.Columns["age"].DisplayIndex = 9;
+            dataGridView1.Columns["join_date"].DisplayIndex = 10; 
         }
 
         // 데이터 소스 바인딩 후 컬럼 헤더 텍스트 변경
@@ -100,25 +116,44 @@ namespace addressListApp
 
         }
 
-        public static bool IsValidAge(string age)
-        {   
-            bool valid = Regex.IsMatch(age, @"[0-9]");
-            return valid;
-        }
-        public static bool IsValidEmail(string email)
-        {
-            Console.WriteLine("이메일 : " + email);
-            bool valid = Regex.IsMatch(email, @"[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?"); // 이메일 정규식
-            return valid;
-        }
+        public bool IsValidAge(string age) => Regex.IsMatch(age, @"[0-9]"); // 나이 정규식
+        public bool IsValidEmail(string email) => Regex.IsMatch(email, 
+            @"[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?"); // 이메일 정규식
 
-        public static bool IsValidPhoneNum(string phoneNum) => Regex.IsMatch(phoneNum, @"^01[016789]-\d{3,4}-\d{4}$"); // 폰넘버 정규식 
-        public static bool IsValidComNum(string comNum) => Regex.IsMatch(comNum, @"^(\d{2,4})?-(\d{3,4})-(\d{4})$"); // 회사번호 정규식 
-
+        public bool IsValidPhoneNum(string phoneNum) => Regex.IsMatch(phoneNum, @"^01[016789]-\d{3,4}-\d{4}$"); // 폰넘버 정규식 
+        public bool IsValidComNum(string comNum) => Regex.IsMatch(comNum, @"^(\d{2,4})?-(\d{3,4})-(\d{4})$"); // 회사번호 정규식 
 
         private void btnSearch_Click(object sender, EventArgs e)
-        {
-            selectAll();
+        {   
+            
+            using(MySqlConnection conn = new MySqlConnection(_connectionAddress))
+            {
+                try
+                {
+                    dataGridView1.DataSource = null; // 기존 dataGridView 정리
+                    DataSet ds = new DataSet();
+                    string queryStr = string.Format("SELECT * FROM employee_list WHERE {0} LIKE '%{1}%';", cboxCondition.SelectedValue, tboxSearch.Text);
+                    Trace.WriteLine("########### 검색쿼리 : " + queryStr);
+                    conn.Open();
+                    MySqlDataAdapter adapter = new MySqlDataAdapter(queryStr, conn);
+                    adapter.Fill(ds, "employee_list");
+                    conn.Close();
+                    DataTable dt = ds.Tables[0];
+                    dataGridView1.DataSource = dt;
+                    dataGridView1.ClearSelection();
+
+                    updateColumnHeaderText();
+
+                    editColumnWidth();
+
+                    editColumnIndex();
+                }
+                catch (Exception exc)
+                {
+                    MessageBox.Show(exc.Message);
+                }
+                
+            }
         }
         
 
@@ -149,9 +184,8 @@ namespace addressListApp
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            if (listItem.Count > 0)
+            if (listItem.Count == 11)
             {   
-
                 // 새 폼 인스턴스 생성
                 UpdateForm updateForm = new UpdateForm(this);
 
@@ -160,10 +194,7 @@ namespace addressListApp
 
                 // 새 폼 표시
                 updateForm.ShowDialog();
-            } else
-            {
-                MessageBox.Show("사원을 선택하세요.");
-            }
+            } else { MessageBox.Show("하나의 사원을 선택하세요."); }
 
             listItem.Clear();
 
@@ -175,7 +206,7 @@ namespace addressListApp
                 if (listItem[0] != null)
                 {
                     DelForm delForm = new DelForm(this);
-                    delForm.SetItem(listItem);
+                    delForm.setItem(listItem);
                     delForm.ShowDialog();
                 }
 
@@ -230,7 +261,7 @@ namespace addressListApp
                 row = dataGridView1.SelectedRows[i];
 
                 for (int j = 0; j < row.Cells.Count; j++)
-                {
+                {   
                     listItem.Add(row.Cells[j].Value.ToString()); // listItem에 SelectedRows의 데이터 (11 * n)개 담아 
                 }
             }
@@ -271,6 +302,34 @@ namespace addressListApp
 
         }
 
-        
+        private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            this.btnUpdate_Click(sender, e);
+        }
+
+        private void dataGridView1_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                // 컨텍스트 메뉴를 생성하고 표시
+                ContextMenuStrip contextMenu = new ContextMenuStrip();
+                contextMenu.Items.Add("수정", null, this.btnUpdate_Click);
+                contextMenu.Items.Add("삭제", null, this.btnDelete_Click);
+
+                // 메뉴를 마우스 위치에 표시
+                var relativeMousePosition = dataGridView1.PointToClient(Cursor.Position);
+                contextMenu.Show(dataGridView1, relativeMousePosition);
+            }
+        }
+
+        private void tboxSearch_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.Enter) 
+            {   
+                this.btnSearch_Click(sender, e); 
+                e.SuppressKeyPress = true; // 선택한 이벤트가 전파되지 않도록, 엔터 키 이벤트가 다른 동작을 하지 않도록 방지.
+
+            }
+        }
     }
 }
