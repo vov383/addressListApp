@@ -48,6 +48,8 @@ namespace addressListApp
             typeList.Add(new { Display = "이름", Value = "emp_name" });
             typeList.Add(new { Display = "부서", Value = "department" });
             typeList.Add(new { Display = "직급", Value = "rank_position" });
+            typeList.Add(new { Display = "주소", Value = "home_address" });
+            typeList.Add(new { Display = "이메일", Value = "mail_address" });
             
             cboxCondition.DataSource = typeList;
             cboxCondition.DisplayMember = "Display";
@@ -67,11 +69,10 @@ namespace addressListApp
             dataGridView1.DataSource = dt;
             dataGridView1.ClearSelection();
 
+            // 테이블 모양 조절
             updateColumnHeaderText();
-            
-            editColumnWidth();
-
             editColumnIndex();
+            editColumnWidth();
 
         }
 
@@ -80,7 +81,9 @@ namespace addressListApp
             // 컬럼 width 조절
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView1.Columns["id"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridView1.Columns["emp_name"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             dataGridView1.Columns["rank_position"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridView1.Columns["mail_address"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             dataGridView1.Columns["gender"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             dataGridView1.Columns["age"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
         }
@@ -133,7 +136,7 @@ namespace addressListApp
                     dataGridView1.DataSource = null; // 기존 dataGridView 정리
                     DataSet ds = new DataSet();
                     string queryStr = string.Format("SELECT * FROM employee_list WHERE {0} LIKE '%{1}%';", cboxCondition.SelectedValue, tboxSearch.Text);
-                    Trace.WriteLine("########### 검색쿼리 : " + queryStr);
+                    //Trace.WriteLine("########### 검색쿼리 : " + queryStr);
                     conn.Open();
                     MySqlDataAdapter adapter = new MySqlDataAdapter(queryStr, conn);
                     adapter.Fill(ds, "employee_list");
@@ -142,10 +145,9 @@ namespace addressListApp
                     dataGridView1.DataSource = dt;
                     dataGridView1.ClearSelection();
 
+                    // 테이블 모양 관련
                     updateColumnHeaderText();
-
                     editColumnWidth();
-
                     editColumnIndex();
                 }
                 catch (Exception exc)
