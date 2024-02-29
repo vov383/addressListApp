@@ -53,11 +53,14 @@
             this.lblEmail2 = new System.Windows.Forms.Label();
             this.cboxEmail = new System.Windows.Forms.ComboBox();
             this.tboxEmail2 = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).BeginInit();
             this.SuspendLayout();
             // 
             // cboxGender
             // 
+            this.cboxGender.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboxGender.FormattingEnabled = true;
             this.cboxGender.Items.AddRange(new object[] {
             "남자",
@@ -182,7 +185,7 @@
             this.btnInsertSubmit.Location = new System.Drawing.Point(345, 288);
             this.btnInsertSubmit.Name = "btnInsertSubmit";
             this.btnInsertSubmit.Size = new System.Drawing.Size(100, 26);
-            this.btnInsertSubmit.TabIndex = 9;
+            this.btnInsertSubmit.TabIndex = 10;
             this.btnInsertSubmit.Text = "추가";
             this.btnInsertSubmit.UseVisualStyleBackColor = true;
             this.btnInsertSubmit.Click += new System.EventHandler(this.btnInsertSubmit_Click);
@@ -218,7 +221,7 @@
             this.btnClose.Location = new System.Drawing.Point(232, 288);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(100, 26);
-            this.btnClose.TabIndex = 10;
+            this.btnClose.TabIndex = 11;
             this.btnClose.Text = "취소";
             this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
@@ -252,32 +255,54 @@
             // 
             // cboxEmail
             // 
+            this.cboxEmail.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboxEmail.FormattingEnabled = true;
             this.cboxEmail.Items.AddRange(new object[] {
             "dawooleng.co.kr",
             "naver.com",
             "gmail.com",
             "nate.com",
-            "hanmail.net",
-            "직접입력"});
-            this.cboxEmail.Location = new System.Drawing.Point(345, 253);
+            "hanmail.net"});
+            this.cboxEmail.Location = new System.Drawing.Point(345, 252);
             this.cboxEmail.Name = "cboxEmail";
             this.cboxEmail.Size = new System.Drawing.Size(121, 20);
-            this.cboxEmail.TabIndex = 33;
+            this.cboxEmail.TabIndex = 9;
             this.cboxEmail.SelectedIndexChanged += new System.EventHandler(this.cboxEmail_SelectedIndexChanged);
             // 
             // tboxEmail2
             // 
+            this.tboxEmail2.Enabled = false;
             this.tboxEmail2.Location = new System.Drawing.Point(200, 252);
             this.tboxEmail2.Name = "tboxEmail2";
             this.tboxEmail2.Size = new System.Drawing.Size(132, 21);
-            this.tboxEmail2.TabIndex = 34;
+            this.tboxEmail2.TabIndex = 12;
+            this.tboxEmail2.Text = "이메일주소 선택";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(230, 197);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(112, 12);
+            this.label1.TabIndex = 33;
+            this.label1.Text = "예시)010-1234-5678";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(230, 224);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(106, 12);
+            this.label2.TabIndex = 33;
+            this.label2.Text = "예시)061-123-4567";
             // 
             // InsertForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(508, 339);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.tboxEmail2);
             this.Controls.Add(this.cboxEmail);
             this.Controls.Add(this.lblEmail2);
@@ -303,6 +328,7 @@
             this.Controls.Add(this.label_name);
             this.Controls.Add(this.pictureBoxLogo);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Location = new System.Drawing.Point(100, 0);
             this.Name = "InsertForm";
             this.Text = "직원 정보 입력";
@@ -338,5 +364,7 @@
         private System.Windows.Forms.Label lblEmail2;
         private System.Windows.Forms.ComboBox cboxEmail;
         private System.Windows.Forms.TextBox tboxEmail2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
     }
 }

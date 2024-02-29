@@ -141,7 +141,6 @@ namespace addressListApp
             List<string> itemList = new List<string>() { "department", "rank_position" }; // 가져올 목록의 컬럼명
 
             string[] deptListItem = getCboxItems(itemList[0]).ToArray();
-            Trace.WriteLine("부서목록 : " + deptListItem);
             string[] rankListItem = getCboxItems(itemList[1]).ToArray();
             cboxDept.Items.AddRange(deptListItem); // 부서 목록을 cbox에 담기
             cboxRank.Items.AddRange(rankListItem); // 직급 목록을 cbox에 담기
@@ -162,7 +161,6 @@ namespace addressListApp
                 } else
                 {
                     cboxGender.Text = "남자";
-
                 }
                 tboxAge.Text = listItem[3];
                 tboxAddress.Text = listItem[4];

@@ -50,7 +50,7 @@ namespace addressListApp
                 string queryStr = $"SELECT DISTINCT {item} FROM employee_list"; // 쿼리에 Parameters.AddWithValue(); 방식은 컬럼명이나 테이블명에 사용 불가
                 conn.Open();
                 MySqlDataAdapter adapter = new MySqlDataAdapter();
-                
+
                 MySqlCommand cmd = new MySqlCommand(queryStr, conn);
                 adapter.SelectCommand = cmd;
 
@@ -66,7 +66,8 @@ namespace addressListApp
                 conn.Close();
                 return cboxItems;
             }
-                
+            insertData();
+
         }
         // 콤보박스 항목 들어가면 드롭다운
         private void comboBoxGender_Enter(object sender, EventArgs e)
@@ -75,16 +76,17 @@ namespace addressListApp
         }
 
 
-        private void btnInsertSubmit_Click (object sender, EventArgs e)
-        {   
-            insertData();
+        public void btnInsertSubmit_Click (object sender, EventArgs e)
+        {
+            validateAndProceed();
             form1.selectAll();
             form1.selectUpdatedRow(tboxName.Text);
         }
 
         private void insertData()
-        {
+        {   
             int gender;
+             
             string insertQuery = "INSERT INTO employee_list (" +
                                         "emp_name" +
                                         ", gender" +
@@ -130,8 +132,9 @@ namespace addressListApp
                     cmd.Parameters.AddWithValue("@rank", cboxRank.Text);
                     cmd.Parameters.AddWithValue("@com", tboxComNum.Text);
                     cmd.Parameters.AddWithValue("@phone", tboxHpNum.Text);
+                    Debug.WriteLine("###########" + "@email" + tboxEmail1.Text + "@" + cboxEmail.SelectedText);
                     cmd.Parameters.AddWithValue("@email", tboxEmail1.Text + "@" + tboxEmail2.Text);
-                    cmd.Parameters.AddWithValue("@join",  DateTime.Now.ToString("YYYY-MM-dd HH:mm:ss"));
+                    cmd.Parameters.AddWithValue("@join",  DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
 
                     cmd.ExecuteNonQuery();
 
@@ -140,24 +143,66 @@ namespace addressListApp
                     mySqlConn.Close();
                     this.Close();
                 }
-                catch
+                catch (Exception exc)
                 {
-                    if (tboxName.Text == "") { MessageBox.Show($"{label_name.Text}를 올바르게 입력하세요"); }
-                    else if (cboxGender.Text == "") { MessageBox.Show($"{label_gender.Text}를 올바르게 입력하세요"); }
-                    else if (tboxAge.Text == "" || !Form1.IsValidAge(tboxAge.Text)) { MessageBox.Show($"{label_age.Text}를 올바르게 입력하세요"); }
-                    //else if (tboxAddress.Text == "") MessageBox.Show($"{label_address.Text}를 올바르게 입력하세요");
-                    //else if (cboxDept.Text == "") MessageBox.Show($"{label_dept.Text}를 올바르게 입력하세요");
-                    //else if (cboxRank.Text == "") MessageBox.Show($"{label_rank.Text}를 올바르게 입력하세요");
-                    //else if (tboxComNum.Text == "") MessageBox.Show($"{label_com_num.Text}를 올바르게 입력하세요");
-                    //else if (tboxHpNum.Text == "") MessageBox.Show($"{label_hp.Text}를 올바르게 입력하세요");
-                    //else if (tboxEmail1.Text == "" || tboxEmail2.Text == "" || !Form1.IsValidEmail(tboxEmail1.Text + "@" + tboxEmail2.Text)) 
-                    //{ 
-                    //    Console.WriteLine("이메일 : " + tboxEmail1.Text + "@" + tboxEmail2.Text);
-                    //    MessageBox.Show($"{lblEmail1.Text}을 올바르게 입력하세요"); 
-                    //}
-
+                    
+                    //MessageBox.Show(exc.Message);
                 }
             }
+        }
+
+        private void validateAndProceed()
+        {
+            // 입력검증
+            if (string.IsNullOrEmpty(tboxName.Text))
+            {
+                MessageBox.Show($"{label_name.Text}를 올바르게 입력하세요");
+                tboxName.Focus();
+                return;
+            }
+            if (string.IsNullOrEmpty(tboxAge.Text) || !Form1.IsValidAge(tboxAge.Text))
+            {
+                MessageBox.Show($"{label_age.Text}를 올바르게 입력하세요");
+                tboxAge.Focus();
+                return;
+            }
+            if (string.IsNullOrEmpty(tboxAddress.Text))
+            {
+                MessageBox.Show($"{label_address.Text}를 올바르게 입력하세요");
+                tboxAddress.Focus();
+                return;
+            }
+            if (string.IsNullOrEmpty(cboxDept.Text))
+            {
+                MessageBox.Show($"{label_dept.Text}를 올바르게 입력하세요");
+                cboxDept.Focus();
+                return;
+            }
+            if (string.IsNullOrEmpty(cboxRank.Text))
+            {
+                MessageBox.Show($"{label_rank.Text}를 올바르게 입력하세요");
+                cboxRank.Focus();
+                return;
+            }
+            if (string.IsNullOrEmpty(tboxComNum.Text) || !Form1.IsValidComNum(tboxComNum.Text))
+            {
+                MessageBox.Show($"{label_com_num.Text}를 올바르게 입력하세요");
+                tboxComNum.Focus();
+                return;
+            }
+            if (tboxHpNum.Text == "" || !Form1.IsValidPhoneNum(tboxHpNum.Text))
+            {
+                MessageBox.Show($"{label_hp.Text}를 올바르게 입력하세요");
+                tboxHpNum.Focus();
+                return;
+            }
+            if (string.IsNullOrEmpty(tboxEmail1.Text) || string.IsNullOrEmpty(cboxEmail.Text) || !Form1.IsValidEmail(tboxEmail1.Text + "@" + tboxEmail2.Text))
+            {
+                MessageBox.Show($"{lblEmail1.Text}을 올바르게 입력하세요");
+                tboxEmail1.Focus();
+                return;
+            }
+            insertData(); // 입력 실행
         }
 
         private void btnClose_Click(object sender, EventArgs e)
@@ -170,7 +215,6 @@ namespace addressListApp
             List<string> itemList = new List<string>() { "department", "rank_position" }; // 가져올 목록의 컬럼명
 
             string[] deptListItem = getCboxItems(itemList[0]).ToArray();
-            Trace.WriteLine("부서목록 : " + deptListItem);
             string[] rankListItem = getCboxItems(itemList[1]).ToArray();
             cboxDept.Items.AddRange(deptListItem); // 부서 목록을 cbox에 담기
             cboxRank.Items.AddRange(rankListItem); // 직급 목록을 cbox에 담기
@@ -181,6 +225,8 @@ namespace addressListApp
 
             tboxEmail2.Enabled = false;
             tboxEmail2.BackColor = Color.LightGray;
+            cboxGender.BackColor = Color.White;
+            cboxEmail.BackColor = Color.White;
         }
 
         private void label_rank_Click(object sender, EventArgs e)
@@ -217,7 +263,7 @@ namespace addressListApp
         private void cboxEmail_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cboxEmail.Text == "직접입력")
-            {
+            {   
                 // "직접 입력"이 선택되었을 때 텍스트박스 활성화
                 tboxEmail2.Enabled = true;
                 tboxEmail2.BackColor = Color.White;

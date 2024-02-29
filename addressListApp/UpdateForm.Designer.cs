@@ -53,6 +53,8 @@
             this.label_gender = new System.Windows.Forms.Label();
             this.tboxName = new System.Windows.Forms.TextBox();
             this.label_name = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).BeginInit();
             this.SuspendLayout();
             // 
@@ -68,6 +70,7 @@
             // 
             // tboxEmail2
             // 
+            this.tboxEmail2.Enabled = false;
             this.tboxEmail2.Location = new System.Drawing.Point(200, 252);
             this.tboxEmail2.Name = "tboxEmail2";
             this.tboxEmail2.Size = new System.Drawing.Size(132, 21);
@@ -75,6 +78,7 @@
             // 
             // cboxEmail
             // 
+            this.cboxEmail.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboxEmail.FormattingEnabled = true;
             this.cboxEmail.Items.AddRange(new object[] {
             "dawooleng.co.kr",
@@ -86,7 +90,7 @@
             this.cboxEmail.Location = new System.Drawing.Point(345, 253);
             this.cboxEmail.Name = "cboxEmail";
             this.cboxEmail.Size = new System.Drawing.Size(121, 20);
-            this.cboxEmail.TabIndex = 56;
+            this.cboxEmail.TabIndex = 9;
             this.cboxEmail.SelectedIndexChanged += new System.EventHandler(this.cboxEmail_SelectedIndexChanged);
             // 
             // lblEmail2
@@ -104,7 +108,7 @@
             this.cboxRank.Location = new System.Drawing.Point(80, 168);
             this.cboxRank.Name = "cboxRank";
             this.cboxRank.Size = new System.Drawing.Size(144, 20);
-            this.cboxRank.TabIndex = 40;
+            this.cboxRank.TabIndex = 5;
             // 
             // cboxDept
             // 
@@ -112,14 +116,14 @@
             this.cboxDept.Location = new System.Drawing.Point(80, 142);
             this.cboxDept.Name = "cboxDept";
             this.cboxDept.Size = new System.Drawing.Size(144, 20);
-            this.cboxDept.TabIndex = 39;
+            this.cboxDept.TabIndex = 4;
             // 
             // tboxEmail1
             // 
             this.tboxEmail1.Location = new System.Drawing.Point(80, 251);
             this.tboxEmail1.Name = "tboxEmail1";
             this.tboxEmail1.Size = new System.Drawing.Size(100, 21);
-            this.tboxEmail1.TabIndex = 43;
+            this.tboxEmail1.TabIndex = 8;
             // 
             // lblEmail1
             // 
@@ -135,7 +139,7 @@
             this.btnClose.Location = new System.Drawing.Point(232, 288);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(100, 26);
-            this.btnClose.TabIndex = 45;
+            this.btnClose.TabIndex = 11;
             this.btnClose.Text = "취소";
             this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
@@ -145,13 +149,14 @@
             this.btnUpdateSubmit.Location = new System.Drawing.Point(345, 288);
             this.btnUpdateSubmit.Name = "btnUpdateSubmit";
             this.btnUpdateSubmit.Size = new System.Drawing.Size(100, 26);
-            this.btnUpdateSubmit.TabIndex = 44;
+            this.btnUpdateSubmit.TabIndex = 10;
             this.btnUpdateSubmit.Text = "수정";
             this.btnUpdateSubmit.UseVisualStyleBackColor = true;
             this.btnUpdateSubmit.Click += new System.EventHandler(this.btn_update_submit_Click);
             // 
             // cboxGender
             // 
+            this.cboxGender.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboxGender.FormattingEnabled = true;
             this.cboxGender.Items.AddRange(new object[] {
             "남자",
@@ -159,14 +164,14 @@
             this.cboxGender.Location = new System.Drawing.Point(80, 61);
             this.cboxGender.Name = "cboxGender";
             this.cboxGender.Size = new System.Drawing.Size(144, 20);
-            this.cboxGender.TabIndex = 36;
+            this.cboxGender.TabIndex = 1;
             // 
             // tboxHpNum
             // 
             this.tboxHpNum.Location = new System.Drawing.Point(80, 221);
             this.tboxHpNum.Name = "tboxHpNum";
             this.tboxHpNum.Size = new System.Drawing.Size(144, 21);
-            this.tboxHpNum.TabIndex = 42;
+            this.tboxHpNum.TabIndex = 7;
             // 
             // label_hp
             // 
@@ -182,7 +187,7 @@
             this.tboxComNum.Location = new System.Drawing.Point(80, 194);
             this.tboxComNum.Name = "tboxComNum";
             this.tboxComNum.Size = new System.Drawing.Size(144, 21);
-            this.tboxComNum.TabIndex = 41;
+            this.tboxComNum.TabIndex = 6;
             // 
             // label_com_num
             // 
@@ -225,14 +230,14 @@
             this.tboxAge.Location = new System.Drawing.Point(80, 87);
             this.tboxAge.Name = "tboxAge";
             this.tboxAge.Size = new System.Drawing.Size(144, 21);
-            this.tboxAge.TabIndex = 37;
+            this.tboxAge.TabIndex = 2;
             // 
             // tboxAddress
             // 
             this.tboxAddress.Location = new System.Drawing.Point(80, 114);
             this.tboxAddress.Name = "tboxAddress";
             this.tboxAddress.Size = new System.Drawing.Size(144, 21);
-            this.tboxAddress.TabIndex = 38;
+            this.tboxAddress.TabIndex = 3;
             // 
             // label_address
             // 
@@ -257,7 +262,7 @@
             this.tboxName.Location = new System.Drawing.Point(80, 31);
             this.tboxName.Name = "tboxName";
             this.tboxName.Size = new System.Drawing.Size(144, 21);
-            this.tboxName.TabIndex = 35;
+            this.tboxName.TabIndex = 0;
             // 
             // label_name
             // 
@@ -268,11 +273,31 @@
             this.label_name.TabIndex = 53;
             this.label_name.Text = "이름";
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(230, 224);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(106, 12);
+            this.label2.TabIndex = 58;
+            this.label2.Text = "예시)061-123-4567";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(230, 197);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(112, 12);
+            this.label1.TabIndex = 59;
+            this.label1.Text = "예시)010-1234-5678";
+            // 
             // UpdateForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(508, 339);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.tboxEmail2);
             this.Controls.Add(this.cboxEmail);
             this.Controls.Add(this.lblEmail2);
@@ -298,6 +323,7 @@
             this.Controls.Add(this.label_name);
             this.Controls.Add(this.pictureBoxLogo);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "UpdateForm";
             this.Text = "직원 정보 수정";
@@ -333,5 +359,7 @@
         private System.Windows.Forms.Label label_gender;
         private System.Windows.Forms.TextBox tboxName;
         private System.Windows.Forms.Label label_name;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
     }
 }

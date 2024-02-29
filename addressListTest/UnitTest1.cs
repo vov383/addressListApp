@@ -2,20 +2,28 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 
-namespace addressListTest
+namespace addressListApp.Tests
 {
-    [TestClass]
+    [TestClass()]
     public class UnitTest1
     {
-        [TestMethod]
-        public void TestMethod1()
+        [TestMethod()]
+        public void deleteDataTest()
         {
-            // Arrange
-            Form1 f1 = new Form1();
-            // Act
-            f1.selectAll();
-            // Assert
+            // given
 
+            // when
+
+            // then
+            Assert.Fail();
+        }
+
+        [TestMethod()]
+        public void selectAllTest()
+        {
+            Assert.Fail();
         }
     }
 }
+
+

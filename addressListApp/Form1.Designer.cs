@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.pictureBoxLogo = new System.Windows.Forms.PictureBox();
             this.printDocument1 = new System.Drawing.Printing.PrintDocument();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
@@ -61,8 +61,8 @@
             this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.AllowUserToResizeColumns = false;
             this.dataGridView1.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -75,7 +75,7 @@
             this.dataGridView1.RowTemplate.Height = 23;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.Size = new System.Drawing.Size(878, 365);
-            this.dataGridView1.TabIndex = 12;
+            this.dataGridView1.TabIndex = 6;
             this.dataGridView1.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView1_CellFormatting);
             this.dataGridView1.Click += new System.EventHandler(this.dataGridView1_Click);
             // 
@@ -85,7 +85,7 @@
             this.btnSearch.Location = new System.Drawing.Point(778, 91);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(108, 21);
-            this.btnSearch.TabIndex = 16;
+            this.btnSearch.TabIndex = 5;
             this.btnSearch.Text = "검색";
             this.btnSearch.UseVisualStyleBackColor = true;
             // 
@@ -95,7 +95,7 @@
             this.btnInsert.Location = new System.Drawing.Point(431, 12);
             this.btnInsert.Name = "btnInsert";
             this.btnInsert.Size = new System.Drawing.Size(106, 33);
-            this.btnInsert.TabIndex = 13;
+            this.btnInsert.TabIndex = 0;
             this.btnInsert.Text = "추가";
             this.btnInsert.UseVisualStyleBackColor = true;
             this.btnInsert.Click += new System.EventHandler(this.btnInsert_Click);
@@ -106,7 +106,7 @@
             this.btnUpdate.Location = new System.Drawing.Point(543, 12);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(115, 33);
-            this.btnUpdate.TabIndex = 14;
+            this.btnUpdate.TabIndex = 1;
             this.btnUpdate.Text = "수정";
             this.btnUpdate.UseVisualStyleBackColor = true;
             this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
@@ -117,7 +117,7 @@
             this.btnDelete.Location = new System.Drawing.Point(664, 12);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(108, 33);
-            this.btnDelete.TabIndex = 15;
+            this.btnDelete.TabIndex = 2;
             this.btnDelete.Text = "삭제";
             this.btnDelete.UseVisualStyleBackColor = true;
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
@@ -128,7 +128,7 @@
             this.btnClose.Location = new System.Drawing.Point(778, 12);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(108, 33);
-            this.btnClose.TabIndex = 16;
+            this.btnClose.TabIndex = 7;
             this.btnClose.Text = "종료";
             this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
@@ -139,7 +139,7 @@
             this.tboxSearch.Location = new System.Drawing.Point(545, 92);
             this.tboxSearch.Name = "tboxSearch";
             this.tboxSearch.Size = new System.Drawing.Size(227, 21);
-            this.tboxSearch.TabIndex = 17;
+            this.tboxSearch.TabIndex = 4;
             // 
             // cboxSearch
             // 
@@ -154,7 +154,7 @@
             this.cboxSearch.Location = new System.Drawing.Point(433, 92);
             this.cboxSearch.Name = "cboxSearch";
             this.cboxSearch.Size = new System.Drawing.Size(106, 20);
-            this.cboxSearch.TabIndex = 18;
+            this.cboxSearch.TabIndex = 3;
             // 
             // Form1
             // 
@@ -170,6 +170,7 @@
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.pictureBoxLogo);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.Text = "다울 주소록 관리도구";
             this.Load += new System.EventHandler(this.Form1_Load);
