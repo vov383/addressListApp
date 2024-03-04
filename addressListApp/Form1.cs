@@ -74,6 +74,13 @@ namespace addressListApp
             editColumnIndex();
             editColumnWidth();
 
+            // DataGridView에 새로운 열 추가
+            DataGridViewCheckBoxColumn isModifiedColumn = new DataGridViewCheckBoxColumn();
+            isModifiedColumn.HeaderText = "Is Modified";
+            isModifiedColumn.Name = "IsModified"; // 데이터 소스와 바인딩할 열의 이름
+            isModifiedColumn.DataPropertyName = "IsModified";
+            dataGridView1.Columns.Add(isModifiedColumn);
+
         }
 
         private void editColumnWidth()
