@@ -15,20 +15,16 @@ namespace addressListApp
 {
     public partial class UpdateForm : Form
     {
-        private BindingList<object> typeList = new BindingList<object>(); // 콤보박스 키벨류 담을 객체
-        string _id = "root";
-        string _pw = "dw#1234";
-        string _database = "employee_list";
-        string _server = "192.168.0.180";
-        string _port = "3306";
         string _connectionAddress = "";
+        private BindingList<object> typeList = new BindingList<object>(); // 콤보박스 키벨류 담을 객체
 
         List<string> listItem = new List<string>(); // 메인 폼에서 넘겨준 값 저장하여 update폼에서 사용할 수 있도록 함
         Form1 form1;
+        string empId = "";
 
         public UpdateForm(Form1 form1)
         {
-            _connectionAddress = string.Format("SERVER={0};PORT={1};DATABASE={2};UID={3};PASSWORD={4};", _server, _port, _database, _id, _pw);
+            _connectionAddress = string.Format("server={0};Database={1};Uid={2};Pwd={3};", "192.168.0.180", "employee_list", "root", "dw#1234");
 
             InitializeComponent();
             this.form1 = form1;
@@ -68,12 +64,13 @@ namespace addressListApp
         }
 
         private void btn_update_submit_Click(object sender, EventArgs e)
-        {
+        {   
             // 입력검증 자리 
             validateAndProceed();
-            form1.selectAll();
-            form1.selectUpdatedRow(tboxName.Text); // 수정한 사원 선택 
+            //form1.selectAll();
+            //form1.selectUpdatedRow(tboxName.Text); // 수정한 사원 선택 
             listItem.Clear();
+            
 
         }
 
@@ -167,15 +164,16 @@ namespace addressListApp
                     cmd.Parameters.AddWithValue("@com", tboxComNum.Text);
                     cmd.Parameters.AddWithValue("@phone", tboxHpNum.Text);
                     cmd.Parameters.AddWithValue("@email", tboxEmail1.Text + "@" + tboxEmail2.Text);
-                    cmd.Parameters.AddWithValue("@index", listItem[0]);
+                    cmd.Parameters.AddWithValue("@index", empId);
                     
                     cmd.ExecuteNonQuery();
 
                     conn.Close();
                     
                     MessageBox.Show($"{tboxName.Text} 사원을 수정하였습니다.");
+                    form1.getEmpId(empId);
                     this.Close();
-                    form1.selectUpdatedRow(tboxName.Text);
+                    //form1.selectUpdatedRow(tboxName.Text);
                 }
                 catch(Exception exc)
                 {
@@ -198,7 +196,8 @@ namespace addressListApp
         }
 
         private void UpdateForm_Load(object sender, EventArgs e)
-        {
+        {   
+            // 부서, 직급 콤보박스에 항목 생성
             List<string> itemList = new List<string>() { "department", "rank_position" }; // 가져올 목록의 컬럼명
 
             string[] deptListItem = getCboxItems(itemList[0]).ToArray();
@@ -210,10 +209,11 @@ namespace addressListApp
             cboxDept.Items.Remove("");
             cboxRank.Items.Remove("");
 
+            // 젠더 콤보박스에 1,2 를 남자, 여자로
             try
             {
                 // id를 제외하고 텍스트박스 및 콤보박스에 정보 등록
-
+                empId = listItem[0]; // 직원 id
                 tboxName.Text = listItem[1];
                 int gender = 0;
                 if(listItem[2] == "2")

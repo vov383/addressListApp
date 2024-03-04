@@ -56,14 +56,15 @@ namespace addressListApp
         }
 
         private void DelForm_KeyDown(object sender, KeyEventArgs e)
-        {   
-            if(e.KeyCode == Keys.Y) 
+        {
+            if (e.KeyCode == Keys.Y)
             {
                 btn_DelConfirm_Click(sender, e);
-            } else if (e.KeyCode == Keys.N) 
-            {
-                this.Close();     
             }
+            else if (e.KeyCode == Keys.N)
+            {
+                this.Close();
+            }            
         }
     }
 }

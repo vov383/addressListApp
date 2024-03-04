@@ -71,8 +71,8 @@ namespace addressListApp
         public void btnInsertSubmit_Click (object sender, EventArgs e)
         {
             validateAndProceed();
-            form1.selectAll();
-            form1.selectUpdatedRow(tboxName.Text);
+            //form1.selectAll();
+            //form1.selectUpdatedRow(tboxName.Text);
         }
 
         private void insertData()
@@ -144,7 +144,7 @@ namespace addressListApp
         }
 
         private void validateAndProceed()
-        {
+        {   
             form1 = new Form1();
             // 입력검증
             if (string.IsNullOrEmpty(tboxName.Text))

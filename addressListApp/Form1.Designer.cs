@@ -40,6 +40,7 @@
             this.btnClose = new System.Windows.Forms.Button();
             this.tboxSearch = new System.Windows.Forms.TextBox();
             this.cboxCondition = new System.Windows.Forms.ComboBox();
+            this.btnExcel = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -67,7 +68,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(8, 128);
+            this.dataGridView1.Location = new System.Drawing.Point(8, 96);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
@@ -84,7 +85,7 @@
             // btnSearch
             // 
             this.btnSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSearch.Location = new System.Drawing.Point(778, 91);
+            this.btnSearch.Location = new System.Drawing.Point(778, 59);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(108, 21);
             this.btnSearch.TabIndex = 5;
@@ -139,7 +140,7 @@
             // tboxSearch
             // 
             this.tboxSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.tboxSearch.Location = new System.Drawing.Point(545, 92);
+            this.tboxSearch.Location = new System.Drawing.Point(545, 60);
             this.tboxSearch.Name = "tboxSearch";
             this.tboxSearch.Size = new System.Drawing.Size(227, 21);
             this.tboxSearch.TabIndex = 4;
@@ -153,16 +154,27 @@
             "이름",
             "부서",
             "직책"});
-            this.cboxCondition.Location = new System.Drawing.Point(433, 92);
+            this.cboxCondition.Location = new System.Drawing.Point(433, 60);
             this.cboxCondition.Name = "cboxCondition";
             this.cboxCondition.Size = new System.Drawing.Size(106, 20);
             this.cboxCondition.TabIndex = 3;
+            // 
+            // btnExcel
+            // 
+            this.btnExcel.Location = new System.Drawing.Point(675, 467);
+            this.btnExcel.Name = "btnExcel";
+            this.btnExcel.Size = new System.Drawing.Size(75, 23);
+            this.btnExcel.TabIndex = 12;
+            this.btnExcel.Text = "엑셀";
+            this.btnExcel.UseVisualStyleBackColor = true;
+            this.btnExcel.Click += new System.EventHandler(this.btnExcel_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(898, 538);
+            this.Controls.Add(this.btnExcel);
             this.Controls.Add(this.cboxCondition);
             this.Controls.Add(this.tboxSearch);
             this.Controls.Add(this.btnClose);
@@ -194,6 +206,7 @@
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.TextBox tboxSearch;
         private System.Windows.Forms.ComboBox cboxCondition;
+        private System.Windows.Forms.Button btnExcel;
     }
 }
 

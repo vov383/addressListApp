@@ -19,6 +19,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Dawool;
 using MySql.Data.MySqlClient;
+using Microsoft.Office.Interop.Excel;
+using System.Runtime.InteropServices;
 
 using MySqlX.XDevAPI.Relational;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
@@ -27,34 +29,31 @@ namespace addressListApp
 {
     public partial class Form1 : Form
     {
-        private string _id = "root";
-        private string _pw = "dw#1234";
-        private string _database = "employee_list";
-        private string _server = "192.168.0.180";
-        private string _port = "3306";
-
-        string _connectionAddress = "";
+        string _connectionAddress = string.Format("server={0};Database={1};Uid={2};Pwd={3};", "192.168.0.180", "employee_list", "root", "dw#1234");
 
         public List<string> listItem = new List<string>();
         private BindingList<object> typeList = new BindingList<object>(); // 콤보박스 키벨류 담을 객체
+
+        string empId = "";
+        string empName = "";
 
         public Form1()
         {
             InitializeComponent();
 
-            _connectionAddress = string.Format("SERVER={0};PORT={1};DATABASE={2};UID={3};PASSWORD={4};", _server, _port, _database, _id, _pw);
-            
+
+
             // 검색 콤보박스에 데이터 처리
             typeList.Add(new { Display = "이름", Value = "emp_name" });
             typeList.Add(new { Display = "부서", Value = "department" });
             typeList.Add(new { Display = "직급", Value = "rank_position" });
             typeList.Add(new { Display = "주소", Value = "home_address" });
             typeList.Add(new { Display = "이메일", Value = "mail_address" });
-            
+
             cboxCondition.DataSource = typeList;
             cboxCondition.DisplayMember = "Display";
             cboxCondition.ValueMember = "Value";
-            
+
             selectAll();
 
         }
@@ -65,7 +64,7 @@ namespace addressListApp
             string selectQuery = string.Format("SELECT * FROM employee_list ORDER BY emp_name");
 
             DataSet ds = CmdMysql.ExecuteDataSet(selectQuery);
-            DataTable dt = ds.Tables[0];
+            System.Data.DataTable dt = ds.Tables[0];
             dataGridView1.DataSource = dt;
             dataGridView1.ClearSelection();
 
@@ -74,12 +73,13 @@ namespace addressListApp
             editColumnIndex();
             editColumnWidth();
 
-            // DataGridView에 새로운 열 추가
-            DataGridViewCheckBoxColumn isModifiedColumn = new DataGridViewCheckBoxColumn();
-            isModifiedColumn.HeaderText = "Is Modified";
-            isModifiedColumn.Name = "IsModified"; // 데이터 소스와 바인딩할 열의 이름
-            isModifiedColumn.DataPropertyName = "IsModified";
-            dataGridView1.Columns.Add(isModifiedColumn);
+            //// DataGridView에 새로운 열 추가
+            //DataGridViewCheckBoxColumn isModifiedColumn = new DataGridViewCheckBoxColumn();
+            //isModifiedColumn.HeaderText = "Is Modified";
+            //isModifiedColumn.Name = "IsModified"; // 데이터 소스와 바인딩할 열의 이름
+            //isModifiedColumn.DataPropertyName = "IsModified";
+            //dataGridView1.Columns.Add(isModifiedColumn);
+
 
         }
 
@@ -107,7 +107,7 @@ namespace addressListApp
             dataGridView1.Columns["home_address"].DisplayIndex = 7;
             dataGridView1.Columns["gender"].DisplayIndex = 8;
             dataGridView1.Columns["age"].DisplayIndex = 9;
-            dataGridView1.Columns["join_date"].DisplayIndex = 10; 
+            dataGridView1.Columns["join_date"].DisplayIndex = 10;
         }
 
         // 데이터 소스 바인딩 후 컬럼 헤더 텍스트 변경
@@ -127,13 +127,20 @@ namespace addressListApp
         }
 
         public bool IsValidAge(string age) => Regex.IsMatch(age, @"[0-9]"); // 나이 정규식
-        public bool IsValidEmail(string email) => Regex.IsMatch(email, 
+        public bool IsValidEmail(string email) => Regex.IsMatch(email,
             @"[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?"); // 이메일 정규식
 
         public bool IsValidPhoneNum(string phoneNum) => Regex.IsMatch(phoneNum, @"^01[016789]-\d{3,4}-\d{4}$"); // 폰넘버 정규식 
         public bool IsValidComNum(string comNum) => Regex.IsMatch(comNum, @"^(\d{2,4})?-(\d{3,4})-(\d{4})$"); // 회사번호 정규식 
 
-        private void btnSearch_Click(object sender, EventArgs e)
+        public void getEmpId(string empId)
+        {
+            this.empId = empId;
+        }
+
+
+
+    private void btnSearch_Click(object sender, EventArgs e)
         {   
             
             using(MySqlConnection conn = new MySqlConnection(_connectionAddress))
@@ -142,13 +149,13 @@ namespace addressListApp
                 {
                     dataGridView1.DataSource = null; // 기존 dataGridView 정리
                     DataSet ds = new DataSet();
-                    string queryStr = string.Format("SELECT * FROM employee_list WHERE {0} LIKE '%{1}%';", cboxCondition.SelectedValue, tboxSearch.Text);
+                    string queryStr = string.Format("SELECT * FROM employee_list WHERE {0} LIKE '%{1}%' ORDER BY emp_name;", cboxCondition.SelectedValue, tboxSearch.Text);
                     //Trace.WriteLine("########### 검색쿼리 : " + queryStr);
                     conn.Open();
                     MySqlDataAdapter adapter = new MySqlDataAdapter(queryStr, conn);
                     adapter.Fill(ds, "employee_list");
                     conn.Close();
-                    DataTable dt = ds.Tables[0];
+                    System.Data.DataTable dt = ds.Tables[0];
                     dataGridView1.DataSource = dt;
                     dataGridView1.ClearSelection();
 
@@ -173,15 +180,36 @@ namespace addressListApp
             insertForm.ShowDialog(); // newForm.ShowDialog(); // 모달 방식으로 새 폼을 띄우려면 이 코드를 사용하세요.
             
             listItem.Clear();
+            selectAll();
+
 
         }
-
-        public void selectUpdatedRow(string emp_name)
+        public int getMaxId()
         {
-            foreach (DataGridViewRow row in dataGridView1.Rows) 
+            using (MySqlConnection conn = new MySqlConnection(_connectionAddress))
             {
-                if ((string)row.Cells["emp_name"].Value == emp_name)
+                try
                 {
+                    conn.Open();
+                    string queryStr = "SELECT MAX(id) FROM empolyee_list;";
+
+                    MySqlCommand cmd = new MySqlCommand(queryStr, conn);
+                    return (int)cmd.ExecuteScalar();
+                }
+                catch (Exception exc)
+                {
+                    MessageBox.Show(exc.Message);
+                    throw;
+                }
+                
+            }
+        }
+        public void selectUpdatedRow(string empId)
+        {   
+            foreach (DataGridViewRow row in dataGridView1.Rows) 
+            {   
+                if ((string)row.Cells["id"].Value == empId)
+                {   
                     dataGridView1.ClearSelection();
                     row.Selected = true;
                     dataGridView1.FirstDisplayedScrollingRowIndex = row.Index;
@@ -206,6 +234,10 @@ namespace addressListApp
             } else { MessageBox.Show("하나의 사원을 선택하세요."); }
 
             listItem.Clear();
+            selectAll();
+            empId = getMaxId().ToString();
+            selectUpdatedRow(empId);
+
 
         }
         private void btnDelete_Click(object sender, EventArgs e)
@@ -220,6 +252,7 @@ namespace addressListApp
                 }
 
                 listItem.Clear();
+                selectAll();
             }
             catch
             {
@@ -339,6 +372,31 @@ namespace addressListApp
                 e.SuppressKeyPress = true; // 선택한 이벤트가 전파되지 않도록, 엔터 키 이벤트가 다른 동작을 하지 않도록 방지.
 
             }
+        }
+
+        public void CreateExcelInstance()
+        {
+            // 엑셀 애플리케이션 인스턴스 생성
+            Microsoft.Office.Interop.Excel.Application excelApp = new Microsoft.Office.Interop.Excel.Application();
+            if (excelApp == null)
+            {
+                Console.WriteLine("엑셀이 설치되어 있지 않습니다.");
+                return;
+            }
+
+            // 새 워크북 생성
+            Microsoft.Office.Interop.Excel.Workbook workbook = excelApp.Workbooks.Add(Type.Missing);
+            Microsoft.Office.Interop.Excel.Worksheet worksheet = workbook.Sheets["Sheet1"];
+            worksheet.Name = "내 데이터";
+
+            // 엑셀 파일 보이기
+            excelApp.Visible = true;
+
+        }
+
+        private void btnExcel_Click(object sender, EventArgs e)
+        {
+            CreateExcelInstance();
         }
     }
 }

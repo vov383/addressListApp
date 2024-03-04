@@ -14,9 +14,9 @@ namespace addressListApp.Tests
         [TestMethod()]
         public void btnInsertSubmit_ClickTest()
         {
-            InsertForm istf = new InsertForm(Object );
+            //InsertForm istf = new InsertForm(Object );
 
-            Assert.IsTrue();
+            //Assert.IsTrue();
         }
     }
 }

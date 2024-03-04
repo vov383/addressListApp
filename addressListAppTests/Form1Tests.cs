@@ -33,7 +33,7 @@ namespace addressListApp.Tests
             var form1 = new Form1();
 
             var insertForm = new InsertForm(form1);
-            insertForm.
+            //insertForm.
         }
 
     }
