@@ -35,7 +35,7 @@ namespace addressListApp
 
         string _connectionAddress = "";
 
-        public List<string> listItem = new List<string>();
+        public List<string> listItem = new List<string>(); // Row를 담을 객체
         private BindingList<object> typeList = new BindingList<object>(); // 콤보박스 키벨류 담을 객체
         public string emp_name = "";
 
@@ -68,6 +68,14 @@ namespace addressListApp
             DataSet ds = CmdMysql.ExecuteDataSet(selectQuery);
             DataTable dt = ds.Tables[0];
             dataGridView1.DataSource = dt;
+
+            // DataGridView에 새로운 열 추가
+            DataGridViewTextBoxColumn isModifiedColumn = new DataGridViewTextBoxColumn();
+            isModifiedColumn.HeaderText = "수정됨";
+            isModifiedColumn.Name = "IsModified"; // 데이터 소스와 바인딩할 열의 이름
+            isModifiedColumn.DataPropertyName = "IsModified";
+            dataGridView1.Columns.Add(isModifiedColumn);
+
             dataGridView1.ClearSelection();
 
             // 테이블 모양 조절
@@ -75,12 +83,7 @@ namespace addressListApp
             editColumnIndex();
             editColumnWidth();
 
-            // DataGridView에 새로운 열 추가
-            DataGridViewCheckBoxColumn isModifiedColumn = new DataGridViewCheckBoxColumn();
-            isModifiedColumn.HeaderText = "Is Modified";
-            isModifiedColumn.Name = "IsModified"; // 데이터 소스와 바인딩할 열의 이름
-            isModifiedColumn.DataPropertyName = "IsModified";
-            dataGridView1.Columns.Add(isModifiedColumn);
+            
 
         }
 
@@ -108,7 +111,8 @@ namespace addressListApp
             dataGridView1.Columns["home_address"].DisplayIndex = 7;
             dataGridView1.Columns["gender"].DisplayIndex = 8;
             dataGridView1.Columns["age"].DisplayIndex = 9;
-            dataGridView1.Columns["join_date"].DisplayIndex = 10; 
+            dataGridView1.Columns["join_date"].DisplayIndex = 10;
+            dataGridView1.Columns["IsModified"].DisplayIndex = 11;
         }
 
         // 데이터 소스 바인딩 후 컬럼 헤더 텍스트 변경
@@ -241,24 +245,44 @@ namespace addressListApp
         // gender 컬럼 데이터 남자, 여자로 변경.
         private void dataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (dataGridView1.Columns[e.ColumnIndex].Name == "gender" && e.Value != null)
+            // DataGridView가 데이터 소스와 바인딩된 경우에만 진행
+            if (dataGridView1.DataSource != null)
             {
-                switch (e.Value.ToString())
+                // 현재 행이 수정된 행이면 배경색 변경
+                if (dataGridView1.Rows[e.RowIndex].Cells["IsModified"].Value != null && (bool)dataGridView1.Rows[e.RowIndex].Cells["IsModified"].Value)
                 {
-                    case "1":
-                        {
-                            e.Value = "남자";
-                            e.FormattingApplied = true;
-                        }
-                        break;
-                    case "2":
-                        {
-                            e.Value = "여자";
-                            e.FormattingApplied = true;
-                        }
-                        break;
+                    dataGridView1.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.LightYellow;
+                    dataGridView1.Rows[e.RowIndex].DefaultCellStyle.ForeColor = Color.Black; // 수정된 행의 텍스트 색상 변경
+                }
+                else
+                {
+                    // 수정되지 않은 행은 기본 배경색으로 변경
+                    dataGridView1.Rows[e.RowIndex].DefaultCellStyle.BackColor = dataGridView1.DefaultCellStyle.BackColor;
+                    dataGridView1.Rows[e.RowIndex].DefaultCellStyle.ForeColor = dataGridView1.DefaultCellStyle.ForeColor;
+                }
+
+                // 젠더 컬럼의 값을 1, 2 에서 남자, 여자로
+                if (dataGridView1.Columns[e.ColumnIndex].Name == "gender" && e.Value != null)
+                {
+                    switch (e.Value.ToString())
+                    {
+                        case "1":
+                            {
+                                e.Value = "남자";
+                                e.FormattingApplied = true;
+                            }
+                            break;
+                        case "2":
+                            {
+                                e.Value = "여자";
+                                e.FormattingApplied = true;
+                            }
+                            break;
+                    }
                 }
             }
+
+            
         }
 
         private void dataGridView1_Click(object sender, EventArgs e)
@@ -276,7 +300,7 @@ namespace addressListApp
 
                 for (int j = 0; j < row.Cells.Count; j++)
                 {   
-                    listItem.Add(row.Cells[j].Value.ToString()); // listItem에 SelectedRows의 데이터 (11 * n)개 담아 
+                    listItem.Add(row.Cells[j].Value.ToString()); // listItem에 SelectedRows의 데이터 (12 * n)개 담아 
                 }
             }
 
