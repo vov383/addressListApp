@@ -71,8 +71,7 @@ namespace addressListApp
         {
             // 입력검증 자리 
             validateAndProceed();
-            form1.selectAll();
-            form1.selectUpdatedRow(tboxName.Text); // 수정한 사원 선택 
+            form1.getEmpName(tboxName.Text); // 수정한 사원 선택 
             listItem.Clear();
 
         }
@@ -167,6 +166,7 @@ namespace addressListApp
                     cmd.Parameters.AddWithValue("@com", tboxComNum.Text);
                     cmd.Parameters.AddWithValue("@phone", tboxHpNum.Text);
                     cmd.Parameters.AddWithValue("@email", tboxEmail1.Text + "@" + tboxEmail2.Text);
+                    //Debug.WriteLine("#########" + listItem[0].ToString());
                     cmd.Parameters.AddWithValue("@index", listItem[0]);
                     
                     cmd.ExecuteNonQuery();
@@ -174,8 +174,8 @@ namespace addressListApp
                     conn.Close();
                     
                     MessageBox.Show($"{tboxName.Text} 사원을 수정하였습니다.");
+                    form1.getEmpName(tboxName.Text);
                     this.Close();
-                    form1.selectUpdatedRow(tboxName.Text);
                 }
                 catch(Exception exc)
                 {
@@ -192,7 +192,7 @@ namespace addressListApp
         public void setItem(List<string> item)
         {
             for (int i = 0; i < item.Count; i++)
-            {
+            {   
                 listItem.Add(item[i]); // 메인폼에서 데이터를 받아 listItem변수에 입력
             }
         }

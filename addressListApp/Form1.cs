@@ -37,6 +37,7 @@ namespace addressListApp
 
         public List<string> listItem = new List<string>();
         private BindingList<object> typeList = new BindingList<object>(); // 콤보박스 키벨류 담을 객체
+        public string emp_name = "";
 
         public Form1()
         {
@@ -73,6 +74,13 @@ namespace addressListApp
             updateColumnHeaderText();
             editColumnIndex();
             editColumnWidth();
+
+            // DataGridView에 새로운 열 추가
+            DataGridViewCheckBoxColumn isModifiedColumn = new DataGridViewCheckBoxColumn();
+            isModifiedColumn.HeaderText = "Is Modified";
+            isModifiedColumn.Name = "IsModified"; // 데이터 소스와 바인딩할 열의 이름
+            isModifiedColumn.DataPropertyName = "IsModified";
+            dataGridView1.Columns.Add(isModifiedColumn);
 
         }
 
@@ -135,7 +143,7 @@ namespace addressListApp
                 {
                     dataGridView1.DataSource = null; // 기존 dataGridView 정리
                     DataSet ds = new DataSet();
-                    string queryStr = string.Format("SELECT * FROM employee_list WHERE {0} LIKE '%{1}%';", cboxCondition.SelectedValue, tboxSearch.Text);
+                    string queryStr = string.Format("SELECT * FROM employee_list WHERE {0} LIKE '%{1}%' ORDER BY emp_name;", cboxCondition.SelectedValue, tboxSearch.Text);
                     //Trace.WriteLine("########### 검색쿼리 : " + queryStr);
                     conn.Open();
                     MySqlDataAdapter adapter = new MySqlDataAdapter(queryStr, conn);
@@ -165,23 +173,27 @@ namespace addressListApp
             InsertForm insertForm = new InsertForm(this); // 직원 등록 폼 생성.
             insertForm.ShowDialog(); // newForm.ShowDialog(); // 모달 방식으로 새 폼을 띄우려면 이 코드를 사용하세요.
             
-            listItem.Clear();
+            //selectAll();
+            //selectModifiedRow(emp_name); // 수정된 로우 셀렉트
+            
 
         }
 
-        public void selectUpdatedRow(string emp_name)
+        public void selectModifiedRow(string emp_name)
         {
-            foreach (DataGridViewRow row in dataGridView1.Rows) 
+            foreach (DataGridViewRow row in dataGridView1.Rows)
             {
-                if ((string)row.Cells["emp_name"].Value == emp_name)
+                if (row.Cells["emp_name"].Value != null && (string)row.Cells["emp_name"].Value == emp_name)
                 {
                     dataGridView1.ClearSelection();
                     row.Selected = true;
+                    // 선택된 행이 보이도록 스크롤
                     dataGridView1.FirstDisplayedScrollingRowIndex = row.Index;
                     break;
                 }
             }
         }
+
 
 
         private void btnUpdate_Click(object sender, EventArgs e)
@@ -198,8 +210,8 @@ namespace addressListApp
                 updateForm.ShowDialog();
             } else { MessageBox.Show("하나의 사원을 선택하세요."); }
 
-            listItem.Clear();
-
+            //selectAll();
+            //selectModifiedRow(emp_name);
         }
         private void btnDelete_Click(object sender, EventArgs e)
         {
@@ -331,6 +343,20 @@ namespace addressListApp
                 this.btnSearch_Click(sender, e); 
                 e.SuppressKeyPress = true; // 선택한 이벤트가 전파되지 않도록, 엔터 키 이벤트가 다른 동작을 하지 않도록 방지.
 
+            }
+        }
+
+        public void getEmpName(string text)
+        {
+            emp_name = text;
+        }
+
+        private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            if(e.RowIndex >= 0 && e.ColumnIndex >= 0) 
+            {
+                // 변경된 행의 IsModified 속성을 true로 설정
+                dataGridView1.Rows[e.RowIndex].Cells["IsModified"].Value = true;
             }
         }
     }

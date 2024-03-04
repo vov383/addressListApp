@@ -72,7 +72,7 @@ namespace addressListApp
         {
             validateAndProceed();
             form1.selectAll();
-            form1.selectUpdatedRow(tboxName.Text);
+            form1.selectModifiedRow(tboxName.Text);
         }
 
         private void insertData()
@@ -129,10 +129,10 @@ namespace addressListApp
                     cmd.Parameters.AddWithValue("@join",  DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
 
                     cmd.ExecuteNonQuery();
-
-                    MessageBox.Show($"{tboxName.Text} 사원을 추가하였습니다.");
                     
                     mySqlConn.Close();
+                    form1.getEmpName(tboxName.Text);
+                    MessageBox.Show($"{tboxName.Text} 사원을 추가하였습니다.");
                     this.Close();
                 }
                 catch (Exception exc)

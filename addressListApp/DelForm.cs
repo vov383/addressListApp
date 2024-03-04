@@ -38,6 +38,7 @@ namespace addressListApp
             MessageBox.Show($"{listItem[1]} 사원을 삭제하였습니다.");
             this.Close();
             listItem.Clear();
+            //form1.selectAll();
         }
 
         private void DelForm_Load(object sender, EventArgs e)
