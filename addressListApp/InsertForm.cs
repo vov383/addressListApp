@@ -137,8 +137,7 @@ namespace addressListApp
                 }
                 catch (Exception exc)
                 {
-                    
-                    //MessageBox.Show(exc.Message);
+                    MessageBox.Show("사원추가에 실패했습니다. - {0}", exc.Message);
                 }
             }
         }

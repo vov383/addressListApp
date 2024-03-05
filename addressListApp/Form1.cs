@@ -140,10 +140,10 @@ namespace addressListApp
 
 
 
-    private void btnSearch_Click(object sender, EventArgs e)
-        {   
-            
-            using(MySqlConnection conn = new MySqlConnection(_connectionAddress))
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+
+            using (MySqlConnection conn = new MySqlConnection(_connectionAddress))
             {
                 try
                 {
@@ -168,17 +168,17 @@ namespace addressListApp
                 {
                     MessageBox.Show(exc.Message);
                 }
-                
+
             }
         }
-        
+
 
         public void btnInsert_Click(object sender, EventArgs e)
         {
 
             InsertForm insertForm = new InsertForm(this); // 직원 등록 폼 생성.
             insertForm.ShowDialog(); // newForm.ShowDialog(); // 모달 방식으로 새 폼을 띄우려면 이 코드를 사용하세요.
-            
+
             listItem.Clear();
             selectAll();
 
@@ -201,15 +201,15 @@ namespace addressListApp
                     MessageBox.Show(exc.Message);
                     throw;
                 }
-                
+
             }
         }
         public void selectUpdatedRow(string empId)
-        {   
-            foreach (DataGridViewRow row in dataGridView1.Rows) 
-            {   
+        {
+            foreach (DataGridViewRow row in dataGridView1.Rows)
+            {
                 if ((string)row.Cells["id"].Value == empId)
-                {   
+                {
                     dataGridView1.ClearSelection();
                     row.Selected = true;
                     dataGridView1.FirstDisplayedScrollingRowIndex = row.Index;
@@ -222,7 +222,7 @@ namespace addressListApp
         private void btnUpdate_Click(object sender, EventArgs e)
         {
             if (listItem.Count == 11)
-            {   
+            {
                 // 새 폼 인스턴스 생성
                 UpdateForm updateForm = new UpdateForm(this);
 
@@ -292,18 +292,18 @@ namespace addressListApp
         private void dataGridView1_Click(object sender, EventArgs e)
         {
             // 이전에 클릭한 사원 정보 클리어
-            if(listItem.Count != 0)
+            if (listItem.Count != 0)
             {
                 listItem.Clear();
             }
             DataGridViewRow row = new DataGridViewRow();
 
             for (int i = 0; i < dataGridView1.SelectedRows.Count; i++)
-            {   
+            {
                 row = dataGridView1.SelectedRows[i];
 
                 for (int j = 0; j < row.Cells.Count; j++)
-                {   
+                {
                     listItem.Add(row.Cells[j].Value.ToString()); // listItem에 SelectedRows의 데이터 (11 * n)개 담아 
                 }
             }
@@ -311,11 +311,11 @@ namespace addressListApp
         }
 
         public void deleteData()
-        {   
-            using(MySqlConnection conn = new MySqlConnection(_connectionAddress))
+        {
+            using (MySqlConnection conn = new MySqlConnection(_connectionAddress))
             {
                 try
-                {   
+                {
                     string deleteQuery = "DELETE FROM employee_list " +
                                         "WHERE id = @id";
                     MySqlCommand cmd = new MySqlCommand(deleteQuery, conn);
@@ -366,9 +366,9 @@ namespace addressListApp
 
         private void tboxSearch_KeyDown(object sender, KeyEventArgs e)
         {
-            if(e.KeyCode == Keys.Enter) 
-            {   
-                this.btnSearch_Click(sender, e); 
+            if (e.KeyCode == Keys.Enter)
+            {
+                this.btnSearch_Click(sender, e);
                 e.SuppressKeyPress = true; // 선택한 이벤트가 전파되지 않도록, 엔터 키 이벤트가 다른 동작을 하지 않도록 방지.
 
             }
@@ -394,12 +394,9 @@ namespace addressListApp
 
         }
 
-        private void btnExcel_Click(object sender, EventArgs e)
+        private void btnExportAllTable(object sender, EventArgs e)
         {
-            //CreateExcelInstance();
-            //DataTable table_Excel = new DataTable();
             ExportToExcel();
-
         }
 
         // 테이블을 엑셀로 저장
@@ -415,10 +412,10 @@ namespace addressListApp
                 Excel._Worksheet worksheet = null;
 
                 // DataGridView에 불러온 Data가 아무것도 없을 경우
-                if(dataGridView1.Rows.Count == 0)
+                if (dataGridView1.Rows.Count == 0)
                 {
                     MessageBox.Show("데이터가 없다.", "Inform", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    return; 
+                    return;
                 }
 
                 // worksheet = workbook.ActiveSheet;
@@ -430,10 +427,10 @@ namespace addressListApp
                 // table 헤더
                 for (int col = 0; col < dataGridView1.Columns.Count; col++)
                 {
-                    if (cellRowIndex == 1)  
+                    if (cellRowIndex == 1)
                     {
                         worksheet.Cells[cellRowIndex, cellColumnIndex] = dataGridView1.Columns[col].HeaderText;
-                     }
+                    }
                     cellColumnIndex++;
                 }
 
@@ -452,10 +449,10 @@ namespace addressListApp
                     cellRowIndex++;
                 }
 
-                SaveFileDialog saveFileDialog = GetExcelSave();
+                SaveFileDialog saveFileDialog = GetExcelSaveDir();
 
-                if(saveFileDialog.ShowDialog() == DialogResult.OK) 
-                { 
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
                     workbook.SaveAs(saveFileDialog.FileName);
                     MessageBox.Show("Export 성공");
                     IsExport = true;
@@ -477,14 +474,53 @@ namespace addressListApp
         }
 
         // 사용자로부터 엑셀 파일을 저장할 위치를 선택하는 기능을 담당하는 메서드
-        private SaveFileDialog GetExcelSave()
-        {   
+        private SaveFileDialog GetExcelSaveDir()
+        {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.Filter = "Excel 파일 (*.xlsx)|*.xlsx|모든파일 (*.*)|*.*";
             saveFileDialog.Title = "저장할 위치를 선택하세요";
             saveFileDialog.RestoreDirectory = true; // 마지막에 선택한 디렉토리를 기억합니다.
 
             return saveFileDialog;
+        }
+
+        private void btnOpenExcel(object sender, EventArgs e)
+        {
+            CreateExcelInstance();
+        }
+
+        private void btnExportRow(object sender, EventArgs e)
+        {
+            bool IsExport = false;
+
+            // 엑셀 오브젝트 생성
+            try
+            {
+                Excel._Application excel = new Excel.Application();
+                Excel._Workbook workbook = excel.Workbooks.Add(Type.Missing);
+                Excel._Worksheet worksheet = null;
+
+                // 데이터가 선택되지 않았다면
+                if(dataGridView1.SelectedRows.Count == 0)
+                {
+                    MessageBox.Show("선택된 데이터 없어요", "Inform", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+                worksheet = (Excel.Worksheet)workbook.ActiveSheet;
+
+                int cellRowIndex = 0;
+                int cellColumnIndex = 0;
+
+                foreach (DataGridViewRow selectedRow in dataGridView1.SelectedRows)
+                {
+
+                }
+
+            } catch (Exception exc) 
+            {
+                MessageBox.Show("오류 - {0}", exc.Message);
+            }
+
         }
     }
 }
