@@ -19,7 +19,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Dawool;
 using MySql.Data.MySqlClient;
-using Microsoft.Office.Interop.Excel;
+using Excel = Microsoft.Office.Interop.Excel;
 using System.Runtime.InteropServices;
 
 using MySqlX.XDevAPI.Relational;
@@ -64,7 +64,7 @@ namespace addressListApp
             string selectQuery = string.Format("SELECT * FROM employee_list ORDER BY emp_name");
 
             DataSet ds = CmdMysql.ExecuteDataSet(selectQuery);
-            System.Data.DataTable dt = ds.Tables[0];
+            DataTable dt = ds.Tables[0];
             dataGridView1.DataSource = dt;
             dataGridView1.ClearSelection();
 
@@ -155,7 +155,7 @@ namespace addressListApp
                     MySqlDataAdapter adapter = new MySqlDataAdapter(queryStr, conn);
                     adapter.Fill(ds, "employee_list");
                     conn.Close();
-                    System.Data.DataTable dt = ds.Tables[0];
+                    DataTable dt = ds.Tables[0];
                     dataGridView1.DataSource = dt;
                     dataGridView1.ClearSelection();
 
@@ -377,7 +377,7 @@ namespace addressListApp
         public void CreateExcelInstance()
         {
             // 엑셀 애플리케이션 인스턴스 생성
-            Microsoft.Office.Interop.Excel.Application excelApp = new Microsoft.Office.Interop.Excel.Application();
+            Excel.Application excelApp = new Excel.Application();
             if (excelApp == null)
             {
                 Console.WriteLine("엑셀이 설치되어 있지 않습니다.");
@@ -385,8 +385,8 @@ namespace addressListApp
             }
 
             // 새 워크북 생성
-            Microsoft.Office.Interop.Excel.Workbook workbook = excelApp.Workbooks.Add(Type.Missing);
-            Microsoft.Office.Interop.Excel.Worksheet worksheet = workbook.Sheets["Sheet1"];
+            Excel.Workbook workbook = excelApp.Workbooks.Add(Type.Missing);
+            Excel.Worksheet worksheet = (Excel.Worksheet)workbook.Sheets["Sheet1"];
             worksheet.Name = "내 데이터";
 
             // 엑셀 파일 보이기
@@ -397,8 +397,94 @@ namespace addressListApp
         private void btnExcel_Click(object sender, EventArgs e)
         {
             //CreateExcelInstance();
-            System.Data.DataTable table_Excel = new System.Data.DataTable();
+            //DataTable table_Excel = new DataTable();
+            ExportToExcel();
 
+        }
+
+        // 테이블을 엑셀로 저장
+        private void ExportToExcel()
+        {
+            bool IsExport = false;
+
+            // 엑셀 오브젝트 생성
+            try
+            {
+                Excel._Application excel = new Excel.Application();
+                Excel._Workbook workbook = excel.Workbooks.Add(Type.Missing);
+                Excel._Worksheet worksheet = null;
+
+                // DataGridView에 불러온 Data가 아무것도 없을 경우
+                if(dataGridView1.Rows.Count == 0)
+                {
+                    MessageBox.Show("데이터가 없다.", "Inform", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return; 
+                }
+
+                // worksheet = workbook.ActiveSheet;
+                worksheet = (Excel.Worksheet)workbook.ActiveSheet;
+
+                int cellRowIndex = 1;
+                int cellColumnIndex = 1;
+
+                // table 헤더
+                for (int col = 0; col < dataGridView1.Columns.Count; col++)
+                {
+                    if (cellRowIndex == 1)  
+                    {
+                        worksheet.Cells[cellRowIndex, cellColumnIndex] = dataGridView1.Columns[col].HeaderText;
+                     }
+                    cellColumnIndex++;
+                }
+
+                cellColumnIndex = 1;
+                cellRowIndex++;
+
+                // table 나머지
+                for (int row = 0; row < dataGridView1.Rows.Count; row++)
+                {
+                    for (int col = 0; col < dataGridView1.Columns.Count; col++)
+                    {
+                        worksheet.Cells[cellRowIndex, cellColumnIndex] = dataGridView1.Rows[row].Cells[col].Value.ToString();
+                        cellColumnIndex++;
+                    }
+                    cellColumnIndex = 1;
+                    cellRowIndex++;
+                }
+
+                SaveFileDialog saveFileDialog = GetExcelSave();
+
+                if(saveFileDialog.ShowDialog() == DialogResult.OK) 
+                { 
+                    workbook.SaveAs(saveFileDialog.FileName);
+                    MessageBox.Show("Export 성공");
+                    IsExport = true;
+                }
+
+                if (IsExport)
+                {
+                    workbook.Close();
+                    excel.Quit();
+                    workbook = null;
+                    excel = null;
+                }
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show("엑셀이 설치되지 않았습니다. 저장할 수 없습니다. -{0}", exc.Message);
+            }
+
+        }
+
+        // 사용자로부터 엑셀 파일을 저장할 위치를 선택하는 기능을 담당하는 메서드
+        private SaveFileDialog GetExcelSave()
+        {   
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "Excel 파일 (*.xlsx)|*.xlsx|모든파일 (*.*)|*.*";
+            saveFileDialog.Title = "저장할 위치를 선택하세요";
+            saveFileDialog.RestoreDirectory = true; // 마지막에 선택한 디렉토리를 기억합니다.
+
+            return saveFileDialog;
         }
     }
 }
